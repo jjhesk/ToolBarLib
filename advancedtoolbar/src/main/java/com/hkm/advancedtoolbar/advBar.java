@@ -35,7 +35,7 @@ public class advBar extends Toolbar {
 
     }
 
-    public void colorize(int colorResId) {
-        ToolbarColorizeHelper.colorizeToolbar(this, colorResId, (Activity) contx);
+    public void colorize(int colorResId, Activity actio) {
+        ToolbarColorizeHelper.colorizeToolbar(this, colorResId, actio);
     }
 }

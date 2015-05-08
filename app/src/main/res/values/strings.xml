@@ -3,4 +3,5 @@
     <string name="accessibility_overflow">Accessibility Overflow</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="sub">search now</string>
 </resources>
