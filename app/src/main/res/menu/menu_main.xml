@@ -6,21 +6,10 @@
 
     <item
         android:id="@+id/action_search"
-        android:actionViewClass="com.hkm.advancedtoolbar.SearchViewFix"
         android:icon="@mipmap/ic_action_find"
         android:title="@string/sub"
-        app:actionProviderClass="android.support.v7.widget.SearchActionProvider"
-        app:actionViewClass="com.hkm.advancedtoolbar.SearchViewFix"
-        app:showAsAction="always" />
-    <!--  <item
-          android:id="@+id/action_settings"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never" />
-      <item
-          android:id="@+id/toggle_actionbar"
-          android:title="@string/action_settings"
-          android:orderInCategory="100"
-          app:showAsAction="never" />-->
+        app:actionViewClass="com.hkm.advancedtoolbar.SearchActionBar"
+        app:showAsAction="always|collapseActionView" />
+
 
 </menu>

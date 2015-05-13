@@ -6,13 +6,13 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
-  <!--  <com.hkm.advancedtoolbar.advBar
+    <com.hkm.advancedtoolbar.advBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
         android:background="@drawable/bottom_line"
         android:theme="@style/Widget.AppCompat.ActionBar.Solid"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />-->
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
     <TextView
         android:text="@string/hello_world"

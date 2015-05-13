@@ -8,18 +8,21 @@ import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.advBar;
 
+/**
+ * Created by hesk on 12/5/15.
+ */
+public class CustomActionBar extends AppCompatActivity {
 
-public class MainActivity extends AppCompatActivity {
     private advBar toolbar;
     private ActionBar actionbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-       /* toolbar = (advBar) findViewById(R.id.toolbar);
+        setContentView(R.layout.main2);
+        toolbar = (advBar) findViewById(R.id.toolbar);
         toolbar.colorize(R.color.red_300, this);
-        setSupportActionBar(toolbar);*/
+        setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
     }
 

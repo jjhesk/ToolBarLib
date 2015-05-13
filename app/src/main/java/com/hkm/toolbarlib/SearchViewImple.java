@@ -1,72 +1,71 @@
 package com.hkm.toolbarlib;
 
+import android.app.ActionBar;
 import android.support.v4.view.MenuItemCompat;
-import android.support.v7.widget.SearchView;
+import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.MenuItem;
-import android.view.View;
+import android.view.ViewGroup;
 
-import com.hkm.advancedtoolbar.SearchViewCustomize;
-import com.hkm.advancedtoolbar.SearchViewFix;
+import com.hkm.advancedtoolbar.SearchActionBar;
 
 /**
  * Created by hesk on 27/4/15.
  */
-public class SearchViewImple implements View.OnClickListener, SearchView.OnCloseListener, SearchView.OnQueryTextListener {
-    private SearchViewFix searchView;
+public class SearchViewImple<TAppcompat extends AppCompatActivity> implements SearchActionBar.OnSearchListener {
+    private SearchActionBar searchView;
     private MainActivity mmainActivity;
     private String TAG = "search_tag";
 
-    public SearchViewImple(MenuItem findelement, MainActivity mainActivity) {
+    public SearchViewImple(MenuItem findelement, TAppcompat mainActivity) {
         if (findelement != null) {
-            SearchViewCustomize m = new SearchViewCustomize<SearchViewFix>();
-            searchView = (SearchViewFix) MenuItemCompat.getActionView(findelement);
-            searchView.setOnQueryTextListener(this);
-            searchView.setOnSearchClickListener(this);
-            searchView.setOnCloseListener(this);
-            mmainActivity = mainActivity;
-
-            m.fixlayout(searchView);
-          /*  int searchPlateId = searchView.getContext().getResources().getIdentifier("android:id/search_plate", null, null);
-            // Getting the 'search_plate' LinearLayout.
-            View searchPlate = searchView.findViewById(searchPlateId);
-            // Setting background of 'search_plate' to earlier defined drawable.
-            searchPlate.setBackgroundResource(R.drawable.textfield_searchview_holo_light);*/
-
+            searchView = (SearchActionBar) MenuItemCompat.getActionView(findelement);
+            searchView.setOnSearchListener(this);
+            searchView.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.RIGHT));
+            searchView.requestLayout();
         }
+
+    }
+
+
+    /**
+     * This method is called every time the EditText change it content
+     *
+     * @param searchview the searchview
+     * @param constraint the current input data
+     */
+    @Override
+    public void onSearch(SearchActionBar searchview, CharSequence constraint) {
 
     }
 
     /**
-     * Called when a view has been clicked.
+     * This method is called when the user press the search button on the keyboard
      *
-     * @param v The view that was clicked.
+     * @param searchview the searchview
+     * @param constraint the current input data
      */
     @Override
-    public void onClick(View v) {
-
+    public void onSearchHint(SearchActionBar searchview, CharSequence constraint) {
 
     }
 
+    /**
+     * This method is called when the click is pressed
+     */
     @Override
-    public boolean onClose() {
-        //mmainActivity.getFragmentManager().beginTransaction().remove().
-        return false;
+    public void onClose() {
+
     }
 
+    /**
+     * This is called when the search button is clicked
+     *
+     * @param searchview the searchview
+     * @param query      the string in chars of the search query
+     */
     @Override
-    public boolean onQueryTextSubmit(String s) {
-        if (searchView.getQuery().toString().equalsIgnoreCase("")) {
-            // Tool.trace(mmainActivity, "please enter your query for the search");
-        } else {
-            final CharSequence keywords = searchView.getQuery();
+    public void onSearchClick(SearchActionBar searchview, CharSequence query) {
 
-        }
-
-        return false;
-    }
-
-    @Override
-    public boolean onQueryTextChange(String s) {
-        return false;
     }
 }
