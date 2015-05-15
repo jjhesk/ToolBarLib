@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MaterialSection">
+        <attr name="sectionColorIcon" format="color" />
+        <attr name="sectionColorText" format="color" />
+        <attr name="sectionColorNotification" format="color" />
+        <attr name="sectionBackgroundColorPressed" format="color" />
+        <attr name="sectionBackgroundColorSelected" format="color" />
+        <attr name="sectionBackgroundColor" format="color" />
+        <attr name="sectionRippleColor" format="color" />
+        <attr name="section_item_layout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="MainThemeActionBarBuilder">
+        <attr name="iOSSearchBarStyle" format="reference" />
+        <attr name="iOSActionBarCompanyLogo" format="reference" />
+        <attr name="iOSSearchBarLayout" format="reference" />
+        <attr name="iOSCustomBarTitleLayout" format="reference" />
+    </declare-styleable>
+
+    <declare-styleable name="SearchBarStyle">
+        <attr name="search_bar_hint_color" format="color" />
+    </declare-styleable>
+</resources>

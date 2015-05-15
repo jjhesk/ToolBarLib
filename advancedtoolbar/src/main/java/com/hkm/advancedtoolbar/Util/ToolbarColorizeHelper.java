@@ -1,4 +1,4 @@
-package com.hkm.advancedtoolbar;
+package com.hkm.advancedtoolbar.Util;
 /*
 Copyright 2015 Michal Pawlowski
 
@@ -30,6 +30,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.widget.ImageButton;
+
+import com.hkm.advancedtoolbar.R;
 
 import java.util.ArrayList;
 

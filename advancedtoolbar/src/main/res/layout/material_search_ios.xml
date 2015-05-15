@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <android.support.v7.internal.widget.TintImageView
+        android:id="@+id/find_icon"
+        style="@android:style/Widget.Holo.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:minWidth="48dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_action_find" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/search_close_btn"
+        android:layout_toRightOf="@+id/find_icon"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical">
+
+        <TextView
+            android:id="@+id/hinting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:animateLayoutChanges="true"
+            android:textColor="@color/lightgrey"
+            android:text="search text in here" />
+    </RelativeLayout>
+
+    <EditText
+        android:id="@+id/wrapped_search"
+        android:layout_width="fill_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/search_close_btn"
+        android:layout_toRightOf="@+id/find_icon"
+        android:layout_toStartOf="@+id/search_close_btn"
+        android:background="@drawable/hb_edit_text_holo_light"
+        android:imeOptions="actionSearch"
+        android:inputType="text"
+        android:minWidth="230dp"
+        android:paddingBottom="0dp" />
+
+
+    <android.support.v7.internal.widget.TintImageView
+        android:id="@+id/search_close_btn"
+        style="@android:style/Widget.Holo.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:minWidth="48dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_action_close" />
+</RelativeLayout>

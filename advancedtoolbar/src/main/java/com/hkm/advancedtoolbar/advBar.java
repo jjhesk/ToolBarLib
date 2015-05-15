@@ -6,6 +6,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.Toolbar;
 import android.util.AttributeSet;
 
+import com.hkm.advancedtoolbar.Util.ToolbarColorizeHelper;
+
 /**
  * Created by hesk on 8/5/15.
  */

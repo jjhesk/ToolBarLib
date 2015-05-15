@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="normaltoolbaradvancetheme">
+        <item name="iOSSearchBarStyle">@style/iOSActionBarStyleLocal</item>
+    </style>
+
+    <style name="iOSActionBarStyleLocal">
+
+    </style>
+</resources>

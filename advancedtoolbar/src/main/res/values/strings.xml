@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Advancedtoolbar</string>
-
+    <string name="default_search_hint">please search</string>
 </resources>

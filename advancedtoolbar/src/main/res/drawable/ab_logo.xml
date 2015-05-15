@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:bottom="2dp"
+        android:left="-2dp"
+        android:right="-1dp"
+        android:top="-1dp">
+        <shape>
+            <stroke
+                android:width="10dp"
+                android:color="#ffff5e46" />
+        </shape>
+    </item>
+    <item
+        android:bottom="1dp"
+        android:top="-1dp">
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/white" />
+        </shape>
+    </item>
+    <item
+        android:bottom="@dimen/sp_actionbar_logo_v_margin"
+        android:drawable="@drawable/starz_logo"
+        android:left="@dimen/sp_actionbar_logo_h_margin"
+        android:right="@dimen/sp_actionbar_logo_h_margin"
+        android:top="@dimen/sp_actionbar_logo_v_margin" />
+</layer-list>
