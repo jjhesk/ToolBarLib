@@ -54,3 +54,7 @@ define your own listener for action callbacks
        worker.setActionListener(...)
 
 ```
+quick review
+
+![demo1](screenshot/device-2015-05-15-171739.png)
+![demo2](screenshot/device-2015-05-15-171813.png)
