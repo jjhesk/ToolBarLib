@@ -54,6 +54,18 @@ define your own listener for action callbacks
        worker.setActionListener(...)
 
 ```
+define your listener implemenations
+
+This is the required callback action listener:
+```java
+implements ActionBarActionListener
+```
+
+This is the search engine action listener:
+```java
+implements SearchCustomActionBar.OnSearchListener
+```
+
 quick review
 
 ![demo1](screenshot/device-2015-05-15-171739.png)
