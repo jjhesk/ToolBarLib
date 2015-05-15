@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.advBar;
+import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 
 /**
  * Created by hesk on 12/5/15.
@@ -15,6 +16,7 @@ public class CustomActionBar extends AppCompatActivity {
 
     private advBar toolbar;
     private ActionBar actionbar;
+    private iOSActionBarWorker worker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +26,8 @@ public class CustomActionBar extends AppCompatActivity {
         toolbar.colorize(R.color.red_300, this);
         setSupportActionBar(toolbar);
         actionbar = getSupportActionBar();
+
+        worker = new iOSActionBarWorker(actionbar);
     }
 
 
