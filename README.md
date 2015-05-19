@@ -4,9 +4,15 @@ Java Android v21 v19 toolBar Library advanced
 
 #setup
 =======
-not yet implemented
+[ ![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbarsupport/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbarsupport/_latestVersion)
 ```gradle
-   compile 'com.hkm:adanvedtoolbar:v1.0.1'
+repositories {
+    maven {  url "http://dl.bintray.com/jjhesk/maven"  }
+}
+
+dependencies {
+     compile 'com.hkm:advancedtoolbarsupport:1.0.1@aar'
+}
 
 ```
 
