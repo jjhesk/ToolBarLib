@@ -11,6 +11,7 @@ publish {
     website = project.POM_URL
     autoPublish = true
     dryRun = false
+    issueTracker = "${website}/issues"
     licences = [project.POM_LICENCE_NAME]
 }
 

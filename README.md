@@ -8,7 +8,7 @@ Java Android v21 v19 toolBar Library advanced
 
 ##setup
 =======
-[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbarsupport/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbarsupport/_latestVersion)
+[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
 X.X.X please check out the above version name.
 ```gradle
 repositories {
@@ -16,7 +16,7 @@ repositories {
 }
 
 dependencies {
-     compile 'com.hkm:advancedtoolbarsupport:X.X.X@aar'
+     compile 'ToolBarLib:advancedtoolbar:X.X.X'
 }
 
 ```
