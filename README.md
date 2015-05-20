@@ -14,7 +14,10 @@ Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
 
 ##Quick review
 ![demo1](screenshot/device-2015-05-15-171739.png)
+- [x] Custom Textview
+- [x] Center Textview alignment
 ![demo2](screenshot/device-2015-05-15-171813.png)
+- [x] Search pattern redesigned
 
 ##setup
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
