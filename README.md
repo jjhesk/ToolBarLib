@@ -2,21 +2,22 @@
 Java Android v21 v19 toolBar Library advanced
 =================================================
 
-#setup
+##setup
 =======
 [ ![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbarsupport/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbarsupport/_latestVersion)
+X.X.X please check out the above version name.
 ```gradle
 repositories {
     maven {  url "http://dl.bintray.com/jjhesk/maven"  }
 }
 
 dependencies {
-     compile 'com.hkm:advancedtoolbarsupport:1.0.1@aar'
+     compile 'com.hkm:advancedtoolbarsupport:X.X.X@aar'
 }
 
 ```
 
-#implementation
+##implementation
 =======
 You can call by simple direct API from the code and it will do the magic for you.
 
@@ -72,7 +73,6 @@ This is the search engine action listener:
 implements SearchCustomActionBar.OnSearchListener
 ```
 
-quick review
-
+##Quick review
 ![demo1](screenshot/device-2015-05-15-171739.png)
 ![demo2](screenshot/device-2015-05-15-171813.png)
