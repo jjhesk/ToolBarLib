@@ -1,6 +1,16 @@
 # ToolBarLib
 =================================================
+Android ActionBar Advanced Support Library for APIv22,v21,v19. This will be a better one for all kinds of design. This library bundled alot of design patterns in the advanced actionbar supports.
+
 Java Android v21 v19 toolBar Library advanced
+Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
+
+##Features
+- [x] support external Textview library
+- [x] support search design redesign
+- [x] support title center
+- [x] support animation on search bar
+- [x] support overlay/drawable backgrounds
 
 ##Quick review
 ![demo1](screenshot/device-2015-05-15-171739.png)
