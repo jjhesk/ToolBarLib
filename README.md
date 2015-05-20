@@ -2,6 +2,10 @@
 =================================================
 Java Android v21 v19 toolBar Library advanced
 
+##Quick review
+![demo1](screenshot/device-2015-05-15-171739.png)
+![demo2](screenshot/device-2015-05-15-171813.png)
+
 ##setup
 =======
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbarsupport/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbarsupport/_latestVersion)
@@ -72,7 +76,3 @@ This is the search engine action listener:
 ```java
 implements SearchCustomActionBar.OnSearchListener
 ```
-
-##Quick review
-![demo1](screenshot/device-2015-05-15-171739.png)
-![demo2](screenshot/device-2015-05-15-171813.png)
