@@ -13,13 +13,16 @@ Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
 - [x] support overlay/drawable backgrounds
 
 ##Quick review
-![demo1](screenshot/device-2015-05-15-171739.png)
+
 - [x] Custom Textview
 - [x] Center Textview alignment
+![demo1](screenshot/device-2015-05-15-171739.png)
 
 
-![demo2](screenshot/device-2015-05-15-171813.png)
+
 - [x] Search pattern redesigned
+![demo2](screenshot/device-2015-05-15-171813.png)
+
 
 
 
