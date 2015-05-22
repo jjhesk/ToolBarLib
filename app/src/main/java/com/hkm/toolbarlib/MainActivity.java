@@ -8,6 +8,7 @@ import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.advBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
+import com.hkm.toolbarlib.templates.searchactionbar.actionSupportiOSver;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -24,6 +25,10 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);*/
         actionbar = getSupportActionBar();
         worker = new iOSActionBarWorker(actionbar);
+
+        worker.setSearchEngineListener(new actionSupportiOSver(this));
+
+
     }
 
 
@@ -33,7 +38,6 @@ public class MainActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem find = menu.findItem(R.id.action_search);
         new SearchViewImple(find, this);
-
         return true;
     }
 
@@ -42,12 +46,13 @@ public class MainActivity extends AppCompatActivity {
         // Handle action bar item clicks here. The action bar will
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+        int idt = item.getItemId();
 
         //noinspection SimplifiableIfStatement
-        // if (id == R.id.action_settings) {
-        //    return true;
-        //  }
+        if (idt == R.id.action_search) {
+            worker.showiosSearchActionBar();
+            return true;
+        }
         //noinspection SimplifiableIfStatement
         // if (id == R.id.toggle_actionbar) {
 

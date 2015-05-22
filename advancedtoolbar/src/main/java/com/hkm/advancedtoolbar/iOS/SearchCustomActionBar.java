@@ -23,6 +23,11 @@ import com.hkm.advancedtoolbar.R;
  * Created by hesk on 14/5/15.
  */
 public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+    enum LAYOUT {
+        classic_1,
+        Classic_2
+    }
+
     private String default_placeholder = "Enter txt for search";
     private final ImageView wrappedSearchCloseBtn;
     private final EditT wrappedEditText;

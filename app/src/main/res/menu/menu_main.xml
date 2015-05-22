@@ -8,7 +8,6 @@
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_action_find"
         android:title="@string/sub"
-        app:actionViewClass="com.hkm.advancedtoolbar.SearchActionBar"
         app:showAsAction="always|collapseActionView" />
 
 

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_wrapper"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/secondlayer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_toLeftOf="@+id/search_close_btn"
+        android:background="@drawable/hbn_text_holo"
+        android:focusable="true"
+        android:padding="0dp">
+
+        <android.support.v7.internal.widget.TintImageView
+            android:id="@+id/find_icon"
+            style="@style/searchimage"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_action_find" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/find_icon"
+            android:gravity="center_vertical"
+            android:paddingLeft="10dp">
+
+            <TextView
+                android:id="@+id/hinting"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:animateLayoutChanges="true"
+                android:text="search text in here"
+                android:textColor="@color/lightgrey" />
+        </RelativeLayout>
+
+
+        <EditText
+            android:id="@+id/wrapped_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/find_icon"
+            android:background="@null"
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:minWidth="230dp"
+            android:paddingBottom="0dp" />
+    </RelativeLayout>
+
+    <android.support.v7.internal.widget.TintImageView
+        android:id="@+id/search_close_btn"
+        style="@android:style/Widget.Holo.ActionButton"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:minWidth="48dp"
+        android:scaleType="centerInside"
+        android:src="@mipmap/ic_action_close" />
+</RelativeLayout>

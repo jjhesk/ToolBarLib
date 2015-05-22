@@ -21,4 +21,10 @@
     <declare-styleable name="SearchBarStyle">
         <attr name="search_bar_hint_color" format="color" />
     </declare-styleable>
+
+
+    <style name="searchimage" parent="android:style/Widget.Holo.ActionButton">
+        <item name="paddingStart">0dp</item>
+        <item name="paddingEnd">0dp</item>
+    </style>
 </resources>

@@ -60,7 +60,7 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
         theme.resolveAttribute(R.attr.iOSSearchBarLayout, typedValue, true);
         if (typedValue.data != 0) {
             searchlayoutRef = typedValue.data;
-        } else searchlayoutRef = R.layout.material_search_ios;
+        } else searchlayoutRef = R.layout.material_search_ios_classic;
 
         theme.resolveAttribute(R.attr.iOSCustomBarTitleLayout, typedValue, true);
         if (typedValue.data != 0) {
