@@ -21,7 +21,7 @@ public class CustomActionBar extends AppCompatActivity {
     private iOSActionBarWorker worker;
     private Menu menu;
 
-    private boolean isCustomLayout = false;
+    private boolean isCustomLayout = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,11 +32,8 @@ public class CustomActionBar extends AppCompatActivity {
             toolbar = (advBar) findViewById(R.id.toolbar);
             toolbar.colorize(R.color.grey_1000, this);
             setSupportActionBar(toolbar);
-
         } else {
             setContentView(R.layout.activity_main);
-
-
         }
 
         worker = new iOSActionBarWorker(getSupportActionBar());
