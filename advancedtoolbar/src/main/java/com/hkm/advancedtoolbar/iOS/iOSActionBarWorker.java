@@ -74,17 +74,29 @@ public class iOSActionBarWorker<ABv7 extends ActionBar, TV extends TextView> ext
     public void showiosSearchActionBar() {
         backup = statusnow;
         statusnow = exstatus.SEARCH;
-        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        ab.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
         ab.setDisplayShowCustomEnabled(true);
         ab.setDisplayShowTitleEnabled(false);
         ab.setDisplayShowHomeEnabled(false);
+
         if (searchlayoutRef > 0)
             ab.setCustomView(searchlayoutRef);
+
         SearchCustomActionBar control = new SearchCustomActionBar(this, 1000);
         control.setOnSearchListener(searchlistener);
         if (listener != null) {
             listener.onShowSearchActionBarAfter(ab);
         }
+    }
+
+    public void showSearchBar(trigger done) {
+        done.before(ab);
+        showiosSearchActionBar();
+    }
+
+    public void showCompanyLogo(trigger done) {
+        done.before(ab);
+        showCompanyLogo();
     }
 
     /**

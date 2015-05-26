@@ -20,9 +20,11 @@ public class SearchViewImple<TAppcompat extends AppCompatActivity> implements Se
     public SearchViewImple(MenuItem findelement, TAppcompat mainActivity) {
         if (findelement != null) {
             searchView = (SearchActionBar) MenuItemCompat.getActionView(findelement);
-            searchView.setOnSearchListener(this);
-            searchView.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.RIGHT));
-            searchView.requestLayout();
+            if (searchView != null) {
+                searchView.setOnSearchListener(this);
+                searchView.setLayoutParams(new ActionBar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, Gravity.RIGHT));
+                searchView.requestLayout();
+            }
         }
 
     }

@@ -20,7 +20,7 @@ import android.widget.TextView;
 /**
  * Created by hesk on 12/5/15.
  *
- * @Hesk Kam
+ * @author Hesk Kam
  */
 public class SearchActionBar extends FrameLayout implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
 

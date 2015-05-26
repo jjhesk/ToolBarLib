@@ -85,8 +85,19 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
      * @param SearchLayoutResId the arranged layout resource id
      * @return this is the chain setup
      */
-    public ActionBarBuilder setSearchLayoutArrangement(int SearchLayoutResId) {
+    public ActionBarBuilder setSearchLayoutCustom(int SearchLayoutResId) {
         searchlayoutRef = SearchLayoutResId;
+        return this;
+    }
+
+    /**
+     * this will not only setup this but it is also using the internal layout integer
+     *
+     * @param mLayout this is the mLayout
+     * @return the chained object
+     */
+    public ActionBarBuilder setSearchLayoutBuiltIn(SearchCustomActionBar.LAYOUT mLayout) {
+        searchlayoutRef = mLayout.getResourceId();
         return this;
     }
 

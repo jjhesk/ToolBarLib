@@ -7,7 +7,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.advBar;
+import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
+import com.hkm.advancedtoolbar.iOS.trigger;
+import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
 /**
  * Created by hesk on 12/5/15.
@@ -15,19 +18,42 @@ import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 public class CustomActionBar extends AppCompatActivity {
 
     private advBar toolbar;
-    private ActionBar actionbar;
     private iOSActionBarWorker worker;
+    private Menu menu;
+
+    private boolean isCustomLayout = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main2);
-        toolbar = (advBar) findViewById(R.id.toolbar);
-        toolbar.colorize(R.color.red_300, this);
-        setSupportActionBar(toolbar);
-        actionbar = getSupportActionBar();
 
-        worker = new iOSActionBarWorker(actionbar);
+        if (isCustomLayout) {
+            setContentView(R.layout.main2);
+            toolbar = (advBar) findViewById(R.id.toolbar);
+            toolbar.colorize(R.color.grey_1000, this);
+            setSupportActionBar(toolbar);
+
+        } else {
+            setContentView(R.layout.activity_main);
+
+
+        }
+
+        worker = new iOSActionBarWorker(getSupportActionBar());
+        worker.setSearchLayoutBuiltIn(SearchCustomActionBar.LAYOUT.classic_1);
+        worker.setSearchEngineListener(new actionSupportForAppCompatActivity(this));
+    }
+
+
+    /**
+     * menu items control
+     * copy these into the activity
+     */
+
+    protected void enableMenu(boolean enable) {
+        for (int i = 0; i < menu.size(); i++)
+            menu.getItem(i).setVisible(enable);
+        // invalidateOptionsMenu();
     }
 
 
@@ -36,22 +62,25 @@ public class CustomActionBar extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem find = menu.findItem(R.id.action_search);
-        new SearchViewImple(find, this);
-
+        this.menu = menu;
         return true;
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
+    public boolean onOptionsItemSelected(final MenuItem item) {
 
-        //noinspection SimplifiableIfStatement
-        // if (id == R.id.action_settings) {
-        //    return true;
-        //  }
+        if (item.getItemId() == R.id.action_search) {
+            worker.showSearchBar(new trigger() {
+                @Override
+                public void before(ActionBar ab) {
+                    enableMenu(false);
+
+                }
+            });
+            return true;
+        }
+
+
         //noinspection SimplifiableIfStatement
         // if (id == R.id.toggle_actionbar) {
 

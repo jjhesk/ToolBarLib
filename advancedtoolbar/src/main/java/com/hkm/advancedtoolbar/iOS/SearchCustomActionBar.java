@@ -23,9 +23,18 @@ import com.hkm.advancedtoolbar.R;
  * Created by hesk on 14/5/15.
  */
 public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
-    enum LAYOUT {
-        classic_1,
-        Classic_2
+    public enum LAYOUT {
+        classic_1(R.layout.material_search_ios_classic),
+        classic_2(R.layout.material_search_ios);
+        private final int id;
+
+        private LAYOUT(int id) {
+            this.id = id;
+        }
+
+        public int getResourceId() {
+            return id;
+        }
     }
 
     private String default_placeholder = "Enter txt for search";
@@ -42,6 +51,8 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
             wrappedSearchCloseBtn.setEnabled(true);
         }
     };
+
+
 
     @SuppressLint("WrongViewCast")
     public SearchCustomActionBar(iOSActionBarWorker isoactionbar, @Nullable int measurewith) {

@@ -15,12 +15,12 @@ publish {
     licences = [project.POM_LICENCE_NAME]
 }
 
-if (hasProperty('bintray.user')) {
-    publish.bintrayUser = property('bintray.user')
+if (hasProperty('POM_DEVELOPER_ID')) {
+    publish.bintrayUser = property('POM_DEVELOPER_ID')
 }
 
-if (hasProperty('bintray.apikey')) {
-    publish.bintrayKey = property('bintray.apikey')
+if (hasProperty('bintrayAPI')) {
+    publish.bintrayKey = property('bintrayAPI')
 }
 
 apply plugin: 'maven'

@@ -10,7 +10,7 @@ import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 /**
  * Created by hesk on 15/5/15.
  */
-public class actionSupportiOSver<MaterdrawerActivity extends AppCompatActivity
+public class actionSupportForAppCompatActivity<MaterdrawerActivity extends AppCompatActivity
         > implements SearchCustomActionBar.OnSearchListener {
     /**
      * search engine start part
@@ -19,7 +19,7 @@ public class actionSupportiOSver<MaterdrawerActivity extends AppCompatActivity
     private MaterdrawerActivity mmainActivity;
     private String TAG = "search_tag";
 
-    public actionSupportiOSver(MaterdrawerActivity mainActivity) {
+    public actionSupportForAppCompatActivity(MaterdrawerActivity mainActivity) {
         mmainActivity = mainActivity;
     }
 
@@ -50,7 +50,7 @@ public class actionSupportiOSver<MaterdrawerActivity extends AppCompatActivity
      */
     @Override
     public void onClose() {
-
+        mmainActivity.invalidateOptionsMenu();
     }
 
     /**

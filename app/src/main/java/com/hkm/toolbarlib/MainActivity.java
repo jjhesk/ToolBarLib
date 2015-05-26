@@ -8,7 +8,7 @@ import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.advBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
-import com.hkm.toolbarlib.templates.searchactionbar.actionSupportiOSver;
+import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
         actionbar = getSupportActionBar();
         worker = new iOSActionBarWorker(actionbar);
 
-        worker.setSearchEngineListener(new actionSupportiOSver(this));
+        worker.setSearchEngineListener(new actionSupportForAppCompatActivity(this));
 
 
     }
