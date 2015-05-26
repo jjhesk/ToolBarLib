@@ -37,11 +37,11 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         }
     }
 
-    private String default_placeholder = "Enter txt for search";
+    private String default_placeholder = "Search on Hypebeast";
     private final ImageView wrappedSearchCloseBtn;
     private final EditT wrappedEditText;
     private SearchCustomActionBar.OnSearchListener searchListener;
-    private final TV searchTextHint;
+    private TV searchTextHint;
     private final iOSActionBarWorker control;
     private final RelativeLayout rl;
     private final Runnable fadeInDone = new Runnable() {
@@ -51,28 +51,59 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
             wrappedSearchCloseBtn.setEnabled(true);
         }
     };
-
-
+    private final View getview;
+    private final Context mcontext;
 
     @SuppressLint("WrongViewCast")
     public SearchCustomActionBar(iOSActionBarWorker isoactionbar, @Nullable int measurewith) {
-        final View getview = isoactionbar.ab.getCustomView();
-        final Animation anim = AnimationUtils.loadAnimation(getview.getContext(), R.anim.slidefromright);
+        getview = isoactionbar.ab.getCustomView();
         wrappedEditText = (EditT) getview.findViewById(R.id.wrapped_search);
         wrappedEditText.addTextChangedListener(this);
         wrappedEditText.setOnEditorActionListener(this);
+
         wrappedSearchCloseBtn = (ImageView) getview.findViewById(R.id.search_close_btn);
         wrappedSearchCloseBtn.setOnClickListener(this);
-        searchTextHint = (TV) getview.findViewById(R.id.hinting);
-        searchTextHint.setText(default_placeholder);
         wrappedEditText.setEnabled(false);
         wrappedSearchCloseBtn.setEnabled(false);
         rl = (RelativeLayout) getview.findViewById(R.id.layout_wrapper);
         rl.setAlpha(0f);
         rl.animate().alpha(1f).withEndAction(fadeInDone);
-        searchTextHint.startAnimation(anim);
+
+        revealWithAnimation(false);
         control = isoactionbar;
         mcontext = getview.getContext();
+    }
+
+    @SuppressLint("WrongViewCast")
+    protected void revealWithAnimation(boolean bool) {
+        //if (bool) {
+
+        final Animation anim = AnimationUtils.loadAnimation(getview.getContext(), R.anim.slidefromright);
+
+        anim.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                // searchTextHint.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+
+        searchTextHint = (TV) getview.findViewById(R.id.hinting);
+        searchTextHint.setText(default_placeholder);
+        searchTextHint.startAnimation(anim);
+        //} else {
+        //  wrappedEditText.setHint(default_placeholder);
+        // searchTextHint.setVisibility(View.INVISIBLE);
+        // }
     }
 
 
@@ -123,20 +154,11 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         wrappedEditText.setHint(placeholderRes);
     }
 
-    private Context mcontext;
 
     protected String getplaccholder() {
         return default_placeholder;
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence constraint, int start, int count, int after) {
-        if (count <= 0) {
-            searchTextHint.setText(getplaccholder());
-        } else {
-            searchTextHint.setText("");
-        }
-    }
 
     @Override
     public void onTextChanged(CharSequence constraint, int start, int count, int after) {
@@ -159,7 +181,19 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     }
 
     @Override
+    public void beforeTextChanged(CharSequence constraint, int start, int count, int after) {
+
+    }
+
+    @Override
     public void afterTextChanged(Editable editable) {
+
+        if (editable.length() == 0) {
+            searchTextHint.setText(getplaccholder());
+        } else {
+            searchTextHint.setText("");
+        }
+
     }
 
     @Override

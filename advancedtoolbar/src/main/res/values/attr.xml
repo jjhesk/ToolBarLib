@@ -1,25 +1,27 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SearchView">
-        <attr format="reference" name="hksearchview_layout" />
-        <attr format="boolean" name="hksearchview_iconifiedByDefault" />
+        <attr name="hksearchview_layout" format="reference" />
+        <attr name="hksearchview_iconifiedByDefault" format="boolean" />
         <attr name="android:maxWidth" />
-        <attr format="string" name="hksearchview_queryHint" />
+        <attr name="hksearchview_queryHint" format="string" />
         <attr name="android:imeOptions" />
         <attr name="android:inputType" />
         <attr name="android:focusable" />
     </declare-styleable>
 
     <declare-styleable name="SearchActionBar">
-        <attr format="reference" name="hkmsab_closeIcon" />
-        <attr format="reference" name="hkmsab_goIcon" />
-        <attr format="reference" name="hkmsab_searchIcon" />
-        <attr format="reference" name="hkmsab_searchHintIcon" />
-        <attr format="reference" name="hkmsab_voiceIcon" />
-        <attr format="reference" name="hkmsab_commitIcon" />
-        <attr format="reference" name="hkmsab_suggestionRowLayout" />
-        <attr format="reference" name="hkmsab_queryBackground" />
-        <attr format="reference" name="hkmsab_submitBackground" />
-        <attr format="reference" name="hkmsab_layout" />
+        <attr name="hkmsab_closeIcon" format="reference" />
+        <attr name="hkmsab_goIcon" format="reference" />
+        <attr name="hkmsab_searchIcon" format="reference" />
+        <attr name="hkmsab_searchHintIcon" format="reference" />
+        <attr name="hkmsab_voiceIcon" format="reference" />
+        <attr name="hkmsab_commitIcon" format="reference" />
+        <attr name="hkmsab_suggestionRowLayout" format="reference" />
+        <attr name="hkmsab_queryBackground" format="reference" />
+        <attr name="hkmsab_submitBackground" format="reference" />
+        <attr name="hkmsab_layout" format="reference" />
     </declare-styleable>
+
+
 </resources>

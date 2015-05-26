@@ -20,6 +20,7 @@
 
     <declare-styleable name="SearchBarStyle">
         <attr name="search_bar_hint_color" format="color" />
+    <!--    <attr name="search_bar_hint_txt" format="string" />-->
     </declare-styleable>
 
 

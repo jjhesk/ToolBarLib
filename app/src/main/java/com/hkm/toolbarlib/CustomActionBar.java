@@ -65,7 +65,6 @@ public class CustomActionBar extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
-
         if (item.getItemId() == R.id.action_search) {
             worker.showSearchBar(new trigger() {
                 @Override

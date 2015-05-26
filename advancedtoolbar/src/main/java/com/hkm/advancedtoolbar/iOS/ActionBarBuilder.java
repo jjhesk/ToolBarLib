@@ -51,7 +51,9 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
 
         theme.resolveAttribute(R.attr.iOSSearchBarStyle, typedValue, true);
         theme_SearchBarStyle = theme.obtainStyledAttributes(typedValue.resourceId, R.styleable.SearchBarStyle);
+        if (theme_SearchBarStyle != null) {
 
+        }
         theme.resolveAttribute(R.attr.iOSActionBarCompanyLogo, typedValue, true);
         if (typedValue.data != 0) {
             companylogoRef = typedValue.data;
@@ -66,6 +68,12 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
         if (typedValue.data != 0) {
             titlelayoutRef = typedValue.data;
         } else titlelayoutRef = R.layout.centertextview;
+
+
+       /* theme.resolveAttribute(R.attr.search_bar_hint_txt, typedValue, true);
+        if (typedValue.data != 0) {
+            titlelayoutRef = typedValue.data;
+        } */
     }
 
     /**
@@ -98,6 +106,11 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
      */
     public ActionBarBuilder setSearchLayoutBuiltIn(SearchCustomActionBar.LAYOUT mLayout) {
         searchlayoutRef = mLayout.getResourceId();
+        return this;
+    }
+
+    public ActionBarBuilder setSearchHintTxt(String title) {
+
         return this;
     }
 
