@@ -59,18 +59,18 @@ public class actionSupportForAppCompatActivity<MaterdrawerActivity extends AppCo
     /**
      * This is called when the search button is clicked
      *
-     * @param searchview the searchview iOSSearchActionBar
+     * @param componenet the searchview iOSSearchActionBar
      * @param query      the string in chars of the search query
      */
     @Override
-    public void onSearchClick(SearchCustomActionBar searchview, CharSequence query) {
+    public void onSearchClick(SearchCustomActionBar componenet, CharSequence query) {
         if (query.toString().equalsIgnoreCase("")) {
             Log.d("log", "please enter your query for the search");
         } else {
-            final CharSequence keywords = query;
             /**
              * work on your own query api exchange in here
              */
+            onSearch(componenet, query);
         }
     }
 
