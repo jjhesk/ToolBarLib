@@ -176,8 +176,15 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
                 control.closeSearchBar();
                 wrappedEditText.setText("");
                 searchListener.onClose();
+                hidekeyboard();
             }
         }
+    }
+
+    protected void hidekeyboard() {
+        InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(
+                Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(wrappedEditText.getWindowToken(), 0);
     }
 
     @Override
