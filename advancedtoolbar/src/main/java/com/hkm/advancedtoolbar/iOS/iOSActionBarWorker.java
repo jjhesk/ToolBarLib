@@ -85,13 +85,14 @@ public class iOSActionBarWorker<ABv7 extends ActionBar, TV extends TextView> ext
         SearchCustomActionBar control = new SearchCustomActionBar(this, 1000);
         control.setOnSearchListener(searchlistener);
         if (listener != null) {
-            listener.onShowSearchActionBarAfter(ab);
+            listener.onShowSearchActionBarAfter(ab, control);
         }
     }
 
     public void showSearchBar(trigger done) {
         done.before(ab);
         showiosSearchActionBar();
+
     }
 
     public void showCompanyLogo(trigger done) {

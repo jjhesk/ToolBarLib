@@ -27,7 +27,10 @@ public interface ActionBarActionListener<ACTIONBAR extends ActionBar, TV extends
      *
      * @param ab the main action bar
      */
+    @Deprecated
     void onShowSearchActionBarAfter(ACTIONBAR ab);
+
+    void onShowSearchActionBarAfter(ACTIONBAR ab, SearchCustomActionBar bar);
 
     /**
      * to show up the custom text actionbar on showing up the custom text action bar

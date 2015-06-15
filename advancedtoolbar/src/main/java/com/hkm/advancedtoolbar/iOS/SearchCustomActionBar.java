@@ -181,10 +181,15 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         }
     }
 
-    protected void hidekeyboard() {
+    public void hidekeyboard() {
         InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(
                 Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(wrappedEditText.getWindowToken(), 0);
+    }
+
+    public void showkeyboard() {
+        InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.showSoftInput(wrappedEditText, InputMethodManager.SHOW_IMPLICIT);
     }
 
     @Override
