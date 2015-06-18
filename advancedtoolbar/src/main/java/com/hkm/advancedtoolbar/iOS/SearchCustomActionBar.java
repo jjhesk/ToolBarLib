@@ -2,6 +2,7 @@ package com.hkm.advancedtoolbar.iOS;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -54,6 +55,13 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     private final View getview;
     private final Context mcontext;
 
+    enum behavior {
+        SHOW_KEYBOARD_BEFORE_ANIMATION,
+        SHOW_KEYBOARD_AFTER_ANIMATION
+    }
+
+    private behavior keyboard_prioity;
+
     @SuppressLint("WrongViewCast")
     public SearchCustomActionBar(iOSActionBarWorker isoactionbar, @Nullable int measurewith) {
         getview = isoactionbar.ab.getCustomView();
@@ -65,6 +73,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         wrappedSearchCloseBtn.setOnClickListener(this);
         wrappedEditText.setEnabled(false);
         wrappedSearchCloseBtn.setEnabled(false);
+        keyboard_prioity = behavior.SHOW_KEYBOARD_AFTER_ANIMATION;
         rl = (RelativeLayout) getview.findViewById(R.id.layout_wrapper);
         rl.setAlpha(0f);
         rl.animate().alpha(1f).withEndAction(fadeInDone);
@@ -89,6 +98,8 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
             @Override
             public void onAnimationEnd(Animation animation) {
                 // searchTextHint.setVisibility(View.GONE);
+                // control.afterSearchBarShown(SearchCustomActionBar.this);
+                showkeyboard();
             }
 
             @Override
@@ -159,6 +170,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         return default_placeholder;
     }
 
+    protected Handler hlr = new Handler();
 
     @Override
     public void onTextChanged(CharSequence constraint, int start, int count, int after) {
@@ -174,22 +186,39 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         if (e.getId() == R.id.search_close_btn) {
             if (searchListener != null) {
                 control.closeSearchBar();
-                wrappedEditText.setText("");
-                searchListener.onClose();
                 hidekeyboard();
+                searchListener.onClose();
             }
         }
     }
 
     public void hidekeyboard() {
-        InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(
-                Context.INPUT_METHOD_SERVICE);
-        imm.hideSoftInputFromWindow(wrappedEditText.getWindowToken(), 0);
+        hlr.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                wrappedEditText.setText("");
+                InputMethodManager m = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                m.hideSoftInputFromWindow(wrappedEditText.getWindowToken(), 0);
+                //  imm.toggleSoftInputFromWindow(wrappedEditText.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                // imm.showSoftInput(wrappedEditText, 0);
+                // imm.toggleSoftInput(0, InputMethodManager.HIDE_NOT_ALWAYS);
+                //  wrappedEditText.clearFocus();
+            }
+        }, 1);
     }
 
     public void showkeyboard() {
-        InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.showSoftInput(wrappedEditText, InputMethodManager.SHOW_IMPLICIT);
+        hlr.post(new Runnable() {
+            @Override
+            public void run() {
+                InputMethodManager m = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
+                //           imm.toggleSoftInputFromWindow(wrappedEditText.getApplicationWindowToken(), InputMethodManager.SHOW_FORCED, 0);
+                m.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                //         imm.showSoftInput(wrappedEditText, InputMethodManager.SHOW_IMPLICIT);
+                //   imm.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_VISIBLE);
+                wrappedEditText.requestFocus();
+            }
+        });
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
         LOGO, SEARCH, TITLECUSTOM, NONE;
     }
 
-    protected exstatus statusnow = exstatus.NONE;
+    public exstatus statusnow = exstatus.NONE;
     protected exstatus backup = exstatus.NONE;
     protected exstatus defaultstatus = exstatus.NONE;
 

@@ -2,10 +2,14 @@
 
 Android ActionBar Advanced Support Library for APIv22,v21,v19. This will be a better one for all kinds of design. This library bundled alot of design patterns in the advanced actionbar supports.
 
-Java Android v21 v19 toolBar Library advanced
+Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
 
 ##Features
+v0.2.2
+- [x] automatic show and hide softkeyboard
+
+v0.2.1
 - [x] support external Textview library
 - [x] support search design redesign
 - [x] support title center
@@ -35,7 +39,7 @@ repositories {
 }
 
 dependencies {
-     compile 'ToolBarLib:advancedtoolbar:X.X.X'
+     compile 'ToolBarLib:advancedtoolbar:0.2.20'
 }
 
 ```
