@@ -1,13 +1,18 @@
-package com.hkm.advancedtoolbar.iOS;
+package com.hkm.advancedtoolbar.V3;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.res.Resources;
+import android.content.res.TypedArray;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.KeyEvent;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -19,17 +24,23 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
+import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
+import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 
 /**
- * Created by hesk on 14/5/15.
+ * Created by hesk on 16/7/15.
  */
-public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+public class SearchCustom<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     public enum LAYOUT {
         classic_1(R.layout.material_search_ios_classic),
-        classic_2(R.layout.material_search_ios);
+        classic_2(R.layout.material_search_ios),
+        classic_3(R.layout.material_search_ios_simple),
+        material(R.layout.search_material);
+
         private final int id;
 
-        private LAYOUT(int id) {
+        LAYOUT(int id) {
             this.id = id;
         }
 
@@ -41,9 +52,9 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     private String default_placeholder = "Search on Hypebeast";
     private final ImageView wrappedSearchCloseBtn;
     private final EditT wrappedEditText;
-    private SearchCustomActionBar.OnSearchListener searchListener;
+    private TopBarManager.searchBarListener searchListener;
     private TV searchTextHint;
-    private final iOSActionBarWorker control;
+    private final ActionBar control;
     private final RelativeLayout rl;
     private final Runnable fadeInDone = new Runnable() {
         @Override
@@ -62,25 +73,26 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
 
     private behavior keyboard_prioity;
 
+
+
     @SuppressLint("WrongViewCast")
-    public SearchCustomActionBar(iOSActionBarWorker isoactionbar, @Nullable int measurewith) {
-        getview = isoactionbar.ab.getCustomView();
-        wrappedEditText = (EditT) getview.findViewById(R.id.ios_actionbar_wrapped_search);
+    public SearchCustom(ActionBar ab, View getcustomview) {
+        getview = getcustomview;
+        wrappedEditText = (EditT) getcustomview.findViewById(R.id.ios_actionbar_wrapped_search);
         wrappedEditText.addTextChangedListener(this);
         wrappedEditText.setOnEditorActionListener(this);
-
-        wrappedSearchCloseBtn = (ImageView) getview.findViewById(R.id.ios_search_close_btn);
+        wrappedSearchCloseBtn = (ImageView) getcustomview.findViewById(R.id.ios_search_close_btn);
         wrappedSearchCloseBtn.setOnClickListener(this);
         wrappedEditText.setEnabled(false);
         wrappedSearchCloseBtn.setEnabled(false);
         keyboard_prioity = behavior.SHOW_KEYBOARD_AFTER_ANIMATION;
-        rl = (RelativeLayout) getview.findViewById(R.id.layout_wrapper);
+        rl = (RelativeLayout) getcustomview.findViewById(R.id.layout_wrapper);
         rl.setAlpha(0f);
         rl.animate().alpha(1f).withEndAction(fadeInDone);
 
         revealWithAnimation(false);
-        control = isoactionbar;
-        mcontext = getview.getContext();
+        control = ab;
+        mcontext = getcustomview.getContext();
     }
 
     @SuppressLint("WrongViewCast")
@@ -118,9 +130,8 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
      * Set the search listener to be used on this search
      *
      * @param searchListener the search listener to be used on this search
-     * @see OnSearchListener
      */
-    public void setOnSearchListener(OnSearchListener searchListener) {
+    public void setOnSearchListener(TopBarManager.searchBarListener searchListener) {
         this.searchListener = searchListener;
     }
 
@@ -157,7 +168,6 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
      * @see #setSearchPlaceholder(CharSequence)
      */
     public void setSearchPlaceholder(int placeholderRes) {
-
         wrappedEditText.setHint(placeholderRes);
     }
 
@@ -171,7 +181,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     @Override
     public void onTextChanged(CharSequence constraint, int start, int count, int after) {
         if (searchListener != null) {
-            searchListener.onQuickSearch(this, constraint);
+            searchListener.onKeySearchLetter(constraint.toString());
             return;
         }
         Log.w(getClass().getName(), "SearchListener == null");
@@ -181,9 +191,9 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     public void onClick(View e) {
         if (e.getId() == R.id.ios_search_close_btn) {
             if (searchListener != null) {
-                control.closeSearchBar();
                 hidekeyboard();
-                searchListener.onClose();
+                searchListener.onRestoreToNormal(control);
+                control.invalidateOptionsMenu();
             }
         }
     }
@@ -239,7 +249,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         if (event != null && event.getAction() != KeyEvent.ACTION_DOWN) {
 
             if (searchListener != null) {
-                searchListener.onSearchHint(this, textView.getText());
+                searchListener.onKeySearchLetter(textView.getText().toString());
                 return true;
             }
 
@@ -249,7 +259,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
             if (searchListener != null) {
                 InputMethodManager imm = (InputMethodManager) mcontext.getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(textView.getWindowToken(), 0);
-                searchListener.onSearchClick(this, textView.getText());
+                searchListener.onKeySearchStartConfirm(textView.getText().toString());
                 return true;
             }
         }
@@ -258,42 +268,5 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
         Log.w(getClass().getName(), "SearchListener == null");
         return false;
     }
-
-    /**
-     * This interface is an custom method to wrapp the
-     * TextWatcher implementation and provide the search constraint
-     *
-     * @author Hesk Kam
-     */
-    public interface OnSearchListener {
-
-        /**
-         * This method is called every time the EditText change it content
-         *
-         * @param searchview the searchview
-         * @param constraint the current input data
-         */
-        void onQuickSearch(SearchCustomActionBar searchview, CharSequence constraint);
-
-        /**
-         * This method is called when the user press the search button on the keyboard
-         *
-         * @param searchview the searchview
-         * @param constraint the current input data
-         */
-        void onSearchHint(SearchCustomActionBar searchview, CharSequence constraint);
-
-        /**
-         * This method is called when the click is pressed
-         */
-        void onClose();
-
-        /**
-         * This is called when the search button is clicked
-         *
-         * @param searchview the searchview
-         * @param query      the string in chars of the search query
-         */
-        void onSearchClick(SearchCustomActionBar searchview, CharSequence query);
-    }
 }
+

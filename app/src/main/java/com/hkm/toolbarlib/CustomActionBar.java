@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.hkm.advancedtoolbar.advBar;
+import com.hkm.advancedtoolbar.Util.advBar;
 import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.advancedtoolbar.iOS.trigger;

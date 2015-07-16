@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".CustomActionBar">
 
-    <com.hkm.advancedtoolbar.advBar
+    <com.hkm.advancedtoolbar.Util.advBar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"

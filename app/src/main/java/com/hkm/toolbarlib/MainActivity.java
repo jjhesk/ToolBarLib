@@ -6,7 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
-import com.hkm.advancedtoolbar.advBar;
+import com.hkm.advancedtoolbar.Util.advBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
@@ -43,11 +43,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int idt = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (idt == R.id.action_search) {
             worker.showiosSearchActionBar();
