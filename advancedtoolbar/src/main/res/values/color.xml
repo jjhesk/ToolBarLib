@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="lightgrey">#c2ffffff</color>
-    <color name="emtpy">#eef6e1e7</color>
+    <color name="lightgrey">#eee</color>
 </resources>

@@ -1,4 +1,4 @@
-package com.hkm.advancedtoolbar.Util;
+package com.hkm.advancedtoolbar;
 
 import android.support.v7.widget.SearchView;
 import android.view.View;

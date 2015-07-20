@@ -1,6 +1,7 @@
 package com.hkm.advancedtoolbar.Util;
 
 import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 
 import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;

@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout_wrapper"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:ignore="UnknownId">
+    android:layout_height="match_parent">
 
     <android.support.v7.internal.widget.TintImageView
-        android:id="@id/ios_find_icon"
+        android:id="@+id/find_icon"
         style="@android:style/Widget.Holo.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -20,27 +18,27 @@
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/ios_search_close_btn"
-        android:layout_toRightOf="@id/ios_find_icon"
-        android:gravity="center_vertical"
-        android:paddingLeft="10dp">
+        android:layout_toLeftOf="@+id/search_close_btn"
+        android:layout_toRightOf="@+id/find_icon"
+        android:paddingLeft="10dp"
+        android:gravity="center_vertical">
 
         <TextView
-            android:id="@id/ios_hinting"
+            android:id="@+id/hinting"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:animateLayoutChanges="true"
-            android:text="search text in here"
-            android:textColor="@color/lightgrey" />
+            android:textColor="@color/lightgrey"
+            android:text="search text in here" />
     </RelativeLayout>
 
     <EditText
-        android:id="@id/ios_actionbar_wrapped_search"
+        android:id="@+id/wrapped_search"
         android:layout_width="fill_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@id/ios_search_close_btn"
-        android:layout_toRightOf="@id/ios_find_icon"
-        android:layout_toStartOf="@id/ios_search_close_btn"
+        android:layout_toLeftOf="@+id/search_close_btn"
+        android:layout_toRightOf="@+id/find_icon"
+        android:layout_toStartOf="@+id/search_close_btn"
         android:background="@drawable/hb_edit_text_holo_light"
         android:imeOptions="actionSearch"
         android:inputType="text"
@@ -49,7 +47,7 @@
 
 
     <android.support.v7.internal.widget.TintImageView
-        android:id="@id/ios_search_close_btn"
+        android:id="@+id/search_close_btn"
         style="@android:style/Widget.Holo.ActionButton"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"

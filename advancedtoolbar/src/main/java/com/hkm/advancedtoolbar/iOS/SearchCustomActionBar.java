@@ -9,6 +9,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.inputmethod.EditorInfo;
@@ -65,11 +66,11 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
     @SuppressLint("WrongViewCast")
     public SearchCustomActionBar(iOSActionBarWorker isoactionbar, @Nullable int measurewith) {
         getview = isoactionbar.ab.getCustomView();
-        wrappedEditText = (EditT) getview.findViewById(R.id.ios_actionbar_wrapped_search);
+        wrappedEditText = (EditT) getview.findViewById(R.id.wrapped_search);
         wrappedEditText.addTextChangedListener(this);
         wrappedEditText.setOnEditorActionListener(this);
 
-        wrappedSearchCloseBtn = (ImageView) getview.findViewById(R.id.ios_search_close_btn);
+        wrappedSearchCloseBtn = (ImageView) getview.findViewById(R.id.search_close_btn);
         wrappedSearchCloseBtn.setOnClickListener(this);
         wrappedEditText.setEnabled(false);
         wrappedSearchCloseBtn.setEnabled(false);
@@ -108,9 +109,13 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
             }
         });
 
-        searchTextHint = (TV) getview.findViewById(R.id.ios_hinting);
+        searchTextHint = (TV) getview.findViewById(R.id.hinting);
         searchTextHint.setText(default_placeholder);
         searchTextHint.startAnimation(anim);
+        //} else {
+        //  wrappedEditText.setHint(default_placeholder);
+        // searchTextHint.setVisibility(View.INVISIBLE);
+        // }
     }
 
 
@@ -179,7 +184,7 @@ public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> 
 
     @Override
     public void onClick(View e) {
-        if (e.getId() == R.id.ios_search_close_btn) {
+        if (e.getId() == R.id.search_close_btn) {
             if (searchListener != null) {
                 control.closeSearchBar();
                 hidekeyboard();

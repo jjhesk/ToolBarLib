@@ -1,4 +1,4 @@
-package com.hkm.advancedtoolbar.Util;
+package com.hkm.advancedtoolbar;
 
 import android.app.Activity;
 import android.content.Context;
