@@ -47,3 +47,24 @@ dependencies {
 ##implementation
 You can call by simple direct API from the code and it will do the magic for you.
 The new implementation - [the easiest](https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way)
+Simple way to start your module
+```java
+TopBarManager worker = TopBarManager.ManagerBulider.with(this)
+            .companyLogo(R.drawable.actionbar_bg_pb_logo)
+            .background(R.drawable.hb_white_normal_border)
+            .burgerIcon(R.mipmap.ic_action_menu)
+            .searchView(SearchCustom.LAYOUT.classic_3)
+            .build(this, tb);
+```
+
+# Methods table introduction
+
+There are several attributes you can set:
+
+| methods | func |
+|:---|:---|
+| searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
+| companyLogo | The drawable Id for the company logo |
+| background | The navigation bar background drawable Id |
+| burgerIcon | customize the top left corner icon with the resource Id |
+| searchBarEvents | the implementation of the listener event for the plugins |
