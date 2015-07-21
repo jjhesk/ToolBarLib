@@ -1,5 +1,7 @@
 # ToolBarLib
 
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2158)
+
 Android ActionBar Advanced Support Library for APIv22,v21,v19. This will be a better one for all kinds of design. This library bundled alot of design patterns in the advanced actionbar supports.
 
 Java Android v22 v21 v19 toolBar Library advanced
