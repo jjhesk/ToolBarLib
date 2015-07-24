@@ -8,6 +8,9 @@ Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
 
 ##Features
+v0.3.2
+- [x] added the social bar into the library
+
 v0.2.2
 - [x] automatic show and hide softkeyboard
 
@@ -59,7 +62,7 @@ TopBarManager worker = TopBarManager.ManagerBulider.with(this)
             .build(this, tb);
 ```
 
-# Methods table introduction
+# Methods table for custom toolbar introduction
 
 There are several attributes you can set:
 
@@ -70,3 +73,33 @@ There are several attributes you can set:
 | background | The navigation bar background drawable Id |
 | burgerIcon | customize the top left corner icon with the resource Id |
 | searchBarEvents | the implementation of the listener event for the plugins |
+
+# Implementation for the social tool bar
+
+Add this component into your xml layout in anywhere
+```xml
+      <com.hkm.advancedtoolbar.socialbar.combar
+                    android:id="@+id/social_bar_combar"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp" />
+
+```
+retrieve the component ```combar``` and use the method ```setShareContent``` to inject the information needed for the sharing intents. Please also refer to the table.
+```java
+
+
+      public void setShareContentBar(String title, String except, String link) {
+            combar br = (combar) content_view.findViewById(R.id.social_bar_combar);
+            br.setShareContent(title, except, link);
+        }
+
+```
+
+Social Bar method table for ```combar```:
+
+| methods | func |
+|:---|:---|
+| searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
+| setShareContent | inject information into the sharing intents |
