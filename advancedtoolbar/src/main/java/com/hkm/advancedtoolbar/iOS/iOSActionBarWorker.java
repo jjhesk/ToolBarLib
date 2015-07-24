@@ -89,17 +89,9 @@ public class iOSActionBarWorker<ABv7 extends ActionBar, TV extends TextView> ext
         }
     }
 
-    /**
-     * this is triggered by the internal action;
-     */
-    public void afterSearchBarShown(SearchCustomActionBar com) {
-        com.showkeyboard();
-    }
-
     public void showSearchBar(trigger done) {
         done.before(ab);
         showiosSearchActionBar();
-
     }
 
     public void showCompanyLogo(trigger done) {

@@ -41,7 +41,7 @@
         android:layout_toLeftOf="@id/ios_search_close_btn"
         android:layout_toRightOf="@id/ios_find_icon"
         android:layout_toStartOf="@id/ios_search_close_btn"
-        android:background="@drawable/hb_edit_text_holo_light"
+        android:background="@color/lightgrey"
         android:imeOptions="actionSearch"
         android:inputType="text"
         android:minWidth="230dp"

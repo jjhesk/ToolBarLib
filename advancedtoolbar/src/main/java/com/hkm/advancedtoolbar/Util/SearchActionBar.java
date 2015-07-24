@@ -1,4 +1,4 @@
-package com.hkm.advancedtoolbar;
+package com.hkm.advancedtoolbar.Util;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.hkm.advancedtoolbar.R;
 
 /**
  * Created by hesk on 12/5/15.
@@ -116,18 +118,12 @@ public class SearchActionBar extends FrameLayout implements TextWatcher, TextVie
      */
     protected void init(Context context) {
         LayoutInflater.from(context).inflate(R.layout.search_material, this, true);
-        wrappedEditText = (EditText) findViewById(R.id.wrapped_search);
+        wrappedEditText = (EditText) findViewById(R.id.ios_actionbar_wrapped_search);
         wrappedEditText.addTextChangedListener(this);
         wrappedEditText.setOnEditorActionListener(this);
-        wrappedSearchCloseBtn = (ImageView) findViewById(R.id.search_close_btn);
+        wrappedSearchCloseBtn = (ImageView) findViewById(R.id.ios_search_close_btn);
         wrappedSearchCloseBtn.setOnClickListener(this);
         mcontext = context;
-     /*   final int maxWidth = a.getDimensionPixelSize(R.styleable.SearchView_android_maxWidth, -1);
-        if (maxWidth != -1) {
-            setMaxWidth(maxWidth);
-        }*/
-
-
     }
 
     @Override
@@ -145,7 +141,7 @@ public class SearchActionBar extends FrameLayout implements TextWatcher, TextVie
 
     @Override
     public void onClick(View e) {
-        if (e.getId() == R.id.search_close_btn) {
+        if (e.getId() == R.id.ios_search_close_btn) {
             if (searchListener != null) {
                 wrappedEditText.setText("");
                 searchListener.onClose();

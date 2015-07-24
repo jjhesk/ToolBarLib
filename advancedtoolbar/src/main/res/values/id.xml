@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="title_display" type="id" />
+    <item name="ios_actionbar_wrapped_search" type="id" />
+    <item name="ios_search_close_btn" type="id" />
+    <item name="ios_find_icon" type="id" />
+    <item name="ios_hinting" type="id" />
+    <item name="ios_layout_wrapper" type="id" />
+</resources>

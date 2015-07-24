@@ -69,11 +69,6 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
             titlelayoutRef = typedValue.data;
         } else titlelayoutRef = R.layout.centertextview;
 
-
-       /* theme.resolveAttribute(R.attr.search_bar_hint_txt, typedValue, true);
-        if (typedValue.data != 0) {
-            titlelayoutRef = typedValue.data;
-        } */
     }
 
     /**
@@ -109,10 +104,7 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
         return this;
     }
 
-    public ActionBarBuilder setSearchHintTxt(String title) {
 
-        return this;
-    }
 
     /**
      * this will only allow the arranged layout items to to be customized title action bar
@@ -136,16 +128,6 @@ public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView
         return this;
     }
 
-    /**
-     * the company logo to be shown on the action bar
-     *
-     * @param company_logo_ref the resource id of the drawable
-     * @return this is the chain setup
-     */
-    public ActionBarBuilder setCompanyLogo(int company_logo_ref) {
-        companylogoRef = company_logo_ref;
-        return this;
-    }
 
 
 }
