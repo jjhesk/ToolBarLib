@@ -1,6 +1,6 @@
 # Advanced Toolbar support library
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2158)
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][4]
 
 Android ActionBar Advanced Support Library for APIv22,v21,v19. This library gives a better hand to handle all sorts of interactions on the toolbar. There are various built-in API and methods to speed up the development and design requirements and implemenations. There are fundamental design patterns are ready to be explored. The features listed as below:
 
@@ -8,11 +8,11 @@ Android ActionBar Advanced Support Library for APIv22,v21,v19. This library give
 - social bar for sharing content implementation
 - animation of the search bar and search view design for custom layouts
 - custom textview and design
-- dynamic custom icon and textview on top of
+- dynamic custom icon and textview on top of Thanks to [mikepenz][1]
 - interchangable between logos and the backgrounds
 
 Java Android v22 v21 v19 toolBar Library advanced
-Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
+Projec Website: [TOOLBARLIB][2]
 
 ##Features
 v0.3.2
@@ -58,7 +58,7 @@ dependencies {
 
 ##implementation
 You can call by simple direct API from the code and it will do the magic for you.
-The new implementation - [the easiest](https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way)
+The new implementation - [the easiest][3]
 Simple way to start your module
 ```java
 TopBarManager actionToolBar =      
@@ -210,3 +210,8 @@ Social Bar method table for ```combar```:
 | searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
 | setShareContent | inject information into the sharing intents |
 
+
+[1]: https://github.com/mikepenz/Android-ActionItemBadge
+[2]: https://github.com/jjhesk/ToolBarLib
+[3]: https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way
+[4]: http://android-arsenal.com/details/1/2158
