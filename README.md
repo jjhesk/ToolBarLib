@@ -54,9 +54,21 @@ You can call by simple direct API from the code and it will do the magic for you
 The new implementation - [the easiest](https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way)
 Simple way to start your module
 ```java
+TopBarManager actionToolBar =      
+    TopBarManager.ManagerBulider.with(this)
+    ...
+        .companyLogo(R.drawable.actionbar_bg_pb_logo)
+        .background(R.drawable.actionbar_bg_white_greyline)
+        .burgerIcon(R.mipmap.ic_action_menu)
+        .searchView(SearchCustom.LAYOUT.classic_3)
+    ...
+        .build(tb);
+```
+Implementation of the search view:
+```java
 
-TopBarManager   actionToolBar =             
-TopBarManager.ManagerBulider.with(this).searchBarEvents(new TopBarManager.searchBarListener() {
+...
+    .searchBarEvents(new TopBarManager.searchBarListener() {
                 @Override
                 public void onKeySearchStartConfirm(String s) {
                     if (currentFragmentNow instanceof listTemplate) {
@@ -76,16 +88,10 @@ TopBarManager.ManagerBulider.with(this).searchBarEvents(new TopBarManager.search
                 public void onRestoreToNormal(ActionBar actionBar) {
                     actionToolBar.showBack();
                 }
-            })
-                    .companyLogo(R.drawable.actionbar_bg_pb_logo)
-                    .background(R.drawable.actionbar_bg_white_greyline)
-                    .burgerIcon(R.mipmap.ic_action_menu)
-                    .searchView(SearchCustom.LAYOUT.classic_3)
-                    .build(tb);
+    })
 
-
+...
 ```
-
 # Methods table for custom toolbar introduction
 
 There are several attributes you can set:
@@ -100,7 +106,7 @@ There are several attributes you can set:
 | setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
 
 # Implementation for dynamic icon for on the action tool bar
-###setup 1, prepare the custom layout for the dynamic icon and here is the sample
+###setup 1: prepare the custom layout for the dynamic icon and here is the sample
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
@@ -137,7 +143,7 @@ There are several attributes you can set:
     </RelativeLayout>
 </FrameLayout>
 ```
-###setup 2, setup on configurations
+###setup 2: setup on configurations
 ```java
    worker = TopBarManager.ManagerBulider.with(this)
    ...
@@ -145,11 +151,11 @@ There are several attributes you can set:
    ...
    .build(toolbar);
 ```
-###setup 3, retrieve the object ```LiveIcon```
+###setup 3: retrieve the object ```LiveIcon```
 ```java
    dynamic_icon = worker.getDynamicIcon();
 ```
-###setup 4, inject object into these overrides
+###setup 4: inject object into these overrides
 ```java
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -184,13 +190,10 @@ Add this component into your xml layout in anywhere
 ```
 retrieve the component ```combar``` and use the method ```setShareContent``` to inject the information needed for the sharing intents. Please also refer to the table.
 ```java
-
-
       public void setShareContentBar(String title, String except, String link) {
             combar br = (combar) content_view.findViewById(R.id.social_bar_combar);
             br.setShareContent(title, except, link);
         }
-
 ```
 
 Social Bar method table for ```combar```:
