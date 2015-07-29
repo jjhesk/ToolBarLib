@@ -51,7 +51,7 @@ repositories {
 }
 
 dependencies {
-     compile 'ToolBarLib:advancedtoolbar:0.2.20'
+     compile 'ToolBarLib:advancedtoolbar:0.3.5'
 }
 
 ```
