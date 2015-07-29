@@ -108,10 +108,12 @@ There are several attributes you can set:
    .setLiveIcon(layout_id , drawable_id)
    ...
    .build(toolbar);
-   
 ```
-
-###setup 2, inject object into these overrides
+###setup 2, retrieve the object ```LiveIcon```
+```java
+   dynamic_icon = worker.getDynamicIcon();
+```
+###setup 3, inject object into these overrides
 ```java
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
