@@ -54,12 +54,36 @@ You can call by simple direct API from the code and it will do the magic for you
 The new implementation - [the easiest](https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way)
 Simple way to start your module
 ```java
-TopBarManager worker = TopBarManager.ManagerBulider.with(this)
-            .companyLogo(R.drawable.actionbar_bg_pb_logo)
-            .background(R.drawable.hb_white_normal_border)
-            .burgerIcon(R.mipmap.ic_action_menu)
-            .searchView(SearchCustom.LAYOUT.classic_3)
-            .build(this, tb);
+
+TopBarManager   actionToolBar =             
+TopBarManager.ManagerBulider.with(this).searchBarEvents(new TopBarManager.searchBarListener() {
+                @Override
+                public void onKeySearchStartConfirm(String s) {
+                    if (currentFragmentNow instanceof listTemplate) {
+                        listTemplate k = (listTemplate) currentFragmentNow;
+                        k.triggerSearch(s);
+                    } else {
+                        setinternalChangeNoToggle(listTemplate.B(listTemplate.conSearch(s)), "search");
+                    }
+                }
+
+                @Override
+                public void onKeySearchLetter(String s) {
+
+                }
+
+                @Override
+                public void onRestoreToNormal(ActionBar actionBar) {
+                    actionToolBar.showBack();
+                }
+            })
+                    .companyLogo(R.drawable.actionbar_bg_pb_logo)
+                    .background(R.drawable.actionbar_bg_white_greyline)
+                    .burgerIcon(R.mipmap.ic_action_menu)
+                    .searchView(SearchCustom.LAYOUT.classic_3)
+                    .build(tb);
+
+
 ```
 
 # Methods table for custom toolbar introduction
@@ -103,3 +127,4 @@ Social Bar method table for ```combar```:
 |:---|:---|
 | searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
 | setShareContent | inject information into the sharing intents |
+| setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
