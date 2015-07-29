@@ -99,6 +99,38 @@ There are several attributes you can set:
 | searchBarEvents | the implementation of the listener event for the plugins |
 | setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
 
+# Implementation for dynamic icon for on the action tool bar
+
+###setup 1, setup on configurations
+```java
+   worker = TopBarManager.ManagerBulider.with(this)
+   ...
+   .setLiveIcon(layout_id , drawable_id)
+   ...
+   .build(toolbar);
+   
+```
+
+###setup 2, inject object into these overrides
+```java
+   @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main, menu);
+        ...
+        // the id of the menu item
+        dynamic_icon.onOptionItemInit(menu, R.id.dynamic);
+        ...
+        return true;
+    }
+    
+       @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.dynamic) {
+            dynamic_icon.update(item, [the new number] );
+        }
+        return super.onOptionsItemSelected(item);
+    }
+```
 
 # Implementation for the social tool bar
 
