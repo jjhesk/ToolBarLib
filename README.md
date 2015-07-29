@@ -97,6 +97,8 @@ There are several attributes you can set:
 | background | The navigation bar background drawable Id |
 | burgerIcon | customize the top left corner icon with the resource Id |
 | searchBarEvents | the implementation of the listener event for the plugins |
+| setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
+
 
 # Implementation for the social tool bar
 
@@ -127,4 +129,4 @@ Social Bar method table for ```combar```:
 |:---|:---|
 | searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
 | setShareContent | inject information into the sharing intents |
-| setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
+
