@@ -1,8 +1,15 @@
-# ToolBarLib
+# Advanced Toolbar support library
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)](http://android-arsenal.com/details/1/2158)
 
-Android ActionBar Advanced Support Library for APIv22,v21,v19. This will be a better one for all kinds of design. This library bundled alot of design patterns in the advanced actionbar supports.
+Android ActionBar Advanced Support Library for APIv22,v21,v19. This library gives a better hand to handle all sorts of interactions on the toolbar. There are various built-in API and methods to speed up the development and design requirements and implemenations. There are fundamental design patterns are ready to be explored. The features listed as below:
+
+- automatic show and hide softkeyboard
+- social bar for sharing content implementation
+- animation of the search bar and search view design for custom layouts
+- custom textview and design
+- dynamic custom icon and textview on top of
+- interchangable between logos and the backgrounds
 
 Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB](https://github.com/jjhesk/ToolBarLib)
