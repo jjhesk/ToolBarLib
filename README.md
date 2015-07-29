@@ -100,8 +100,44 @@ There are several attributes you can set:
 | setLiveIcon | there are two overriding: 1) is the actual LiveIcon object . 2) two configurations for the layout xml resource id and the image resource id|
 
 # Implementation for dynamic icon for on the action tool bar
+###setup 1, prepare the custom layout for the dynamic icon and here is the sample
+```xml
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@id/liveicon_counterpanel"
+    style="?android:attr/actionButtonStyle"
+    android:layout_width="48dp"
+    android:layout_height="48dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:gravity="center">
 
-###setup 1, setup on configurations
+
+    <ImageView
+        android:id="@id/liveiconloc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerInside" />
+
+    <RelativeLayout
+        android:id="@id/liveicon_position"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="11dp">
+
+        <TextView
+            android:id="@id/liveicon_text"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="88+"
+            android:textColor="#FFFFFF"
+            android:textSize="15dp" />
+    </RelativeLayout>
+</FrameLayout>
+```
+###setup 2, setup on configurations
 ```java
    worker = TopBarManager.ManagerBulider.with(this)
    ...
@@ -109,11 +145,11 @@ There are several attributes you can set:
    ...
    .build(toolbar);
 ```
-###setup 2, retrieve the object ```LiveIcon```
+###setup 3, retrieve the object ```LiveIcon```
 ```java
    dynamic_icon = worker.getDynamicIcon();
 ```
-###setup 3, inject object into these overrides
+###setup 4, inject object into these overrides
 ```java
    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
