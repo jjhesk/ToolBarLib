@@ -3,12 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity">
 
-
     <item
         android:id="@+id/action_search"
         android:icon="@mipmap/ic_action_find"
         android:title="@string/sub"
         app:showAsAction="ifRoom" />
 
+    <item
+        android:id="@+id/item_samplebadge"
+        android:title="txt"
+        app:actionLayout="@layout/menu_badge"
+        app:showAsAction="always" />
 
 </menu>

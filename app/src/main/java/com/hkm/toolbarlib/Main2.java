@@ -1,5 +1,6 @@
 package com.hkm.toolbarlib;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -7,9 +8,8 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
-import android.widget.TextView;
 
+import com.hkm.advancedtoolbar.V3.LiveIcon;
 import com.hkm.advancedtoolbar.V3.SearchCustom;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
 
@@ -19,6 +19,7 @@ import com.hkm.advancedtoolbar.V3.TopBarManager;
 public class Main2 extends AppCompatActivity {
     private ActionBar actionbar;
     private TopBarManager worker;
+    private LiveIcon dynamic_icon;
     private Toolbar toolbar;
 
     @Override
@@ -49,9 +50,9 @@ public class Main2 extends AppCompatActivity {
                             worker.showBack();
                         }
                     })
-
-                    .build(toolbar, getSupportActionBar());
-
+                    .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)
+                    .build(toolbar);
+            dynamic_icon = worker.getDynamicIcon();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,10 +62,12 @@ public class Main2 extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem find = menu.findItem(R.id.action_search);
+        getMenuInflater().inflate(R.menu.main, menu);
+        dynamic_icon.onOptionItemInit(menu, R.id.dynamic);
         return true;
     }
+
+    private int u = 2;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -73,16 +76,12 @@ public class Main2 extends AppCompatActivity {
         if (idt == R.id.action_search) {
             worker.triggerfromSearchIcon(item);
             return true;
+        } else if (idt == R.id.custombar) {
+            Intent g = new Intent(this, CustomActionBar.class);
+            startActivity(g);
+        } else if (idt == R.id.dynamic) {
+            dynamic_icon.update(item, u++);
         }
-        //noinspection SimplifiableIfStatement
-        // if (id == R.id.toggle_actionbar) {
-
-        //     if (actionbar.isShowing()) actionbar.hide();
-        //     else actionbar.show();
-
-        //     return true;
-        //  }
-
         return super.onOptionsItemSelected(item);
     }
 }

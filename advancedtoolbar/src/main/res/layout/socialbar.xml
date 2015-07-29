@@ -9,6 +9,7 @@
         android:id="@+id/facebook"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/fb" />
 
@@ -17,6 +18,7 @@
         android:id="@+id/twitter"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/twitter" />
 
@@ -24,6 +26,7 @@
         android:id="@+id/pinterest"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/pinterest" />
 
@@ -31,6 +34,7 @@
         android:id="@+id/mail"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/mail" />
 
@@ -38,6 +42,7 @@
         android:id="@+id/whatsapp"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/whatsapp" />
 
@@ -45,6 +50,7 @@
         android:id="@+id/message"
         android:layout_width="40dp"
         android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/icon_margin"
         android:scaleType="fitCenter"
         android:src="@drawable/message" />
 

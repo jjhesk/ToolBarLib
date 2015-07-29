@@ -3,4 +3,5 @@
     <dimen name="sp_actionbar_logo_v_margin">20dp</dimen>
     <dimen name="sp_actionbar_logo_h_margin">100dp</dimen>
     <dimen name="height_custom_bar">?attr/actionBarSize</dimen>
+    <dimen name="icon_margin">2dp</dimen>
 </resources>

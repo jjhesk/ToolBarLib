@@ -20,6 +20,7 @@ import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
+import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 
 /**
  * Created by hesk on 16/7/15.
@@ -40,6 +41,7 @@ public class TopBarManager {
     private final int window_default_configuration;
     private boolean animationCustomBar = false;
     private float customBarHeight;
+    private LiveIcon iconDynamic;
 
     public TopBarManager(AppCompatActivity activity, Toolbar toolbar, ManagerBulider mb) {
         window_default_configuration = mb.defaultconfig;
@@ -52,6 +54,7 @@ public class TopBarManager {
         this.searchHint = mb.searchHint;
         this.burger = mb.burger;
         this.mb = mb;
+        this.iconDynamic = mb.icon;
         getThemedSettings();
 
         this.toolbar = toolbar;
@@ -59,7 +62,8 @@ public class TopBarManager {
         customBarHeight = 100f;
         //ctx.getResources().getDimension(R.dimen.height_custom_bar);
         actionbar = activity.getSupportActionBar();
-        preDefault();
+        actionbartitle_current = null;
+        showCompanyLogo();
     }
 
     private void setDefaultDisplayOptions() {
@@ -178,6 +182,9 @@ public class TopBarManager {
         }
     }
 
+    public LiveIcon getDynamicIcon() {
+        return iconDynamic;
+    }
 
     public void showCenterTitleNormalHome(final String title) {
         showCenterTitleNormal(title, true);
@@ -193,11 +200,11 @@ public class TopBarManager {
 
     @SuppressLint("WrongViewCast")
     public <TV extends TextView> void showCenterTitleNormal(final String title, boolean withHomeButton) {
-        if (withHomeButton) {
-            actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
-        } else {
-            actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
-        }
+        //   if (withHomeButton) {
+        //     actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME);
+        //   } else {
+        //      actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //    }
         // actionbar.setCustomView(customtitleview != 0 ? customtitleview : R.layout.centertextview);
         // final TV text = (TV) actionbar.getCustomView().findViewById(R.id.title_display);
         // text.setText(title);
@@ -206,11 +213,13 @@ public class TopBarManager {
         if (ablistener != null) {
             ablistener.onShowCenterTextActionBar(actionbar, title);
         }
+
+
+        if (burger != 0) toolbar.setNavigationIcon(burger);
         actionbar.setDisplayShowTitleEnabled(true);
-        actionbar.setDisplayUseLogoEnabled(false);
         actionbar.setDisplayShowCustomEnabled(false);
-        //    actionbar.setDisplayHomeAsUpEnabled(true);
-        actionbar.setDefaultDisplayHomeAsUpEnabled(true);
+        actionbar.setDisplayUseLogoEnabled(false);
+
     }
 
     public void showBack() {
@@ -253,18 +262,20 @@ public class TopBarManager {
     }
 
     public static class ManagerBulider {
-        private Context ctx;
+        private AppCompatActivity ctx;
         private SearchCustom search;
         private searchBarListener listener;
         private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchlayout = 0, customtitleview = 0, burger = 0;
         private SearchCustom.LAYOUT layoutPreset;
         private String searchHint;
+        private ActionItemBadgeAdder iconbadget;
+        private LiveIcon icon;
 
-        public static ManagerBulider with(Context ctx) {
+        public static ManagerBulider with(AppCompatActivity ctx) {
             return new ManagerBulider(ctx);
         }
 
-        public ManagerBulider(Context ctx) {
+        public ManagerBulider(AppCompatActivity ctx) {
             this.ctx = ctx;
         }
 
@@ -328,12 +339,33 @@ public class TopBarManager {
             return this;
         }
 
-        public TopBarManager build(AppCompatActivity act, Toolbar thetoolbar) throws Exception {
+        public ManagerBulider setLiveIcon(final @LayoutRes int layout, final @DrawableRes int icon) {
+            this.icon = new LiveIcon(layout, icon).act(ctx);
+            return this;
+        }
+
+        public ManagerBulider setLiveIcon(LiveIcon icon) {
+            this.icon = icon;
+            return this;
+        }
+
+        public ManagerBulider genLiveIcon(LiveIcon icon) {
+            icon = new LiveIcon(ctx);
+            this.icon = icon;
+            return this;
+        }
+
+        public ManagerBulider setIconBadget(final ActionItemBadgeAdder actionitem) {
+            this.iconbadget = actionitem;
+            return this;
+        }
+
+        public TopBarManager build(Toolbar thetoolbar) throws Exception {
             if (this.listener == null) throw new Exception("listener is not setup");
             if (thetoolbar == null) throw new Exception("ToolBar is not setup");
             if (defaultconfig == 0)
                 defaultconfig = ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME;
-            return new TopBarManager(act, thetoolbar, this);
+            return new TopBarManager(ctx, thetoolbar, this);
         }
     }
 }

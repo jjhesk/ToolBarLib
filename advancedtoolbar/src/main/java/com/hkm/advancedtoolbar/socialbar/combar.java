@@ -1,11 +1,13 @@
 package com.hkm.advancedtoolbar.socialbar;
 
+import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Build;
 import android.support.annotation.LayoutRes;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -28,6 +30,7 @@ public class combar extends FrameLayout implements View.OnClickListener {
     private Context rescontext;
     private List<ResolveInfo> list;
     private String confirm_context_except = "nothing in here";
+    private String title = "New discovery";
 
     public combar(Context context) {
         super(context);
@@ -84,17 +87,19 @@ public class combar extends FrameLayout implements View.OnClickListener {
         }
     }
 
+    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
     private void share(final int position_app) {
         ActivityInfo activity = list.get(position_app).activityInfo;
-        ComponentName name = new ComponentName(activity.applicationInfo.packageName, activity.name);
+        ComponentName nameComponent = new ComponentName(activity.applicationInfo.packageName, activity.name);
 
         final Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("text/plain");
         shareIntent.putExtra(Intent.EXTRA_TEXT, confirm_context_except);
-
+        shareIntent.putExtra(Intent.EXTRA_SUBJECT, title);
         Intent newIntent = (Intent) shareIntent.clone();
-        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED);
-        newIntent.setComponent(name);
+        newIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_DOCUMENT);
+        newIntent.setComponent(nameComponent);
+        newIntent.setPackage(activity.packageName);
         rescontext.startActivity(newIntent);
     }
 

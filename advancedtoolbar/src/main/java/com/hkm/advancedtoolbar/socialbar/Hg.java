@@ -7,13 +7,22 @@ import com.hkm.advancedtoolbar.R;
 
 /**
  * Created by hesk on 24/7/15.
+ * <p/>
+ * com.facebook.messenger.intents.ShareIntentHandler
+ * com.facebook.orca
+ * <p/>
+ * jp.naver.line.android.activity.selectchat.SelectChatActivity
+ * jp.naver.line.android
+ * <p/>
+ * com.pinterest.activity.create.PinItActivity
+ * com.pinterest
  */
 public enum Hg {
     pintrest("com.pinterest", R.drawable.pinterest, R.id.pinterest),
     facebook("com.facebook.katana", R.drawable.fb, R.id.facebook),
     whatsapp("com.whatsapp", R.drawable.whatsapp, R.id.whatsapp),
     twitter("com.twitter.android", R.drawable.twitter, R.id.twitter),
-    message("com.tencent.mm", R.drawable.message, R.id.message);
+    message("com.tencent.mm.ui.tools.ShareToTimeLineUI", R.drawable.message, R.id.message);
 
     private String package_name;
     private int drawbable, extn;
