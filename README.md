@@ -15,6 +15,10 @@ Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB][2]
 
 ##Features
+v0.3.5
+- [x] added dynamic icon for the toolbar.
+- [x] modified TopBarManager for the initation method.
+
 v0.3.2
 - [x] added the social bar into the library
 
