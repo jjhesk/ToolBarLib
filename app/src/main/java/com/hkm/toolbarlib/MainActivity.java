@@ -25,10 +25,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);*/
         actionbar = getSupportActionBar();
         worker = new iOSActionBarWorker(actionbar);
-
         worker.setSearchEngineListener(new actionSupportForAppCompatActivity(this));
-
-
     }
 
 

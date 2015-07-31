@@ -11,13 +11,12 @@ import android.view.MenuItem;
 
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.LiveIcon;
-import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
 
 /**
- * Created by hesk on 16/7/15.
+ * Created by hesk on 31/7/15.
  */
-public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
+public class Main3 extends AppCompatActivity {
     private ActionBar actionbar;
     private TopBarManager worker;
     private LiveIcon dynamic_icon;
@@ -28,7 +27,6 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.generl);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         try {
             worker = TopBarManager.Builder.with(this)
@@ -50,11 +48,7 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
                             worker.showBack();
                         }
                     })
-                    .burgerIcon(R.mipmap.ic_action_share)
                     .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)
-                    .setOnCustomItemClickListener(this)
-                    .setCustomMainBar(LayoutAsset.i_logo_ir)
-                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.cross_mi, R.mipmap.crossmp)
                     .build(toolbar);
             //.externalLayoutOutToolBar(R.layout.topbarlayout)
             dynamic_icon = worker.getDynamicIcon();
@@ -67,8 +61,8 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.main, menu);
-        // dynamic_icon.onOptionItemInit(menu, R.id.dynamic);
+        getMenuInflater().inflate(R.menu.main, menu);
+        dynamic_icon.onOptionItemInit(menu, R.id.dynamic);
         return true;
     }
 
@@ -89,12 +83,5 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
             dynamic_icon.update(item, u++);
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void OnClick(int resId) {
-        if (resId == R.id.i_kl1) {
-            worker.triggerfromSearchIcon(null);
-        }
     }
 }

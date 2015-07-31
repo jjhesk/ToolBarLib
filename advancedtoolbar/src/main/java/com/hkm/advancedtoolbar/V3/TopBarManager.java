@@ -12,13 +12,17 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
-import android.view.Menu;
+import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.V3.layout.SearchCustom;
+import com.hkm.advancedtoolbar.V3.layout.ToolbarHelper;
+import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
 import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 
@@ -26,24 +30,26 @@ import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
  * Created by hesk on 16/7/15.
  */
 public class TopBarManager {
+    private final AppCompatActivity activity;
     private final Toolbar toolbar;
     private final ActionBar actionbar;
     private final Context ctx;
     private final searchBarListener listener;
-    private int logo = 0, background = 0, icon = 0, customtitleview = 0, searchLayout = 0, burger = 0;
-    private ManagerBulider mb;
+    private int logo = 0, background = 0, icon = 0, customtitleview = 0, searchLayout = 0, burger = 0, toolbar_resid = 0;
+    private Builder mb;
     private String actionbartitle_current;
     private ActionBarActionListener ablistener;
     private TypedArray theme_SearchBarStyle;
     private SearchCustom search;
-    private SearchCustom.LAYOUT layoutPreset;
+    private LayoutAsset layoutPreset, mainPreset;
     private String searchHint;
     private final int window_default_configuration;
     private boolean animationCustomBar = false;
     private float customBarHeight;
     private LiveIcon iconDynamic;
+    private CLayO custommanager;
 
-    public TopBarManager(AppCompatActivity activity, Toolbar toolbar, ManagerBulider mb) {
+    public TopBarManager(AppCompatActivity activity, Toolbar toolbar, Builder mb) {
         window_default_configuration = mb.defaultconfig;
 
         this.ctx = mb.ctx;
@@ -51,19 +57,35 @@ public class TopBarManager {
         this.background = mb.background;
         this.icon = mb.searchIcon;
         this.layoutPreset = mb.layoutPreset;
+        this.mainPreset = mb.startheadr;
         this.searchHint = mb.searchHint;
         this.burger = mb.burger;
         this.mb = mb;
         this.iconDynamic = mb.icon;
+        this.toolbar_resid = mb.toolbar_resid;
         getThemedSettings();
 
         this.toolbar = toolbar;
+        this.activity = activity;
         activity.setSupportActionBar(toolbar);
         customBarHeight = 100f;
         //ctx.getResources().getDimension(R.dimen.height_custom_bar);
         actionbar = activity.getSupportActionBar();
         actionbartitle_current = null;
-        showCompanyLogo();
+
+        if (mainPreset == null)
+            showCompanyLogo();
+        else showMainPreset(mainPreset);
+    }
+
+    private void showMainPreset(LayoutAsset preset) {
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        if (burger != 0) toolbar.setNavigationIcon(burger);
+        custommanager = new CLayO(preset, ctx, mb);
+        if (preset == LayoutAsset.i_logo_ir) {
+            iconDynamic.customact(custommanager);
+        }
+        custommanager.init(toolbar);
     }
 
     private void setDefaultDisplayOptions() {
@@ -79,6 +101,7 @@ public class TopBarManager {
             reverseCustomBar();
         }
     }
+
 
     /**
      * get hint color
@@ -147,6 +170,21 @@ public class TopBarManager {
         }
     }
 
+    /**
+     * custom internal layout - included in the library
+     */
+    public void triggerfromSearchIcon() {
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
+        actionbar.setDisplayHomeAsUpEnabled(false);
+        actionbar.setDisplayShowHomeEnabled(false);
+        toolbar.removeAllViews();
+       // toolbar.addView();
+    }
+
+    /**
+     * triggered the traditional custom view
+     * @param meun
+     */
     public void triggerfromSearchIcon(MenuItem meun) {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
         actionbar.setDisplayShowCustomEnabled(true);
@@ -162,6 +200,17 @@ public class TopBarManager {
         if (meun.isVisible()) {
             meun.setVisible(false);
         }
+    }
+
+
+    public void triggerForCustomExternalCustomView() {
+        if (toolbar_resid == 0) return;
+        Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.TOP;
+        final View h = ToolbarHelper.generateView(toolbar_resid, ctx);
+        toolbar.addView(h, layoutParams);
+        actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        //   h.bringToFront();
     }
 
 
@@ -261,102 +310,125 @@ public class TopBarManager {
 
     }
 
-    public static class ManagerBulider {
+    public static class Builder {
         private AppCompatActivity ctx;
         private SearchCustom search;
         private searchBarListener listener;
-        private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchlayout = 0, customtitleview = 0, burger = 0;
-        private SearchCustom.LAYOUT layoutPreset;
+        private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchlayout = 0, customtitleview = 0, burger = 0, toolbar_resid = 0, k1 = 0, k2 = 0, k3 = 0;
+        private LayoutAsset layoutPreset, startheadr;
         private String searchHint;
         private ActionItemBadgeAdder iconbadget;
         private LiveIcon icon;
+        public CLayO.OnInteract customListener;
 
-        public static ManagerBulider with(AppCompatActivity ctx) {
-            return new ManagerBulider(ctx);
+        public static Builder with(AppCompatActivity ctx) {
+            return new Builder(ctx);
         }
 
-        public ManagerBulider(AppCompatActivity ctx) {
+        public Builder(AppCompatActivity ctx) {
             this.ctx = ctx;
         }
 
-        public ManagerBulider companyLogo(final @DrawableRes int thelogo) {
+        public Builder companyLogo(final @DrawableRes int thelogo) {
             this.logo = thelogo;
             return this;
         }
 
-        public ManagerBulider background(final @DrawableRes int thebackgroundID) {
+        public Builder background(final @DrawableRes int thebackgroundID) {
             this.background = thebackgroundID;
             return this;
         }
 
-        public ManagerBulider searchMagnetifyIcon(final @DrawableRes int icon) {
+        public Builder searchMagnetifyIcon(final @DrawableRes int icon) {
             this.searchIcon = icon;
             return this;
         }
 
-        public ManagerBulider customTitleView(final @LayoutRes int customTitleView) {
+        public Builder customTitleView(final @LayoutRes int customTitleView) {
             this.customtitleview = customTitleView;
             return this;
         }
 
-        public ManagerBulider searchView(final SearchCustom.LAYOUT searchlayout) {
+        public Builder searchView(final LayoutAsset searchlayout) {
             this.layoutPreset = searchlayout;
             return this;
         }
 
-        public ManagerBulider searchView(final @LayoutRes int searchlayout) {
+        public Builder searchView(final @LayoutRes int searchlayout) {
             this.searchlayout = searchlayout;
             return this;
         }
 
-        public ManagerBulider searchView(SearchCustom search) {
+        public Builder setCustomMainBar(final LayoutAsset l) {
+            this.startheadr = l;
+            return this;
+        }
+
+        public Builder searchView(SearchCustom search) {
             this.search = search;
             return this;
         }
 
-        public ManagerBulider searchBarEvents(searchBarListener listener) {
+        public Builder searchBarEvents(searchBarListener listener) {
             this.listener = listener;
             return this;
         }
 
-        public ManagerBulider burgerIcon(final @DrawableRes int burger) {
+        public Builder burgerIcon(final @DrawableRes int burger) {
             this.burger = burger;
             return this;
         }
 
-        public ManagerBulider searchHint(String r) {
+        public Builder searchHint(String r) {
             searchHint = r;
             return this;
         }
 
-        public ManagerBulider setDefaultWindowConfiguration(int e) {
+        public Builder setDefaultWindowConfiguration(int e) {
             this.defaultconfig = e;
             return this;
         }
 
-        public ManagerBulider searchHint(final @StringRes int hint) {
+        public Builder searchHint(final @StringRes int hint) {
             searchHint = ctx.getResources().getString(hint);
             return this;
         }
 
-        public ManagerBulider setLiveIcon(final @LayoutRes int layout, final @DrawableRes int icon) {
+        public Builder setLiveIcon(final @LayoutRes int layout, final @DrawableRes int icon) {
             this.icon = new LiveIcon(layout, icon).act(ctx);
             return this;
         }
 
-        public ManagerBulider setLiveIcon(LiveIcon icon) {
+        public Builder setLiveIcon(LiveIcon icon) {
             this.icon = icon;
             return this;
         }
 
-        public ManagerBulider genLiveIcon(LiveIcon icon) {
+        public Builder genLiveIcon(LiveIcon icon) {
             icon = new LiveIcon(ctx);
             this.icon = icon;
             return this;
         }
 
-        public ManagerBulider setIconBadget(final ActionItemBadgeAdder actionitem) {
+        public Builder setIconBadget(final ActionItemBadgeAdder actionitem) {
             this.iconbadget = actionitem;
+            return this;
+        }
+
+        public Builder externalLayoutOutToolBar(final @LayoutRes int resId) {
+            this.toolbar_resid = resId;
+            return this;
+        }
+
+        public Builder setOnCustomItemClickListener(final CLayO.OnInteract listener) {
+            this.customListener = listener;
+            return this;
+        }
+
+        public Builder overrideIcons(final @DrawableRes int k1, final @DrawableRes int k2, final @DrawableRes int k3) {
+            this.k1 = k1;
+            this.k2 = k2;
+            this.k3 = k3;
             return this;
         }
 
@@ -366,6 +438,14 @@ public class TopBarManager {
             if (defaultconfig == 0)
                 defaultconfig = ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME;
             return new TopBarManager(ctx, thetoolbar, this);
+        }
+
+        public int getCompanyLogoRes() {
+            return logo;
+        }
+
+        public int[] getOverrideIcons_i_t_ii() {
+            return new int[]{k1, k2, k3};
         }
     }
 }

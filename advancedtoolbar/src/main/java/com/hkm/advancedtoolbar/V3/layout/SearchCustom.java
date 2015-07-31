@@ -1,4 +1,4 @@
-package com.hkm.advancedtoolbar.V3;
+package com.hkm.advancedtoolbar.V3.layout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.V3.TopBarManager;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
 import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
@@ -32,30 +33,15 @@ import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
  * Created by hesk on 16/7/15.
  */
 public class SearchCustom<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
-    public enum LAYOUT {
-        classic_1(R.layout.material_search_ios_classic),
-        classic_2(R.layout.material_search_ios),
-        classic_3(R.layout.material_search_ios_simple),
-        material(R.layout.search_material);
 
-        private final int id;
-
-        LAYOUT(int id) {
-            this.id = id;
-        }
-
-        public int getResourceId() {
-            return id;
-        }
-    }
 
     private String default_placeholder = "Search on Hypebeast";
-    private final ImageView wrappedSearchCloseBtn;
-    private final EditT wrappedEditText;
+    private ImageView wrappedSearchCloseBtn;
+    private EditT wrappedEditText;
     private TopBarManager.searchBarListener searchListener;
     private TV searchTextHint;
-    private final ActionBar control;
-    private final RelativeLayout rl;
+    private ActionBar control;
+    private RelativeLayout rl;
     private final Runnable fadeInDone = new Runnable() {
         @Override
         public void run() {
@@ -63,8 +49,9 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
             wrappedSearchCloseBtn.setEnabled(true);
         }
     };
-    private final View getview;
-    private final Context mcontext;
+    private View getview;
+    private Context mcontext;
+
 
     enum behavior {
         SHOW_KEYBOARD_BEFORE_ANIMATION,
@@ -73,9 +60,7 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
 
     private behavior keyboard_prioity;
 
-
-    @SuppressLint("WrongViewCast")
-    public SearchCustom(ActionBar ab, View getcustomview) {
+    public SearchCustom(View getcustomview) {
         getview = getcustomview;
         wrappedEditText = (EditT) getcustomview.findViewById(R.id.ios_actionbar_wrapped_search);
         wrappedEditText.addTextChangedListener(this);
@@ -89,8 +74,13 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
         rl.setAlpha(0f);
         rl.animate().alpha(1f).withEndAction(fadeInDone);
         revealWithAnimation(false);
-        control = ab;
         mcontext = getcustomview.getContext();
+    }
+
+    @SuppressLint("WrongViewCast")
+    public SearchCustom(ActionBar ab, View getcustomview) {
+        control = ab;
+        this(getcustomview);
     }
 
     @SuppressLint("WrongViewCast")
@@ -106,8 +96,6 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
 
                 @Override
                 public void onAnimationEnd(Animation animation) {
-                    // searchTextHint.setVisibility(View.GONE);
-                    // control.afterSearchBarShown(SearchCustomActionBar.this);
                     showkeyboard();
                 }
 
@@ -191,7 +179,8 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
         if (e.getId() == R.id.ios_search_close_btn) {
             if (searchListener != null) {
                 hidekeyboard();
-                control.invalidateOptionsMenu();
+                if (control != null)
+                    control.invalidateOptionsMenu();
                 searchListener.onRestoreToNormal(control);
             }
         }
@@ -233,13 +222,11 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
 
     @Override
     public void afterTextChanged(Editable editable) {
-
         if (editable.length() == 0) {
             searchTextHint.setText(getplaccholder());
         } else {
             searchTextHint.setText("");
         }
-
     }
 
     @Override

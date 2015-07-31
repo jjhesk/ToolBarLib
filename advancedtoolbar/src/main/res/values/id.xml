@@ -10,4 +10,9 @@
     <item name="liveicon_text" type="id" />
     <item name="liveicon_position" type="id" />
     <item name="liveicon_counterpanel" type="id" />
+
+    <item name="i_kl1" type="id" />
+    <item name="logo_k" type="id" />
+    <item name="i_kr2" type="id" />
+    <item name="i_kr1" type="id" />
 </resources>

@@ -11,6 +11,9 @@
             android:name=".MainActivity"
             android:label="@string/app_name" />
         <activity
+            android:name=".Main3"
+            android:label="@string/app_name" />
+        <activity
             android:name=".Main2"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay">

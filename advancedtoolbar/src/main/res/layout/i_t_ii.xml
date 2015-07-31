@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="48dp">
+
+    <ImageView
+        android:id="@id/i_kl1"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_action_find" />
+
+    <ImageView
+        android:id="@id/logo_k"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_toLeftOf="@id/i_kr2"
+        android:layout_toRightOf="@id/i_kl1"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/lni8" />
+
+    <ImageView
+        android:id="@id/i_kr2"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_toLeftOf="@id/i_kr1"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/ic_action_find" />
+
+    <ImageView
+        android:id="@id/i_kr1"
+        style="@style/Base.Widget.AppCompat.ActionButton"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentEnd="true"
+        android:scaleType="fitCenter"
+        android:src="@mipmap/cross_mi" />
+</RelativeLayout>

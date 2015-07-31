@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.V3.layout.CLayO;
 
 
 /**
@@ -23,6 +24,7 @@ public class LiveIcon {
     private ImageView image_view;
     private String holder_text = "w99";
     private Activity activity;
+    private CLayO usingOClay;
 
 
     public LiveIcon(final @LayoutRes int layout, final @DrawableRes int icon) {
@@ -41,6 +43,11 @@ public class LiveIcon {
         return this;
     }
 
+    public LiveIcon customact(final CLayO act) {
+        this.usingOClay = act;
+        return this;
+    }
+
     public void onOptionItemInit(final Menu m, final @IdRes int menuId) {
         MenuItem item = m.findItem(menuId);
         initView(item);
@@ -49,6 +56,11 @@ public class LiveIcon {
     public void update(final MenuItem m, final int _num) {
         holder_text = String.valueOf(_num);
         initView(m);
+    }
+
+    public void update(final int _num) {
+        holder_text = String.valueOf(_num);
+        this.usingOClay.updateNumber(holder_text);
     }
 
     private View initView(final MenuItem item_menu) {
