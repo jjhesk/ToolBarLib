@@ -2,6 +2,7 @@ package com.hkm.advancedtoolbar.V4;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
@@ -39,7 +40,10 @@ public class CandyBar implements View.OnClickListener, barControl {
     private final Context ctx;
     private final TopBarManager.searchBarListener searchListener;
     private final candyAll barlistener;
-    private int logo = 0, background = 0, icon = 0, customtitleview = 0, searchLayout = 0, burger = 0, toolbar_resid = 0, notification_count = 0;
+    private int logo = 0, background = 0, icon = 0, customtitleview = 0,
+            searchLayout = 0, burger = 0,
+            toolbar_resid = 0, notification_count = 0,
+            notification_color = 0;
     private final int window_default_configuration;
     private Builder mb;
     private String actionbartitle_current;
@@ -75,6 +79,7 @@ public class CandyBar implements View.OnClickListener, barControl {
         this.mainPreset = LayoutAsset.i_logo_ir;
         this.toolbar = toolbar;
         this.activity = activity;
+        this.notification_color = mb.n_color;
         if (mb.background != 0)
             toolbar.setBackgroundResource(mb.background);
         activity.setSupportActionBar(toolbar);
@@ -88,8 +93,12 @@ public class CandyBar implements View.OnClickListener, barControl {
 
     private void init() {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
+        View t;
+        if (this.toolbar_resid != 0) {
+            t = ToolbarHelper.renewView(activity, toolbar, this.toolbar_resid);
+        } else
+            t = ToolbarHelper.renewView(activity, toolbar, mainPreset);
 
-        View t = ToolbarHelper.renewView(activity, toolbar, mainPreset);
         if (burger != 0) toolbar.setNavigationIcon(burger);
         TintImageView k1 = (TintImageView) t.findViewById(R.id.i_kl1);
         TintImageView k2 = (TintImageView) t.findViewById(R.id.i_kr2);
@@ -130,6 +139,9 @@ public class CandyBar implements View.OnClickListener, barControl {
             ToolbarHelper.changeTopMargin(numberView,
                     ToolbarHelper.getDP(this.mb.offset_vertical,
                             activity.getResources()));
+
+        if (this.notification_color != 0)
+            numberView.setTextColor(activity.getResources().getColor(notification_color));
     }
 
     private void invalidateNotificationBox() {
@@ -174,7 +186,16 @@ public class CandyBar implements View.OnClickListener, barControl {
      */
     @Override
     public void onClick(View v) {
-
+        int i = v.getId();
+        if (barlistener != null) {
+            if (i == R.id.i_kl1) {
+                barlistener.left();
+            } else if (i == R.id.i_kr2) {
+                barlistener.right_second();
+            } else if (i == R.id.liveicon_counterpanel) {
+                barlistener.right_first();
+            }
+        }
     }
 
     @Override
@@ -231,7 +252,7 @@ public class CandyBar implements View.OnClickListener, barControl {
         private TopBarManager.searchBarListener listener;
         private int defaultconfig = 0, notification_drawable = 0,
                 logo = 0, background = 0, searchIcon = 0, searchlayout = 0,
-                offset_vertical = 0,
+                offset_vertical = 0, n_color = 0,
                 customtitleview = 0, burger = 0, toolbar_resid = 0,
                 k1 = 0, k2 = 0, k3 = 0, default_count = 0;
         private LayoutAsset layoutPreset;
@@ -320,20 +341,21 @@ public class CandyBar implements View.OnClickListener, barControl {
             return this;
         }
 
+        public Builder setNotifcationTextColor(final @ColorRes int m) {
+            this.n_color = m;
+            return this;
+        }
+
         public Builder setNotificationOffset(final int offset_margin_vertical) {
             this.offset_vertical = offset_margin_vertical;
             return this;
         }
 
-        public Builder externalLayoutOutToolBar(final @LayoutRes int resId) {
+        public Builder apply_full_custom_layout(final @LayoutRes int resId) {
             this.toolbar_resid = resId;
             return this;
         }
 
-        public Builder setOnCustomItemClickListener(final CLayO.OnInteract listener) {
-            this.customListener = listener;
-            return this;
-        }
 
         public Builder overrideIcons(final @DrawableRes int left, final @DrawableRes int right, final @DrawableRes int cart) {
             this.k1 = left;

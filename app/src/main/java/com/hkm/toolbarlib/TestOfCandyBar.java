@@ -1,5 +1,6 @@
 package com.hkm.toolbarlib;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
@@ -23,6 +24,7 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
     private Toolbar toolbar;
     private int u = 2;
 
+    @SuppressLint("ResourceAsColor")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +51,7 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
                             worker.showBack();
                         }
                     })
+                    .setNotifcationTextColor(R.color.main_background)
                     .setNotificationOffset(15)
                     .setNotificationDrawableId(R.drawable.notg)
                     .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)

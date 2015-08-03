@@ -30,6 +30,15 @@ public class ToolbarHelper {
         return t;
     }
 
+    public static View renewView(Context activity, Toolbar toolbar, final @LayoutRes int layoutId) {
+        toolbar.removeAllViews();
+        Toolbar.LayoutParams layoutParams = new Toolbar.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        layoutParams.gravity = Gravity.TOP;
+        final View t = ToolbarHelper.generateView(layoutId, activity);
+        toolbar.addView(t, layoutParams);
+        return t;
+    }
+
     public static int getDP(final int f, Resources res) {
         final int h = (int) res.getDisplayMetrics().density * f;
         return h;
