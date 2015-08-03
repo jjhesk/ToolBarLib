@@ -38,13 +38,11 @@ v0.2.1
 - [x] Center Textview alignment
 ![demo1](screenshot/device-2015-05-15-171739.png)
 
-
-
 - [x] Search pattern redesigned
-![demo2](screenshot/device-2015-05-15-171813.png)
+![demo3](screenshot/device-2015-05-15-171813.png)
 
-
-
+- [x] CandyBar implementation
+![this is the demo 2](screenshot/demo2.jpg)
 
 ##setup
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
@@ -186,7 +184,56 @@ There are several attributes you can set:
         return super.onOptionsItemSelected(item);
     }
 ```
+# Implementation for the Candy Bar
+```java
+   worker = CandyBar.Builder.with(this)
+                    .companyLogo(R.drawable.starz_logo)
+                    .searchView(LayoutAsset.classic_3)
+                    .searchBarEvents(new TopBarManager.searchBarListener() {
+                        @Override
+                        public void onKeySearchStartConfirm(String text) {
+                            Log.d("start", text);
+                        }
 
+                        @Override
+                        public void onKeySearchLetter(String text) {
+                            Log.d("start", text);
+                        }
+
+                        @Override
+                        public void onRestoreToNormal(ActionBar toolbar) {
+                            worker.showBack();
+                        }
+                    })
+                    .setNotificationOffset(15)
+                    .setNotificationDrawableId(R.drawable.notg)
+                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)
+                    .background(R.drawable.bottom_line)
+                    .presetCountNotification(u)
+                    .build(toolbar);
+
+```
+Other manipulations
+```java
+       //demo to show the title only
+              worker.showTitle("fill this up now");
+
+       //demo to show the title only
+              worker.showLogo();
+
+       //demo to show the title only
+              worker.triggerfromSearchIcon();
+
+       //demo to show the title only
+              worker.updateCount(u++);
+
+       //demo to show the title only
+              worker.updateCount(0);
+
+       //demo to show the previous layout
+              worker.showBack();
+
+```
 # Implementation for the social tool bar
 
 Add this component into your xml layout in anywhere

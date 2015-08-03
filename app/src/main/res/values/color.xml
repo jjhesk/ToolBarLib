@@ -23,6 +23,8 @@
     <color name="tabHostTextColor">@color/text_color_price</color>
     <color name="tabHostBackgroundColor">@color/common_background</color>
     <color name="tabHostAccentColor">@color/text_color_price</color>
+    <color name="pink_300_float">#99f06292</color>
+
     <!-- RED -->
     <color name="red_50">#fde0dc</color>
     <color name="red_100">#f9bdbb</color>

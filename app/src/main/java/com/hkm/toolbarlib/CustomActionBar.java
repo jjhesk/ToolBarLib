@@ -12,8 +12,6 @@ import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.advancedtoolbar.iOS.trigger;
 import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
-import com.mikepenz.actionitembadge.library.ActionItemBadge;
-import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 
 /**
  * Created by hesk on 12/5/15.
@@ -37,7 +35,7 @@ public class CustomActionBar extends AppCompatActivity {
             toolbar.colorize(R.color.grey_1000, this);
             setSupportActionBar(toolbar);
         } else {
-            setContentView(R.layout.activity_main);
+            setContentView(R.layout.ios_like_bar);
         }
 
         worker = new iOSActionBarWorker(getSupportActionBar());

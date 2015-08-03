@@ -8,30 +8,29 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
-import com.hkm.advancedtoolbar.V3.LiveIcon;
-import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
+import com.hkm.advancedtoolbar.V4.CandyBar;
 
 /**
- * Created by hesk on 16/7/15.
+ * Created by hesk on 3/8/15.
  */
-public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
-    private ActionBar actionbar;
-    private TopBarManager worker;
-    private LiveIcon dynamic_icon;
+public class TestOfCandyBar extends AppCompatActivity implements View.OnClickListener {
+    private CandyBar worker;
     private Toolbar toolbar;
+    private int u = 2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
         try {
-            worker = TopBarManager.Builder.with(this)
+            worker = CandyBar.Builder.with(this)
                     .companyLogo(R.drawable.starz_logo)
                     .searchView(LayoutAsset.classic_3)
                     .searchBarEvents(new TopBarManager.searchBarListener() {
@@ -50,29 +49,63 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
                             worker.showBack();
                         }
                     })
-                    .burgerIcon(R.mipmap.ic_action_share)
-                    .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)
-                    .setOnCustomItemClickListener(this)
-                    .setCustomMainBar(LayoutAsset.i_logo_ir)
-                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.cross_mi, R.mipmap.crossmp)
+                    .setNotificationOffset(15)
+                    .setNotificationDrawableId(R.drawable.notg)
+                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)
+                    .background(R.drawable.bottom_line)
+                    .presetCountNotification(u)
                     .build(toolbar);
-            //.externalLayoutOutToolBar(R.layout.topbarlayout)
-            dynamic_icon = worker.getDynamicIcon();
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+
+        Button b1 = (Button) findViewById(R.id.b1); //show title
+        Button b2 = (Button) findViewById(R.id.b2); //how main bar
+        Button b3 = (Button) findViewById(R.id.b3); //show search bar
+        Button b4 = (Button) findViewById(R.id.b4); //other function
+        Button b5 = (Button) findViewById(R.id.b5); //other function
+        b1.setOnClickListener(this);
+        b2.setOnClickListener(this);
+        b3.setOnClickListener(this);
+        b4.setOnClickListener(this);
+        b5.setOnClickListener(this);
     }
 
+    /**
+     * Called when a view has been clicked.
+     *
+     * @param v The view that was clicked.
+     */
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.b1:
+                worker.showTitle("fill this up now");
+                break;
+            case R.id.b2:
+                worker.showLogo();
+                break;
+            case R.id.b3:
+                worker.triggerfromSearchIcon();
+                break;
+            case R.id.b4:
+                worker.updateCount(u++);
+                break;
+            case R.id.b5:
+                worker.updateCount(0);
+                break;
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        // getMenuInflater().inflate(R.menu.main, menu);
-        // dynamic_icon.onOptionItemInit(menu, R.id.dynamic);
+        //getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
-    private int u = 2;
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -80,21 +113,14 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
         //noinspection SimplifiableIfStatement
         if (idt == R.id.action_search) {
             // worker.triggerfromSearchIcon(item);
-            worker.triggerForCustomExternalCustomView();
+            worker.triggerfromSearchIcon();
             return true;
         } else if (idt == R.id.custombar) {
             Intent g = new Intent(this, CustomActionBar.class);
             startActivity(g);
         } else if (idt == R.id.dynamic) {
-            dynamic_icon.update(item, u++);
+
         }
         return super.onOptionsItemSelected(item);
-    }
-
-    @Override
-    public void OnClick(int resId) {
-        if (resId == R.id.i_kl1) {
-            worker.triggerfromSearchIcon(null);
-        }
     }
 }

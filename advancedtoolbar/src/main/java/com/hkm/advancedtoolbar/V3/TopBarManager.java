@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
 import com.hkm.advancedtoolbar.V3.layout.SearchCustom;
-import com.hkm.advancedtoolbar.V3.layout.ToolbarHelper;
+import com.hkm.advancedtoolbar.ToolbarHelper;
 import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
 import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
@@ -29,7 +29,7 @@ import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 /**
  * Created by hesk on 16/7/15.
  */
-public class TopBarManager {
+public class TopBarManager implements barControl {
     private final AppCompatActivity activity;
     private final Toolbar toolbar;
     private final ActionBar actionbar;
@@ -173,17 +173,19 @@ public class TopBarManager {
     /**
      * custom internal layout - included in the library
      */
+    @Override
     public void triggerfromSearchIcon() {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
         actionbar.setDisplayHomeAsUpEnabled(false);
         actionbar.setDisplayShowHomeEnabled(false);
         toolbar.removeAllViews();
-       // toolbar.addView();
+        // toolbar.addView();
     }
 
     /**
      * triggered the traditional custom view
-     * @param meun
+     *
+     * @param meun the menu item in here
      */
     public void triggerfromSearchIcon(MenuItem meun) {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
@@ -194,7 +196,7 @@ public class TopBarManager {
         if (this.searchLayout != 0) {
             actionbar.setCustomView(this.searchLayout);
         }
-        search = new SearchCustom(actionbar, actionbar.getCustomView());
+        search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
         if (meun.isVisible()) {
@@ -223,7 +225,7 @@ public class TopBarManager {
         if (this.searchLayout != 0) {
             actionbar.setCustomView(this.searchLayout);
         }
-        search = new SearchCustom(actionbar, actionbar.getCustomView());
+        search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
         if (meun.isVisible()) {
@@ -271,12 +273,23 @@ public class TopBarManager {
 
     }
 
+    @Override
     public void showBack() {
         if (actionbartitle_current != null) {
             showCenterTitleNormalHome(actionbartitle_current);
         } else {
             showCompanyLogo();
         }
+    }
+
+    @Override
+    public void showLogo() {
+        showCompanyLogo();
+    }
+
+    @Override
+    public void showTitle(String title) {
+
     }
 
     /**

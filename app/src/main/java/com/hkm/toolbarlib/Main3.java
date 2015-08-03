@@ -25,7 +25,7 @@ public class Main3 extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.generl);
+        setContentView(R.layout.general);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
 
         try {

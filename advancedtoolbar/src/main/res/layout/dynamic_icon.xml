@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@id/liveicon_counterpanel"
-    style="?android:attr/actionButtonStyle"
-    android:layout_width="48dp"
+    style="@android:style/Widget.Holo.ActionButton"
+    android:layout_width="wrap_content"
     android:layout_height="48dp"
     android:clickable="true"
     android:focusable="true"
@@ -11,8 +11,9 @@
 
     <ImageView
         android:id="@id/liveiconloc"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:minWidth="48dp"
         android:scaleType="centerInside" />
 
     <RelativeLayout
@@ -23,12 +24,14 @@
 
         <TextView
             android:id="@id/liveicon_text"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
+            android:paddingBottom="3dp"
+            android:paddingTop="3dp"
             android:text="88+"
             android:textColor="#FFFFFF"
-            android:textSize="15dp" />
+            android:textSize="12dp" />
     </RelativeLayout>
 </FrameLayout>

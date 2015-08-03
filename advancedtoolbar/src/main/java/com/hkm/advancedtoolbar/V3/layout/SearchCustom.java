@@ -77,11 +77,6 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
         mcontext = getcustomview.getContext();
     }
 
-    @SuppressLint("WrongViewCast")
-    public SearchCustom(ActionBar ab, View getcustomview) {
-        control = ab;
-        this(getcustomview);
-    }
 
     @SuppressLint("WrongViewCast")
     protected void revealWithAnimation(boolean bool) {

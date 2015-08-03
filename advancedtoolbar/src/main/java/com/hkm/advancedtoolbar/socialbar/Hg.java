@@ -7,13 +7,10 @@ import com.hkm.advancedtoolbar.R;
 
 /**
  * Created by hesk on 24/7/15.
- * <p/>
  * com.facebook.messenger.intents.ShareIntentHandler
  * com.facebook.orca
- * <p/>
  * jp.naver.line.android.activity.selectchat.SelectChatActivity
  * jp.naver.line.android
- * <p/>
  * com.pinterest.activity.create.PinItActivity
  * com.pinterest
  */

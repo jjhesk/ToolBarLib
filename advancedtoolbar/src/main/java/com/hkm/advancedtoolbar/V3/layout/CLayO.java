@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.ToolbarHelper;
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
 
@@ -95,8 +96,6 @@ public class CLayO implements manifestlayout, View.OnClickListener {
             k1.setOnClickListener(this);
             k2.setOnClickListener(this);
             dynamic_button_frame.setOnClickListener(this);
-        } else if (layoutRes == LayoutAsset.classic_3) {
-            mSearchCustom = new SearchCustom()
         }
 
         return t;

@@ -11,7 +11,7 @@ import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
 
-public class MainActivity extends AppCompatActivity {
+public class Main4 extends AppCompatActivity {
     private advBar toolbar;
     private ActionBar actionbar;
     private iOSActionBarWorker worker;
@@ -19,10 +19,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-       /* toolbar = (advBar) findViewById(R.id.toolbar);
-        toolbar.colorize(R.color.red_300, this);
-        setSupportActionBar(toolbar);*/
+        setContentView(R.layout.ios_like_bar);
         actionbar = getSupportActionBar();
         worker = new iOSActionBarWorker(actionbar);
         worker.setSearchEngineListener(new actionSupportForAppCompatActivity(this));

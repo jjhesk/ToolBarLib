@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="48dp">
 
-    <ImageView
+    <android.support.v7.internal.widget.TintImageView
         android:id="@id/i_kl1"
-        style="@style/Base.Widget.AppCompat.ActionButton"
-        android:layout_width="48dp"
+        style="@android:style/Widget.Holo.ActionButton"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:scaleType="fitCenter"
+        android:minWidth="48dp"
+        android:scaleType="centerInside"
         android:src="@mipmap/ic_action_find" />
 
     <ImageView
@@ -21,14 +22,37 @@
         android:scaleType="fitCenter"
         android:src="@mipmap/lni8" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/i_text_wide"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_toLeftOf="@id/i_kr2"
+        android:layout_toRightOf="@id/i_kl1"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="demo here"
+        android:textAlignment="center"
+        android:textSize="24sp"
+        android:visibility="visible" />
+
+    <android.support.v7.internal.widget.TintImageView
         android:id="@id/i_kr2"
-        style="@style/Base.Widget.AppCompat.ActionButton"
-        android:layout_width="48dp"
+        style="@android:style/Widget.Holo.ActionButton"
+        android:layout_width="wrap_content"
         android:layout_height="48dp"
         android:layout_toLeftOf="@+id/g"
-        android:scaleType="fitCenter"
+        android:minWidth="48dp"
+        android:scaleType="centerInside"
         android:src="@mipmap/ic_action_find" />
+    <!--
+     <ImageView
+            android:id="@id/i_kr2"
+            style="@style/Base.Widget.AppCompat.ActionButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_toLeftOf="@+id/g"
+            android:scaleType="fitCenter"
+            android:src="@mipmap/ic_action_find" />
+    -->
 
     <RelativeLayout
         android:id="@+id/g"

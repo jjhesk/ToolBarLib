@@ -14,7 +14,7 @@ import com.hkm.advancedtoolbar.Util.SearchActionBar;
  */
 public class SearchViewImple<TAppcompat extends AppCompatActivity> implements SearchActionBar.OnSearchListener {
     private SearchActionBar searchView;
-    private MainActivity mmainActivity;
+    private Main4 mmainActivity;
     private String TAG = "search_tag";
 
     public SearchViewImple(MenuItem findelement, TAppcompat mainActivity) {
