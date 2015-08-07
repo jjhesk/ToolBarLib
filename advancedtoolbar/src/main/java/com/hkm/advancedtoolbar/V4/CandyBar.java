@@ -377,8 +377,10 @@ public class CandyBar implements View.OnClickListener, barControl {
         }
 
         public CandyBar build(Toolbar thetoolbar) throws Exception {
-            if (this.listener == null) throw new Exception("listener is not setup");
-            if (thetoolbar == null) throw new Exception("ToolBar is not setup");
+            if (this.listener == null && this.main_layout == LayoutAsset.i_logo_ir)
+                throw new Exception("listener is not setup");
+            if (thetoolbar == null)
+                throw new Exception("ToolBar is not setup");
             if (defaultconfig == 0)
                 defaultconfig = ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_SHOW_HOME;
             return new CandyBar(ctx, thetoolbar, this);
