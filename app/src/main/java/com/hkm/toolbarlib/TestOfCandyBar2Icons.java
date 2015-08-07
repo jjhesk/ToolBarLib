@@ -17,9 +17,9 @@ import com.hkm.advancedtoolbar.V3.TopBarManager;
 import com.hkm.advancedtoolbar.V4.CandyBar;
 
 /**
- * Created by hesk on 3/8/15.
+ * Created by hesk on 7/8/15.
  */
-public class TestOfCandyBar extends AppCompatActivity implements View.OnClickListener {
+public class TestOfCandyBar2Icons extends AppCompatActivity implements View.OnClickListener {
     private CandyBar worker;
     private Toolbar toolbar;
     private int u = 2;
@@ -54,7 +54,7 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
                     .setNotifcationTextColor(R.color.main_background)
                     .setNotificationOffset(15)
                     .setNotificationDrawableId(R.drawable.notg)
-                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)
+                    .overrideIcons(R.mipmap.ic_action_close, R.mipmap.crossmp)
                     .background(R.drawable.bottom_line)
                     .presetCountNotification(u)
                     .build(toolbar);
@@ -69,13 +69,14 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
         Button b3 = (Button) findViewById(R.id.b3); //show search bar
         Button b4 = (Button) findViewById(R.id.b4); //other function
         Button b5 = (Button) findViewById(R.id.b5); //other function
-        Button bxx = (Button) findViewById(R.id.bxx); //other function
+        Button bx = (Button) findViewById(R.id.bxx); //other function
+        bx.setText("close this App");
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
         b3.setOnClickListener(this);
         b4.setOnClickListener(this);
         b5.setOnClickListener(this);
-        bxx.setOnClickListener(this);
+        bx.setOnClickListener(this);
     }
 
     /**
@@ -102,11 +103,11 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
                 worker.updateCount(0);
                 break;
             case R.id.bxx:
-                Intent g = new Intent(this, TestOfCandyBar2Icons.class);
-                startActivity(g);
+                finish();
                 break;
         }
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

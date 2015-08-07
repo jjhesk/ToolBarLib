@@ -40,7 +40,7 @@ public class CandyBar implements View.OnClickListener, barControl {
     private final Context ctx;
     private final TopBarManager.searchBarListener searchListener;
     private final candyAll barlistener;
-    private int logo = 0, background = 0, icon = 0, customtitleview = 0,
+    private int logo = 0, background = 0, customtitleview = 0,
             searchLayout = 0, burger = 0,
             toolbar_resid = 0, notification_count = 0,
             notification_color = 0;
@@ -66,7 +66,7 @@ public class CandyBar implements View.OnClickListener, barControl {
         this.ctx = mb.ctx;
         this.searchListener = mb.listener;
         this.background = mb.background;
-        this.icon = mb.searchIcon;
+
         this.searchLayoutPreset = mb.layoutPreset;
         this.searchHint = mb.searchHint;
         this.burger = mb.burger;
@@ -76,7 +76,7 @@ public class CandyBar implements View.OnClickListener, barControl {
         this.toolbar_resid = mb.toolbar_resid;
         this.barlistener = mb.candyBarListener;
         this.notification_count = mb.default_count;
-        this.mainPreset = LayoutAsset.i_logo_ir;
+        this.mainPreset = mb.main_layout;
         this.toolbar = toolbar;
         this.activity = activity;
         this.notification_color = mb.n_color;
@@ -100,32 +100,36 @@ public class CandyBar implements View.OnClickListener, barControl {
             t = ToolbarHelper.renewView(activity, toolbar, mainPreset);
 
         if (burger != 0) toolbar.setNavigationIcon(burger);
-        TintImageView k1 = (TintImageView) t.findViewById(R.id.i_kl1);
-        TintImageView k2 = (TintImageView) t.findViewById(R.id.i_kr2);
+
 
         FrameLayout dynamic_button_frame = (FrameLayout) t.findViewById(R.id.liveicon_counterpanel);
-
         ImageView k3 = (ImageView) t.findViewById(R.id.liveiconloc);
-
         prepareNotificationCustomization(t);
         invalidateNotificationBox();
         logoview = (ImageView) t.findViewById(R.id.logo_k);
         if (logo != 0)
             logoview.setImageResource(logo);
-
+        TintImageView k2 = (TintImageView) t.findViewById(R.id.i_kr2);
         final int[] overrides = mb.getOverrideIcons_i_t_ii();
+        if (mainPreset == LayoutAsset.i_logo_ir) {
+            TintImageView k1 = (TintImageView) t.findViewById(R.id.i_kl1);
+            if (overrides[0] != 0)
+                k1.setImageResource(overrides[0]);
+            k1.setOnClickListener(this);
+            if (overrides[1] != 0)
+                k2.setImageResource(overrides[1]);
+            if (overrides[2] != 0)
+                k3.setImageResource(overrides[2]);
+        }
 
-        if (overrides[0] != 0)
-            k1.setImageResource(overrides[0]);
-
-        if (overrides[1] != 0)
-            k2.setImageResource(overrides[1]);
-
-        if (overrides[2] != 0)
-            k3.setImageResource(overrides[2]);
+        if (mainPreset == LayoutAsset.i_logo_ir2) {
+            if (overrides[0] != 0)
+                k2.setImageResource(overrides[0]);
+            if (overrides[1] != 0)
+                k3.setImageResource(overrides[1]);
+        }
 
         titlebar = (TextView) t.findViewById(R.id.i_text_wide);
-        k1.setOnClickListener(this);
         k2.setOnClickListener(this);
         dynamic_button_frame.setOnClickListener(this);
 
@@ -251,11 +255,11 @@ public class CandyBar implements View.OnClickListener, barControl {
         private SearchCustom search;
         private TopBarManager.searchBarListener listener;
         private int defaultconfig = 0, notification_drawable = 0,
-                logo = 0, background = 0, searchIcon = 0, searchlayout = 0,
+                logo = 0, background = 0, searchlayout = 0,
                 offset_vertical = 0, n_color = 0,
                 customtitleview = 0, burger = 0, toolbar_resid = 0,
                 k1 = 0, k2 = 0, k3 = 0, default_count = 0;
-        private LayoutAsset layoutPreset;
+        private LayoutAsset layoutPreset, main_layout;
         private String searchHint;
         private ActionItemBadgeAdder iconbadget;
         private LiveIcon icon;
@@ -281,10 +285,6 @@ public class CandyBar implements View.OnClickListener, barControl {
             return this;
         }
 
-        public Builder searchMagnetifyIcon(final @DrawableRes int icon) {
-            this.searchIcon = icon;
-            return this;
-        }
 
         public Builder customTitleView(final @LayoutRes int customTitleView) {
             this.customtitleview = customTitleView;
@@ -356,11 +356,18 @@ public class CandyBar implements View.OnClickListener, barControl {
             return this;
         }
 
+        public Builder overrideIcons(final @DrawableRes int right, final @DrawableRes int cart) {
+            this.k2 = right;
+            this.k3 = cart;
+            this.main_layout = LayoutAsset.i_logo_ir2;
+            return this;
+        }
 
         public Builder overrideIcons(final @DrawableRes int left, final @DrawableRes int right, final @DrawableRes int cart) {
             this.k1 = left;
             this.k2 = right;
             this.k3 = cart;
+            this.main_layout = LayoutAsset.i_logo_ir;
             return this;
         }
 
@@ -378,7 +385,10 @@ public class CandyBar implements View.OnClickListener, barControl {
         }
 
         public int[] getOverrideIcons_i_t_ii() {
-            return new int[]{k1, k2, k3};
+            if (k1 == 0) {
+                return new int[]{k2, k3};
+            } else
+                return new int[]{k1, k2, k3};
         }
     }
 }

@@ -15,6 +15,9 @@ Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB][2]
 
 ##Features
+v0.3.8
+- [x] added two icons only on the right side support.
+
 v0.3.5
 - [x] added dynamic icon for the toolbar.
 - [x] modified TopBarManager for the initation method.
@@ -47,13 +50,14 @@ v0.2.1
 ##setup
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
 X.X.X please check out the above version name.
+
 ```gradle
 repositories {
     maven {  url "http://dl.bintray.com/jjhesk/maven"  }
 }
 
 dependencies {
-     compile 'ToolBarLib:advancedtoolbar:0.3.5'
+     compile 'ToolBarLib:advancedtoolbar:0.3.8'
 }
 
 ```
