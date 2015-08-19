@@ -13,6 +13,8 @@ import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.LiveIcon;
 import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
+import com.hkm.advancedtoolbar.V3.layout.SimpleSearchCallBack;
+import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 
 /**
  * Created by hesk on 16/7/15.
@@ -34,7 +36,7 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
             worker = TopBarManager.Builder.with(this)
                     .companyLogo(R.drawable.starz_logo)
                     .searchView(LayoutAsset.classic_3)
-                    .searchBarEvents(new TopBarManager.searchBarListener() {
+                    .searchBarEvents(new SimpleSearchCallBack() {
                         @Override
                         public void onKeySearchStartConfirm(String text) {
                             Log.d("start", text);
@@ -48,6 +50,11 @@ public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
                         @Override
                         public void onRestoreToNormal(ActionBar toolbar) {
                             worker.showBack();
+                        }
+
+                        @Override
+                        public void onPressSearchButton(ActionBar toolbar) {
+
                         }
                     })
                     .burgerIcon(R.mipmap.ic_action_share)

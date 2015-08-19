@@ -2,17 +2,12 @@ package com.hkm.advancedtoolbar.V3.layout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.os.Handler;
-import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.KeyEvent;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -24,21 +19,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
-import com.hkm.advancedtoolbar.V3.TopBarManager;
-import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
-import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
-import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 
 /**
  * Created by hesk on 16/7/15.
  */
 public class SearchCustom<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
 
-
     private String default_placeholder = "Search on Hypebeast";
     private ImageView wrappedSearchCloseBtn;
     private EditT wrappedEditText;
-    private TopBarManager.searchBarListener searchListener;
+    private commonSearchBarMgr searchListener;
     private TV searchTextHint;
     private ActionBar control;
     private RelativeLayout rl;
@@ -113,7 +103,7 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
      *
      * @param searchListener the search listener to be used on this search
      */
-    public void setOnSearchListener(TopBarManager.searchBarListener searchListener) {
+    public void setOnSearchListener(commonSearchBarMgr searchListener) {
         this.searchListener = searchListener;
     }
 

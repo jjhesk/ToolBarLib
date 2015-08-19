@@ -14,6 +14,7 @@ import android.widget.Button;
 
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
+import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 import com.hkm.advancedtoolbar.V4.CandyBar;
 
 /**
@@ -35,7 +36,7 @@ public class TestOfCandyBar2Icons extends AppCompatActivity implements View.OnCl
             worker = CandyBar.Builder.with(this)
                     .companyLogo(R.drawable.starz_logo)
                     .searchView(LayoutAsset.classic_3)
-                    .searchBarEvents(new TopBarManager.searchBarListener() {
+                    .searchBarEvents(new commonSearchBarMgr() {
                         @Override
                         public void onKeySearchStartConfirm(String text) {
                             Log.d("start", text);
@@ -49,6 +50,11 @@ public class TestOfCandyBar2Icons extends AppCompatActivity implements View.OnCl
                         @Override
                         public void onRestoreToNormal(ActionBar toolbar) {
                             worker.showBack();
+                        }
+
+                        @Override
+                        public void onPressSearchButton(ActionBar toolbar) {
+
                         }
                     })
                     .setNotifcationTextColor(R.color.main_background)

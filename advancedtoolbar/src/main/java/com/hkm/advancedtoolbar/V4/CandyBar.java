@@ -13,17 +13,16 @@ import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.LiveIcon;
-import com.hkm.advancedtoolbar.V3.TopBarManager;
-import com.hkm.advancedtoolbar.V3.barControl;
+import com.hkm.advancedtoolbar.V3.layout.barControl;
 import com.hkm.advancedtoolbar.V3.layout.CLayO;
-import com.hkm.advancedtoolbar.V3.layout.SearchCustom;
 import com.hkm.advancedtoolbar.ToolbarHelper;
+import com.hkm.advancedtoolbar.V3.layout.SearchCustom;
+import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
 import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 
@@ -38,7 +37,7 @@ public class CandyBar implements View.OnClickListener, barControl {
     private final Toolbar toolbar;
     private final ActionBar actionbar;
     private final Context ctx;
-    private final TopBarManager.searchBarListener searchListener;
+    private final commonSearchBarMgr searchListener;
     private final candyAll barlistener;
     private int logo = 0, background = 0, customtitleview = 0,
             searchLayout = 0, burger = 0,
@@ -253,7 +252,7 @@ public class CandyBar implements View.OnClickListener, barControl {
     public static class Builder {
         private AppCompatActivity ctx;
         private SearchCustom search;
-        private TopBarManager.searchBarListener listener;
+        private commonSearchBarMgr listener;
         private int defaultconfig = 0, notification_drawable = 0,
                 logo = 0, background = 0, searchlayout = 0,
                 offset_vertical = 0, n_color = 0,
@@ -306,7 +305,7 @@ public class CandyBar implements View.OnClickListener, barControl {
             return this;
         }
 
-        public Builder searchBarEvents(TopBarManager.searchBarListener listener) {
+        public Builder searchBarEvents(commonSearchBarMgr listener) {
             this.listener = listener;
             return this;
         }

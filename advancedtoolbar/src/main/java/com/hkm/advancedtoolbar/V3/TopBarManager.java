@@ -23,6 +23,8 @@ import com.hkm.advancedtoolbar.R;
 import com.hkm.advancedtoolbar.V3.layout.SearchCustom;
 import com.hkm.advancedtoolbar.ToolbarHelper;
 import com.hkm.advancedtoolbar.V3.layout.CLayO;
+import com.hkm.advancedtoolbar.V3.layout.barControl;
+import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 import com.hkm.advancedtoolbar.iOS.ActionBarActionListener;
 import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 
@@ -34,7 +36,7 @@ public class TopBarManager implements barControl {
     private final Toolbar toolbar;
     private final ActionBar actionbar;
     private final Context ctx;
-    private final searchBarListener listener;
+    private final commonSearchBarMgr listener;
     private int logo = 0, background = 0, icon = 0, customtitleview = 0, searchLayout = 0, burger = 0, toolbar_resid = 0;
     private Builder mb;
     private String actionbartitle_current;
@@ -215,7 +217,6 @@ public class TopBarManager implements barControl {
         //   h.bringToFront();
     }
 
-
     public void triggerfromSearchIconV2(MenuItem meun) {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setDisplayShowCustomEnabled(true);
@@ -228,6 +229,7 @@ public class TopBarManager implements barControl {
         search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
+        listener.onPressSearchButton(actionbar);
         if (meun.isVisible()) {
             meun.setVisible(false);
         }
@@ -314,19 +316,11 @@ public class TopBarManager implements barControl {
         actionbar.setLogo(newCompanyLogo);
     }
 
-    public interface searchBarListener {
-        void onKeySearchStartConfirm(String text);
-
-        void onKeySearchLetter(String text);
-
-        void onRestoreToNormal(ActionBar toolbar);
-
-    }
 
     public static class Builder {
         private AppCompatActivity ctx;
         private SearchCustom search;
-        private searchBarListener listener;
+        private commonSearchBarMgr listener;
         private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchlayout = 0, customtitleview = 0, burger = 0, toolbar_resid = 0, k1 = 0, k2 = 0, k3 = 0;
         private LayoutAsset layoutPreset, startheadr;
         private String searchHint;
@@ -382,7 +376,7 @@ public class TopBarManager implements barControl {
             return this;
         }
 
-        public Builder searchBarEvents(searchBarListener listener) {
+        public Builder searchBarEvents(commonSearchBarMgr listener) {
             this.listener = listener;
             return this;
         }

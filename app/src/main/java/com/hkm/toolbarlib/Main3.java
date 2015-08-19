@@ -12,6 +12,8 @@ import android.view.MenuItem;
 import com.hkm.advancedtoolbar.V3.LayoutAsset;
 import com.hkm.advancedtoolbar.V3.LiveIcon;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
+import com.hkm.advancedtoolbar.V3.layout.SimpleSearchCallBack;
+import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 
 /**
  * Created by hesk on 31/7/15.
@@ -32,7 +34,7 @@ public class Main3 extends AppCompatActivity {
             worker = TopBarManager.Builder.with(this)
                     .companyLogo(R.drawable.starz_logo)
                     .searchView(LayoutAsset.classic_3)
-                    .searchBarEvents(new TopBarManager.searchBarListener() {
+                    .searchBarEvents(new SimpleSearchCallBack() {
                         @Override
                         public void onKeySearchStartConfirm(String text) {
                             Log.d("start", text);
@@ -46,6 +48,11 @@ public class Main3 extends AppCompatActivity {
                         @Override
                         public void onRestoreToNormal(ActionBar toolbar) {
                             worker.showBack();
+                        }
+
+                        @Override
+                        public void onPressSearchButton(ActionBar toolbar) {
+
                         }
                     })
                     .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)
