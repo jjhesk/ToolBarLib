@@ -18,7 +18,7 @@ import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 /**
  * Created by hesk on 31/7/15.
  */
-public class Main3 extends AppCompatActivity {
+public class TopBarManagerExample extends AppCompatActivity {
     private ActionBar actionbar;
     private TopBarManager worker;
     private LiveIcon dynamic_icon;
@@ -52,7 +52,7 @@ public class Main3 extends AppCompatActivity {
 
                         @Override
                         public void onPressSearchButton(ActionBar toolbar) {
-
+                            Log.d("tolk", toolbar.toString());
                         }
                     })
                     .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)

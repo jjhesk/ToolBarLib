@@ -25,15 +25,15 @@ public class mainMenu extends AppCompatActivity {
     }
 
     public void main3(View view) {
-        startApp(Main3.class);
+        startApp(TopBarManagerExample.class);
     }
 
     public void main2(View view) {
-        startApp(Main2.class);
+        startApp(TopBarManagerExampleFull.class);
     }
 
     public void main4(View view) {
-        startApp(Main4.class);
+        startApp(iOSActionBarWorkerExample.class);
     }
 
     public void candybarimple(View view) {

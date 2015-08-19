@@ -19,7 +19,7 @@ import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
 /**
  * Created by hesk on 16/7/15.
  */
-public class Main2 extends AppCompatActivity implements CLayO.OnInteract {
+public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO.OnInteract {
     private ActionBar actionbar;
     private TopBarManager worker;
     private LiveIcon dynamic_icon;

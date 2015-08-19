@@ -54,7 +54,7 @@ public class TestOfCandyBar2Icons extends AppCompatActivity implements View.OnCl
 
                         @Override
                         public void onPressSearchButton(ActionBar toolbar) {
-
+                            Log.d("addNow", toolbar.toString());
                         }
                     })
                     .setNotifcationTextColor(R.color.main_background)

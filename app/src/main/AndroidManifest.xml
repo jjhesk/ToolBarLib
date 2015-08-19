@@ -8,15 +8,15 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Main4"
+            android:name=".iOSActionBarWorkerExample"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay" />
         <activity
-            android:name=".Main3"
+            android:name=".TopBarManagerExample"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay" />
         <activity
-            android:name=".Main2"
+            android:name=".TopBarManagerExampleFull"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay" />
         <activity

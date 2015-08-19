@@ -11,7 +11,7 @@ import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
 
-public class Main4 extends AppCompatActivity {
+public class iOSActionBarWorkerExample extends AppCompatActivity {
     private advBar toolbar;
     private ActionBar actionbar;
     private iOSActionBarWorker worker;
