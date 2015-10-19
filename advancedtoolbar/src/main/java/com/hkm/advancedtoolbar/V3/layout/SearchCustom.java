@@ -2,7 +2,12 @@ package com.hkm.advancedtoolbar.V3.layout;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.os.Handler;
+import android.support.annotation.ColorInt;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -26,7 +31,7 @@ import com.hkm.advancedtoolbar.R;
 public class SearchCustom<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
 
     private String default_placeholder = "Search on Hypebeast";
-    private ImageView wrappedSearchCloseBtn;
+    private ImageView wrappedSearchCloseBtn, searchMagnifyIcon;
     private EditT wrappedEditText;
     private commonSearchBarMgr searchListener;
     private TV searchTextHint;
@@ -42,6 +47,39 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
     private View getview;
     private Context mcontext;
 
+    public void setCrossColorResId(@ColorRes int color) {
+        int the_color = mcontext.getResources().getColor(color);
+        setCrossColor(the_color);
+    }
+
+    public void setCrossColor(@ColorInt int the_color) {
+        if (wrappedSearchCloseBtn != null && the_color != 0) {
+            wrappedSearchCloseBtn.setColorFilter(the_color, PorterDuff.Mode.SRC_IN);
+        }
+    }
+
+    public void setSearchIcon(@DrawableRes int drawable) {
+        if (searchMagnifyIcon != null && drawable != 0) {
+            searchMagnifyIcon.setImageResource(drawable);
+        }
+    }
+
+    public void setSearchArea(@DrawableRes int drawable) {
+        if (wrappedEditText != null && drawable != 0) {
+            wrappedEditText.setBackgroundResource(drawable);
+        }
+    }
+
+    public void setSearchIconColorResId(@ColorRes int color) {
+        int the_color = mcontext.getResources().getColor(color);
+        setSearchIconColor(the_color);
+    }
+
+    public void setSearchIconColor(@ColorInt int the_color) {
+        if (searchMagnifyIcon != null) {
+            searchMagnifyIcon.setColorFilter(the_color, PorterDuff.Mode.SRC_IN);
+        }
+    }
 
     enum behavior {
         SHOW_KEYBOARD_BEFORE_ANIMATION,
@@ -56,6 +94,7 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
         wrappedEditText.addTextChangedListener(this);
         wrappedEditText.setOnEditorActionListener(this);
         wrappedSearchCloseBtn = (ImageView) getcustomview.findViewById(R.id.ios_search_close_btn);
+        searchMagnifyIcon = (ImageView) getcustomview.findViewById(R.id.ios_find_icon);
         wrappedSearchCloseBtn.setOnClickListener(this);
         wrappedEditText.setEnabled(false);
         wrappedSearchCloseBtn.setEnabled(false);
@@ -129,8 +168,9 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
      * @param placeholder the placeholder
      * @see #setSearchPlaceholder(int)
      */
-    public void setSearchPlaceholder(CharSequence placeholder) {
-        wrappedEditText.setHint(placeholder);
+    public void setSearchPlaceholder(@Nullable CharSequence placeholder) {
+        if (placeholder != null)
+            wrappedEditText.setHint(placeholder);
     }
 
     /**
@@ -142,7 +182,6 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
     public void setSearchPlaceholder(int placeholderRes) {
         wrappedEditText.setHint(placeholderRes);
     }
-
 
     protected String getplaccholder() {
         return default_placeholder;

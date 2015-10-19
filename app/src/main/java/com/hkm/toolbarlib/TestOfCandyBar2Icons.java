@@ -63,6 +63,7 @@ public class TestOfCandyBar2Icons extends AppCompatActivity implements View.OnCl
                     .overrideIcons(R.mipmap.ic_action_close, R.mipmap.crossmp)
                     .background(R.drawable.bottom_line)
                     .presetCountNotification(u)
+
                     .build(toolbar);
 
         } catch (Exception e) {

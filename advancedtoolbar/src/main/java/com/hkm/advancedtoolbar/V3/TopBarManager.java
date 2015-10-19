@@ -4,11 +4,16 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.res.Resources;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.support.annotation.AttrRes;
+import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -57,7 +62,7 @@ public class TopBarManager implements barControl {
         this.ctx = mb.ctx;
         this.listener = mb.listener;
         this.background = mb.background;
-        this.icon = mb.searchIcon;
+
         this.layoutPreset = mb.layoutPreset;
         this.mainPreset = mb.startheadr;
         this.searchHint = mb.searchHint;
@@ -104,6 +109,24 @@ public class TopBarManager implements barControl {
         }
     }
 
+    private Resources.Theme themeLoad;
+
+    protected TypedValue getFromField(@AttrRes int attrId) {
+        TypedValue typedValue = new TypedValue();
+        if (themeLoad == null) {
+            themeLoad = ctx.getTheme();
+        }
+        themeLoad.resolveAttribute(R.attr.iOSSearchBarStyle, typedValue, true);
+        return typedValue;
+    }
+
+    @ColorRes
+    protected int getCrossFromTheme() {
+        if (theme_SearchBarStyle != null) {
+            return theme_SearchBarStyle.getResourceId(R.styleable.SearchBarStyle_search_bar_close_btn_color, 0);
+        }
+        return 0;
+    }
 
     /**
      * get hint color
@@ -116,11 +139,8 @@ public class TopBarManager implements barControl {
         Resources.Theme theme = ctx.getTheme();
         TypedValue typedValue = new TypedValue();
 
-        theme.resolveAttribute(R.attr.iOSSearchBarStyle, typedValue, true);
-        theme_SearchBarStyle = theme.obtainStyledAttributes(typedValue.resourceId, R.styleable.SearchBarStyle);
-        if (theme_SearchBarStyle != null) {
+        theme_SearchBarStyle = theme.obtainStyledAttributes(getFromField(R.attr.iOSSearchBarStyle).resourceId, R.styleable.SearchBarStyle);
 
-        }
         theme.resolveAttribute(R.attr.iOSActionBarCompanyLogo, typedValue, true);
         if (typedValue.data != 0) {
             logo = typedValue.data;
@@ -145,6 +165,7 @@ public class TopBarManager implements barControl {
             customtitleview = mb.customtitleview;
         } else
             customtitleview = R.layout.centertextview;
+
 
     }
 
@@ -201,6 +222,14 @@ public class TopBarManager implements barControl {
         search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
+        int colorRes = getCrossFromTheme();
+        if (colorRes != 0) {
+            search.setCrossColorResId(colorRes);
+        } else {
+            search.setCrossColorResId(mb.searchCancalIconColorId);
+        }
+        search.setSearchIcon(mb.searchIcon);
+        search.setSearchArea(mb.searchArea);
         if (meun.isVisible()) {
             meun.setVisible(false);
         }
@@ -229,6 +258,11 @@ public class TopBarManager implements barControl {
         search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
+        int colorRes = getCrossFromTheme();
+        if (colorRes != 0) {
+            search.setCrossColorResId(colorRes);
+        }
+
         listener.onPressSearchButton(actionbar);
         if (meun.isVisible()) {
             meun.setVisible(false);
@@ -266,7 +300,6 @@ public class TopBarManager implements barControl {
         if (ablistener != null) {
             ablistener.onShowCenterTextActionBar(actionbar, title);
         }
-
 
         if (burger != 0) toolbar.setNavigationIcon(burger);
         actionbar.setDisplayShowTitleEnabled(true);
@@ -321,7 +354,7 @@ public class TopBarManager implements barControl {
         private AppCompatActivity ctx;
         private SearchCustom search;
         private commonSearchBarMgr listener;
-        private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchlayout = 0, customtitleview = 0, burger = 0, toolbar_resid = 0, k1 = 0, k2 = 0, k3 = 0;
+        private int defaultconfig, logo = 0, background = 0, searchIcon = 0, searchCancelIconId = 0, searchArea=0, searchCancalIconColorId = 0, searchlayout = 0, customtitleview = 0, burger = 0, toolbar_resid = 0, k1 = 0, k2 = 0, k3 = 0;
         private LayoutAsset layoutPreset, startheadr;
         private String searchHint;
         private ActionItemBadgeAdder iconbadget;
@@ -348,6 +381,21 @@ public class TopBarManager implements barControl {
 
         public Builder searchMagnetifyIcon(final @DrawableRes int icon) {
             this.searchIcon = icon;
+            return this;
+        }
+
+        public Builder searchCancelColorId(final @ColorRes int color) {
+            this.searchCancalIconColorId = color;
+            return this;
+        }
+
+        public Builder searchCancalIconColorId(final @DrawableRes int icon) {
+            this.searchCancelIconId = icon;
+            return this;
+        }
+
+        public Builder searchArea(final @DrawableRes int icon) {
+            this.searchArea = icon;
             return this;
         }
 
@@ -447,6 +495,7 @@ public class TopBarManager implements barControl {
             return new TopBarManager(ctx, thetoolbar, this);
         }
 
+        @DrawableRes
         public int getCompanyLogoRes() {
             return logo;
         }

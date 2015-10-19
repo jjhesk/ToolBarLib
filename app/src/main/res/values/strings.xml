@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">ToolbarLib</string>
+    <string name="app_name">Tool Bar Library Demo</string>
     <string name="accessibility_overflow">Accessibility Overflow</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
