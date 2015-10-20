@@ -6,7 +6,7 @@
 
 
     <ImageView
-        android:id="@+id/facebook"
+        android:id="@id/social_bar_facebook"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"
@@ -15,7 +15,7 @@
 
 
     <ImageView
-        android:id="@+id/twitter"
+        android:id="@id/social_bar_twitter"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"
@@ -23,7 +23,7 @@
         android:src="@drawable/twitter" />
 
     <ImageView
-        android:id="@+id/pinterest"
+        android:id="@id/social_bar_pinterest"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"
@@ -31,7 +31,7 @@
         android:src="@drawable/pinterest" />
 
     <ImageView
-        android:id="@+id/mail"
+        android:id="@id/social_bar_mail"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"
@@ -39,7 +39,7 @@
         android:src="@drawable/mail" />
 
     <ImageView
-        android:id="@+id/whatsapp"
+        android:id="@id/social_bar_whatsapp"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"
@@ -47,7 +47,7 @@
         android:src="@drawable/whatsapp" />
 
     <ImageView
-        android:id="@+id/message"
+        android:id="@id/social_bar_sms"
         android:layout_width="40dp"
         android:layout_height="match_parent"
         android:layout_marginRight="@dimen/icon_margin"

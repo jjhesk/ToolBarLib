@@ -17,6 +17,7 @@ import com.hkm.advancedtoolbar.V3.LiveIcon;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
 import com.hkm.advancedtoolbar.V3.layout.SimpleSearchCallBack;
 import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
+import com.hkm.advancedtoolbar.socialbar.combar;
 
 /**
  * Created by hesk on 31/7/15.
@@ -26,12 +27,15 @@ public class TopBarManagerExample extends AppCompatActivity {
     private TopBarManager worker;
     private LiveIcon dynamic_icon;
     private Toolbar toolbar;
+    //example for combar
+    private combar social;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
+
 
         try {
             worker = TopBarManager.Builder.with(this)
@@ -82,6 +86,15 @@ public class TopBarManagerExample extends AppCompatActivity {
                 worker.triggerfromSearchIcon();
             }
         });
+
+        social = (combar) findViewById(R.id.social_bar_component);
+        social
+                .connectAlert(getFragmentManager())
+                .setShareContent(
+                        "Share item now",
+                        "This is the best to share the items",
+                        "http://www.wonderful.com");
+
     }
 
 

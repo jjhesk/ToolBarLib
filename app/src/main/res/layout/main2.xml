@@ -1,9 +1,9 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:orientation="vertical"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CustomActionBar">
 
     <com.hkm.advancedtoolbar.Util.advBar
@@ -14,9 +14,9 @@
         android:theme="@style/Widget.AppCompat.ActionBar.Solid"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
 
-    <TextView
-        android:text="@string/hello_world"
-        android:layout_width="wrap_content"
+    <com.hkm.advancedtoolbar.socialbar.combar
+        android:id="@+id/social_bar_component"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
 </LinearLayout>

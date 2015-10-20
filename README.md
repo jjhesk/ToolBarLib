@@ -57,7 +57,7 @@ repositories {
 }
 
 dependencies {
-     compile 'ToolBarLib:advancedtoolbar:0.4.5'
+     compile 'ToolBarLib:advancedtoolbar:0.4.6'
 }
 
 ```
@@ -190,10 +190,11 @@ There are several attributes you can set:
 ```
 # Implementation for the Candy Bar
 ```java
-   worker = CandyBar.Builder.with(this)
-                    .companyLogo(R.drawable.starz_logo)
-                    .searchView(LayoutAsset.classic_3)
-                    .searchBarEvents(new TopBarManager.searchBarListener() {
+   worker = CandyBar
+            .Builder.with(this)
+            .companyLogo(R.drawable.starz_logo)
+            .searchView(LayoutAsset.classic_3)
+            .searchBarEvents(new TopBarManager.searchBarListener() {
                         @Override
                         public void onKeySearchStartConfirm(String text) {
                             Log.d("start", text);
@@ -209,12 +210,12 @@ There are several attributes you can set:
                             worker.showBack();
                         }
                     })
-                    .setNotificationOffset(15)
-                    .setNotificationDrawableId(R.drawable.notg)
-                    .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)
-                    .background(R.drawable.bottom_line)
-                    .presetCountNotification(u)
-                    .build(toolbar);
+            .setNotificationOffset(15)
+            .setNotificationDrawableId(R.drawable.notg)
+            .overrideIcons(R.mipmap.cross_grey, R.mipmap.ic_action_close, R.mipmap.crossmp)
+            .background(R.drawable.bottom_line)
+            .presetCountNotification(u)
+            .build(toolbar);
 
 ```
 Other manipulations
@@ -253,8 +254,10 @@ Add this component into your xml layout in anywhere
 retrieve the component ```combar``` and use the method ```setShareContent``` to inject the information needed for the sharing intents. Please also refer to the table.
 ```java
       public void setShareContentBar(String title, String except, String link) {
-            combar br = (combar) content_view.findViewById(R.id.social_bar_combar);
-            br.setShareContent(title, except, link);
+            combar mCombo = (combar) content_view.findViewById(R.id.social_bar_combar);
+            mCombo
+            .connectAlert(getFragmentManager())
+            .setShareContent(title, except, link);
         }
 ```
 

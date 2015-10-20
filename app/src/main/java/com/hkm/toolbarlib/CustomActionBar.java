@@ -11,6 +11,7 @@ import com.hkm.advancedtoolbar.Util.advBar;
 import com.hkm.advancedtoolbar.iOS.SearchCustomActionBar;
 import com.hkm.advancedtoolbar.iOS.iOSActionBarWorker;
 import com.hkm.advancedtoolbar.iOS.trigger;
+import com.hkm.advancedtoolbar.socialbar.combar;
 import com.hkm.toolbarlib.templates.searchactionbar.actionSupportForAppCompatActivity;
 
 /**
@@ -21,7 +22,7 @@ public class CustomActionBar extends AppCompatActivity {
     private advBar toolbar;
     private iOSActionBarWorker worker;
     private Menu menu;
-
+    private combar social;
     private static final int SAMPLE2_ID = 34535;
     private boolean isCustomLayout = true;
 
@@ -34,6 +35,14 @@ public class CustomActionBar extends AppCompatActivity {
             toolbar = (advBar) findViewById(R.id.toolbar);
             toolbar.colorize(R.color.grey_1000, this);
             setSupportActionBar(toolbar);
+            social = (combar) findViewById(R.id.social_bar_component);
+            social
+                    .connectAlert(getFragmentManager())
+                    .setShareContent(
+                            "Share item now",
+                            "This is the best to share the items",
+                            "http://www.wonderful.com");
+
         } else {
             setContentView(R.layout.ios_like_bar);
         }
@@ -62,7 +71,7 @@ public class CustomActionBar extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_main, menu);
         MenuItem find = menu.findItem(R.id.action_search);
         this.menu = menu;
-      //  new ActionItemBadgeAdder().act(this).menu(menu).title("xttxtx").itemDetails(0, SAMPLE2_ID, 1).showAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS).add(ActionItemBadge.BadgeStyles.GREY_LARGE, 1);
+        //  new ActionItemBadgeAdder().act(this).menu(menu).title("xttxtx").itemDetails(0, SAMPLE2_ID, 1).showAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS).add(ActionItemBadge.BadgeStyles.GREY_LARGE, 1);
 
         return true;
     }

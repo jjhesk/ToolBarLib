@@ -5,6 +5,8 @@
       <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.mikepenz/actionitembadge/3.0.4/jars/classes.jar!/" />
     </CLASSES>
     <JAVADOC />
-    <SOURCES />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.mikepenz/actionitembadge/3.0.4/80f6132de02116116e03961eadaa7f7da7ad8eca/actionitembadge-3.0.4-sources.jar!/" />
+    </SOURCES>
   </library>
 </component>

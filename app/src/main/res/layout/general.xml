@@ -12,10 +12,10 @@
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+    <com.hkm.advancedtoolbar.socialbar.combar
+        android:id="@+id/social_bar_component"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/b1"
@@ -52,4 +52,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="other extra function" />
+
+
 </LinearLayout>

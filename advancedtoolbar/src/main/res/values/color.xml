@@ -2,4 +2,5 @@
 <resources>
     <color name="lightgrey">#c2ffffff</color>
     <color name="emtpy">#eef6e1e7</color>
+    <color name="search_layover_bg">#eee48fa7</color>
 </resources>

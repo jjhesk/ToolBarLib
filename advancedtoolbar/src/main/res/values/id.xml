@@ -16,4 +16,14 @@
     <item name="i_kr2" type="id" />
     <item name="i_kr1" type="id" />
     <item name="i_text_wide" type="id" />
+
+    <item name="social_bar_facebook" type="id" />
+    <item name="social_bar_twitter" type="id" />
+    <item name="social_bar_pinterest" type="id" />
+    <item name="social_bar_mail" type="id" />
+    <item name="social_bar_whatsapp" type="id" />
+    <item name="social_bar_sms" type="id" />
+
+
+
 </resources>

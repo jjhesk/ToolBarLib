@@ -4,4 +4,6 @@
     <dimen name="sp_actionbar_logo_h_margin">100dp</dimen>
     <dimen name="height_custom_bar">?attr/actionBarSize</dimen>
     <dimen name="icon_margin">2dp</dimen>
+    <dimen name="search_icon_padding">12dp</dimen>
+    <dimen name="search_view_text_padding">65dp</dimen>
 </resources>

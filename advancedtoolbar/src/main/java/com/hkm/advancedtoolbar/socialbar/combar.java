@@ -1,6 +1,8 @@
 package com.hkm.advancedtoolbar.socialbar;
 
 import android.annotation.TargetApi;
+import android.app.Fragment;
+import android.app.FragmentManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -31,6 +33,7 @@ public class combar extends FrameLayout implements View.OnClickListener {
     private List<ResolveInfo> list;
     private String confirm_context_except = "nothing in here";
     private String title = "New discovery";
+    private FragmentManager frag;
 
     public combar(Context context) {
         super(context);
@@ -58,12 +61,18 @@ public class combar extends FrameLayout implements View.OnClickListener {
         con.findViewById(Hg.twitter.Id()).setOnClickListener(this);
     }
 
+    public combar connectAlert(FragmentManager fragmentm) {
+        this.frag = fragmentm;
+        return this;
+    }
+
     public static combar with(Context h) {
         return new combar(h);
     }
 
-    public void setShareContent(String title, String except, String link) {
+    public combar setShareContent(String title, String except, String link) {
         confirm_context_except = "I just read an article about " + title + ", check it out @" + link;
+        return this;
     }
 
 
@@ -74,12 +83,12 @@ public class combar extends FrameLayout implements View.OnClickListener {
     @Override
     public void onClick(View v) {
         try {
-            Hg f = Hg.reverseId(v.getId());
-            int epacka = packagenameexist(f);
-            if (epacka > -1) {
-                share(epacka);
+            Hg instance_icon = Hg.reverseId(v.getId());
+            int app_location = packagenameexist(instance_icon);
+            if (app_location > -1) {
+                share(app_location);
             } else {
-
+                instance_icon.alert(frag, rescontext);
             }
 
         } catch (Exception e) {
