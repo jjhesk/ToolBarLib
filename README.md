@@ -14,27 +14,6 @@ Android ActionBar Advanced Support Library for APIv22,v21,v19. This library give
 Java Android v22 v21 v19 toolBar Library advanced
 Projec Website: [TOOLBARLIB][2]
 
-##Features
-v0.3.8
-- [x] added two icons only on the right side support.
-
-v0.3.5
-- [x] added dynamic icon for the toolbar.
-- [x] modified TopBarManager for the initation method.
-
-v0.3.2
-- [x] added the social bar into the library
-
-v0.2.2
-- [x] automatic show and hide softkeyboard
-
-v0.2.1
-- [x] support external Textview library
-- [x] support search design redesign
-- [x] support title center
-- [x] support animation on search bar
-- [x] support overlay/drawable backgrounds
-
 ##Quick review
 
 - [x] Custom Textview
