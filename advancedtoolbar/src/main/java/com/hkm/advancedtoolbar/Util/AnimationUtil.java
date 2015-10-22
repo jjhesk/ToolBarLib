@@ -15,6 +15,7 @@ public class AnimationUtil {
 
     public interface AnimationListener {
         /**
+         * @param view the input view
          * @return true to override parent. Else execute Parent method
          */
         boolean onAnimationStart(View view);

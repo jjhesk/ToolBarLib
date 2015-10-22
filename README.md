@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-     compile 'ToolBarLib:advancedtoolbar:0.4.6'
+    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.4.6'
 }
 
 ```

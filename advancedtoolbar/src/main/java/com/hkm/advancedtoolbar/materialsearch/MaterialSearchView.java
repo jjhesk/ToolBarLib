@@ -363,7 +363,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Set Suggest List OnItemClickListener
      *
-     * @param listener
+     * @param listener OnItemClickListener listener
      */
     public void setOnItemClickListener(AdapterView.OnItemClickListener listener) {
         mSuggestionsListView.setOnItemClickListener(listener);
@@ -372,7 +372,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Set Adapter for suggestions list. Should implement Filterable.
      *
-     * @param adapter
+     * @param adapter adapter
      */
     public void setAdapter(ListAdapter adapter) {
         mAdapter = adapter;
@@ -412,8 +412,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Calling this will set the query to search text box. if submit is true, it'll submit the query.
      *
-     * @param query
-     * @param submit
+     * @param query  the input for search query
+     * @param submit bool with auto submission
      */
     public void setQuery(CharSequence query, boolean submit) {
         mSearchSrcTextView.setText(query);
@@ -429,7 +429,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * if show is true, this will enable voice search. If voice is not available on the device, this method call has not effect.
      *
-     * @param show
+     * @param show bool for show
      */
     public void showVoice(boolean show) {
         if (show && isVoiceAvailable() && allowVoiceSearch) {
@@ -442,7 +442,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Call this method and pass the menu item so this class can handle click events for the Menu Item.
      *
-     * @param menuItem
+     * @param menuItem item menu
      */
     public void setMenuItem(MenuItem menuItem) {
         this.mMenuItem = menuItem;
@@ -458,7 +458,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Return true if search is open
      *
-     * @return
+     * @return bool
      */
     public boolean isSearchOpen() {
         return mIsSearchOpen;
@@ -474,7 +474,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Open Search View. if animate is true, Animate the showing of the view.
      *
-     * @param animate
+     * @param animate bool for animation
      */
     public void showSearch(boolean animate) {
         if (isSearchOpen()) {
@@ -537,7 +537,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Set this listener to listen to Query Change events.
      *
-     * @param listener
+     * @param listener the listener
      */
     public void setOnQueryTextListener(OnQueryTextListener listener) {
         mOnQueryChangeListener = listener;
@@ -546,7 +546,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     /**
      * Set this listener to listen to Search View open and close events
      *
-     * @param listener
+     * @param listener the listener
      */
     public void setOnSearchViewListener(SearchViewListener listener) {
         mSearchViewListener = listener;
@@ -578,7 +578,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSearchSrcTextView.clearFocus();
         mClearingFocus = false;
     }
-    
+
     @Override
     public Parcelable onSaveInstanceState() {
         //begin boilerplate code that allows parent classes to save state
