@@ -223,6 +223,8 @@ Other manipulations
 # Beast Bar
 
 Put the following code into the onCreate section
+
+![demo](https://i.imgflip.com/t8u33.gif)
 ```java
 
 
