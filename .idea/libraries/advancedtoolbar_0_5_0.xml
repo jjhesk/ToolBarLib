@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="advancedtoolbar-0.5.0">
+    <CLASSES>
+      <root url="file://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.hkm.advancedtoolbar/advancedtoolbar/0.5.0/res" />
+      <root url="jar://$PROJECT_DIR$/app/build/intermediates/exploded-aar/com.hkm.advancedtoolbar/advancedtoolbar/0.5.0/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.hkm.advancedtoolbar/advancedtoolbar/0.5.0/e0b1a22e1979f044e4020b175c89ddaf3fbc7791/advancedtoolbar-0.5.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
