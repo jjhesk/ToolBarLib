@@ -39,4 +39,8 @@ public class mainMenu extends AppCompatActivity {
     public void candybarimple(View view) {
         startApp(TestOfCandyBar.class);
     }
+
+    public void beastbarv1(View view) {
+        startApp(BeastBarDemo_v1.class);
+    }
 }

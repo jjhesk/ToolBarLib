@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.4.6'
+    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.5.0'
 }
 
 ```
@@ -218,6 +218,32 @@ Other manipulations
               worker.showBack();
 
 ```
+
+
+# Beast Bar
+
+Put the following code into the onCreate section
+```java
+
+
+   Toolbar temp = (Toolbar) findViewById(R.id.toolbar);
+
+
+  BeastBar.Builder bb = new BeastBar.Builder();
+  //enter your back icon
+        bb.back(R.drawable.ic_m_back);
+  //enter your company icon
+        bb.companyIcon(R.drawable.starz_logo);
+  //enter your background drawable
+        bb.background(R.drawable.actionbar_bg_dark_black);
+   //enter your search icon
+        bb.search(R.drawable.ic_find_mg);
+
+  final BeastBar toolbar = BeastBar.withToolbar(this, temp, bb);
+
+```
+
+
 # Implementation for the social tool bar
 
 Add this component into your xml layout in anywhere

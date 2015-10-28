@@ -6,6 +6,9 @@
     <item name="ios_find_icon" type="id" />
     <item name="ios_hinting" type="id" />
     <item name="ios_layout_wrapper" type="id" />
+    <item name="ios_actionbar_title" type="id" />
+    <item name="ios_back_button" type="id" />
+    <item name="ios_background" type="id" />
     <item name="liveiconloc" type="id" />
     <item name="liveicon_text" type="id" />
     <item name="liveicon_position" type="id" />

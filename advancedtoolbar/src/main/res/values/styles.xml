@@ -29,4 +29,12 @@
         <item name="paddingStart">0dp</item>
         <item name="paddingEnd">0dp</item>
     </style>
+
+    <style name="actionButtonhkm" parent="android:style/Widget.Holo.ActionButton">
+        <item name="paddingStart">5dp</item>
+        <item name="paddingEnd">5dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@mipmap/ic_action_find</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 </resources>
