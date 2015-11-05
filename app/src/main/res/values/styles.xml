@@ -14,6 +14,12 @@
     <style name="AppThemeCustomActionBar.OverLay" parent="AppThemeCustomActionBar">
         <item name="elevation">0dp</item>
         <item name="android:windowContentOverlay">@null</item>
+        <item name="iOSSearchBarStyle">@style/FXSearchBarStyle</item>
+    </style>
+
+    <style name="FXSearchBarStyle">
+        <item name="search_bar_hint_color">@color/red_400</item>
+        <item name="search_bar_close_btn_color">@color/red_a100</item>
     </style>
 
     <style name="Widget.ActionButton.Overflow" parent="@android:style/Widget.Holo.ActionButton.Overflow">

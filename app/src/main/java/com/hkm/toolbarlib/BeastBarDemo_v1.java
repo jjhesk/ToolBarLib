@@ -7,12 +7,14 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hkm.advancedtoolbar.V5.BeastBar;
+import com.hkm.advancedtoolbar.materialsearch.MaterialSearchView;
 
 /**
  * Created by hesk on 28/10/15.
  */
 public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickListener {
     private BeastBar toolbar;
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +26,27 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         bb.companyIcon(R.drawable.starz_logo);
         bb.background(R.drawable.actionbar_bg_dark_black);
         bb.search(R.drawable.ic_find_mg);
-        toolbar = BeastBar.withToolbar(this, temp, bb);
+        bb.setToolBarTitleSize(R.dimen.tb_title);
 
+        toolbar = BeastBar.withToolbar(this, temp, bb);
+        searchView = (MaterialSearchView) findViewById(R.id.cmarterialsearch);
+        searchView.setVoiceSearch(true);
+        searchView.setCursorDrawable(R.drawable.color_cursor_white);
+        // searchView.setSuggestions(getSuggestions());
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                // searchSubmission(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
         Button b1 = (Button) findViewById(R.id.b1); //show title
         Button b2 = (Button) findViewById(R.id.b2); //how main bar
         Button b3 = (Button) findViewById(R.id.b3); //show search bar
@@ -34,6 +55,7 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         Button b5 = (Button) findViewById(R.id.b5); //other function
         b5.setText("remove back");
         Button bx = (Button) findViewById(R.id.bxx); //other function
+        Button bs = (Button) findViewById(R.id.b_search); //other function
         bx.setText("close this App");
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
@@ -41,8 +63,28 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         b4.setOnClickListener(this);
         b5.setOnClickListener(this);
         bx.setOnClickListener(this);
+        bs.setOnClickListener(this);
+        toolbar.setFindIconFunc(new Runnable() {
+            @Override
+            public void run() {
+                searchView.showSearch();
+            }
+        });
+
     }
 
+    protected void search_start() {
+        searchView.showSearch();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if (searchView.isSearchOpen()) {
+            searchView.closeSearch();
+        } else {
+            super.onBackPressed();
+        }
+    }
 
     /**
      * Called when a view has been clicked.
@@ -53,7 +95,7 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.b1:
-                toolbar.setActionTitle("XX Delgnew");
+                toolbar.setActionTitle("XX Delgnew fnei onie nfien foisni nsion snid 535 353 53442453535 345435 353 53");
                 break;
             case R.id.b2:
                 toolbar.showMainLogo();
@@ -74,6 +116,9 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.bxx:
                 finish();
+                break;
+            case R.id.b_search:
+                search_start();
                 break;
         }
     }

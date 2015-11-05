@@ -12,6 +12,7 @@ import android.os.Build;
 import android.os.Parcel;
 import android.os.Parcelable;
 import android.speech.RecognizerIntent;
+import android.support.annotation.ColorInt;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -51,7 +52,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     private boolean mIsSearchOpen = false;
 
     private boolean mClearingFocus;
-
+    private int inflate_layout;
     //Views
     private View mSearchLayout;
     private View mTintView;
@@ -86,11 +87,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
     public MaterialSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs);
-
         mContext = context;
-
         initiateView();
-
         initStyle(attrs, defStyleAttr);
     }
 
@@ -126,11 +124,38 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
                 setBackIcon(a.getDrawable(R.styleable.MaterialSearchView_searchBackIcon));
             }
 
+
+            if (a.hasValue(R.styleable.MaterialSearchView_material_layout)) {
+                inflate_layout = setLayout(a.getInt(R.styleable.MaterialSearchView_material_layout, 0));
+            } else {
+                inflate_layout = setLayout(0);
+            }
+
+            if (a.hasValue(R.styleable.MaterialSearchView_searchOverlayColor)) {
+                setOverLay(a.getColor(R.styleable.MaterialSearchView_searchOverlayColor, 0));
+            }
+
             if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionBackground)) {
                 setSuggestionBackground(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionBackground));
             }
 
             a.recycle();
+        }
+    }
+
+
+    private int setLayout(int enum_layout) {
+        switch (enum_layout) {
+            case 0:
+                return R.layout.search_view;
+            case 1:
+                return R.layout.material_search_ios;
+            case 2:
+                return R.layout.material_search_ios_classic;
+            case 3:
+                return R.layout.material_search_ios_simple;
+            default:
+                return R.layout.search_view;
         }
     }
 
@@ -300,6 +325,10 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     @Override
     public void setBackgroundColor(int color) {
         mSearchTopBar.setBackgroundColor(color);
+    }
+
+    public void setOverLay(@ColorInt int color) {
+        mTintView.setBackgroundColor(color);
     }
 
     public void setTextColor(int color) {

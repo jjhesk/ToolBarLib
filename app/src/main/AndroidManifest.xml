@@ -32,7 +32,7 @@
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay" />
         <activity
-            android:name=".mainMenu"
+            android:name="._mainMenu"
             android:label="@string/app_name"
             android:theme="@style/AppThemeCustomActionBar.OverLay">
             <intent-filter>

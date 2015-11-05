@@ -8,6 +8,7 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -48,7 +49,7 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
     private Context mcontext;
 
     public void setCrossColorResId(@ColorRes int color) {
-        int the_color = mcontext.getResources().getColor(color);
+        int the_color = ContextCompat.getColor(mcontext, color);
         setCrossColor(the_color);
     }
 
@@ -71,7 +72,7 @@ public class SearchCustom<TV extends TextView, EditT extends EditText> implement
     }
 
     public void setSearchIconColorResId(@ColorRes int color) {
-        int the_color = mcontext.getResources().getColor(color);
+        int the_color = ContextCompat.getColor(mcontext, color);
         setSearchIconColor(the_color);
     }
 

@@ -16,8 +16,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+
         android:animateLayoutChanges="true"
-        android:text="search text in here"
+        android:ellipsize="end"
+
+        android:text="__"
         android:textColor="@color/title_default_color"
         android:textSize="@dimen/title_size_classic" />
 

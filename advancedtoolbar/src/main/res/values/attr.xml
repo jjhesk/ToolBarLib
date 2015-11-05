@@ -24,6 +24,7 @@
     </declare-styleable>
 
     <declare-styleable name="MaterialSearchView">
+        <attr name="searchOverlayColor" format="color" />
         <attr name="searchBackground" format="integer" />
         <attr name="searchVoiceIcon" format="integer" />
         <attr name="searchCloseIcon" format="integer" />
@@ -32,5 +33,10 @@
         <attr name="android:hint" />
         <attr name="android:textColor" />
         <attr name="android:textColorHint" />
+        <attr name="material_layout" format="enum">
+            <enum name="DEFAULT" value="0" />
+            <enum name="POPBEE" value="1" />
+            <enum name="HB" value="2" />
+        </attr>
     </declare-styleable>
 </resources>

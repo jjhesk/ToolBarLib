@@ -1,15 +1,21 @@
 package com.hkm.advancedtoolbar.V5;
 
 import android.content.Context;
+import android.graphics.Point;
 import android.os.Build;
+import android.support.annotation.ColorRes;
+import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.widget.TintImageView;
 import android.support.v7.widget.Toolbar;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
@@ -36,9 +42,10 @@ public class BeastBar {
     private Animation main_logo_in, main_logo_out, title_in, title_out, back_in, back_out;
     private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown;
     private Builder setup;
+    private int leftSide = 0, rightSide = 0;
 
     public static class Builder {
-        private int ic_company, ic_search, ic_back, ic_background;
+        private int ic_company, ic_search, ic_back, ic_background, tb_textsize = 0, tb_title_color = 0;
 
         public Builder() {
 
@@ -63,18 +70,29 @@ public class BeastBar {
             this.ic_background = res;
             return this;
         }
+
+        public Builder setToolBarTitleSize(@DimenRes final int res) {
+            this.tb_textsize = res;
+            return this;
+        }
+
+        public Builder setToolBarTitleColor(@ColorRes final int res) {
+            this.tb_title_color = res;
+            return this;
+        }
     }
 
+    private Point size = new Point();
+
     public static BeastBar withToolbar(AppCompatActivity res, Toolbar original, final Builder beastbuilder) {
+        Display display = res.getWindowManager().getDefaultDisplay();
         res.setSupportActionBar(original);
         ActionBar actionbar = res.getSupportActionBar();
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setDisplayShowHomeEnabled(false);
         actionbar.setDefaultDisplayHomeAsUpEnabled(false);
         original.setBackgroundResource(beastbuilder.ic_background);
-        View homeIcon = res.findViewById(
-                Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ?
-                        android.R.id.home : android.R.id.home);
+        View homeIcon = res.findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home : android.R.id.home);
         // ((View) homeIcon.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         //  ((View) homeIcon).setVisibility(View.GONE);
 
@@ -82,9 +100,9 @@ public class BeastBar {
         final BeastBar bb = new BeastBar(res);
         bb.setToolBar(original);
         bb.setup = beastbuilder;
-
-
+        display.getSize(bb.size);
         bb.init();
+        bb.adjustmentTV();
         return bb;
     }
 
@@ -95,6 +113,13 @@ public class BeastBar {
     private BeastBar setToolBar(Toolbar tb) {
         this.container = tb;
         return this;
+    }
+
+    private void adjustmentTV() {
+        mtv.requestLayout();
+        if (setup.tb_textsize > 0) {
+            mtv.setTextSize(mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
+        }
     }
 
     private void init() {
@@ -117,13 +142,41 @@ public class BeastBar {
         back_in = AnimationUtils.loadAnimation(mContext, R.anim.back_button_in);
         back_out = AnimationUtils.loadAnimation(mContext, R.anim.back_button_out);
         mtv.setVisibility(View.INVISIBLE);
+        if (setup.tb_title_color != 0) {
+            final int color_title = ContextCompat.getColor(mContext, setup.tb_title_color);
+            mtv.setTextColor(color_title);
+        }
         mTopLeftButton.setVisibility(View.INVISIBLE);
         mSearchButton.setImageResource(setup.ic_search);
         mImage.setImageResource(setup.ic_company);
         mTopLeftButton.setImageResource(setup.ic_back);
+
+        mLeftContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                leftSide = mLeftContainer.getWidth();
+                removeLayoutListener(mLeftContainer, this);
+            }
+        });
+        mRightContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
+            @Override
+            public void onGlobalLayout() {
+                rightSide = mRightContainer.getWidth();
+                removeLayoutListener(mRightContainer, this);
+            }
+        });
+
         // mBackground.setBackgroundResource(setup.ic_background);
     }
 
+    private void removeLayoutListener(View layout, ViewTreeObserver.OnGlobalLayoutListener lb) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+            layout.getViewTreeObserver().removeOnGlobalLayoutListener(lb);
+        } else {
+            layout.getViewTreeObserver().removeGlobalOnLayoutListener(lb);
+        }
+        mtv.setMaxWidth(size.x - leftSide - rightSide);
+    }
 
     public BeastBar setFindIconFunc(@Nullable final Runnable func) {
         if (func == null) {
@@ -180,6 +233,7 @@ public class BeastBar {
 
     public BeastBar setActionTitle(final String title) {
         mtv.setText(title);
+
         if (!isTitleShown) {
             isTitleShown = true;
             mayCancelAnimation(mtv);

@@ -6,6 +6,7 @@ import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.StringRes;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.widget.TintImageView;
@@ -143,8 +144,10 @@ public class CandyBar implements View.OnClickListener, barControl {
                     ToolbarHelper.getDP(this.mb.offset_vertical,
                             activity.getResources()));
 
-        if (this.notification_color != 0)
-            numberView.setTextColor(activity.getResources().getColor(notification_color));
+        if (this.notification_color != 0) {
+            int notific = ContextCompat.getColor(activity, notification_color);
+            numberView.setTextColor(notific);
+        }
     }
 
     private void invalidateNotificationBox() {

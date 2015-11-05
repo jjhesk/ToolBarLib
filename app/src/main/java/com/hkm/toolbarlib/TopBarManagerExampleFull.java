@@ -15,6 +15,7 @@ import com.hkm.advancedtoolbar.V3.layout.CLayO;
 import com.hkm.advancedtoolbar.V3.TopBarManager;
 import com.hkm.advancedtoolbar.V3.layout.SimpleSearchCallBack;
 import com.hkm.advancedtoolbar.V3.layout.commonSearchBarMgr;
+import com.hkm.advancedtoolbar.materialsearch.MaterialSearchView;
 
 /**
  * Created by hesk on 16/7/15.
@@ -24,6 +25,7 @@ public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO
     private TopBarManager worker;
     private LiveIcon dynamic_icon;
     private Toolbar toolbar;
+    private MaterialSearchView searchView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,12 +33,29 @@ public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO
         setContentView(R.layout.general);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        searchView = (MaterialSearchView) findViewById(R.id.cmarterialsearch);
+        searchView.setVoiceSearch(true);
+        searchView.setCursorDrawable(R.drawable.color_cursor_white);
+        searchView.setOnQueryTextListener(new MaterialSearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                //Snackbar.make(findViewById(R.id.container), "Query: " + query, Snackbar.LENGTH_LONG).show();
+                // searchSubmission(query);
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                //Do some magic
+                return false;
+            }
+        });
 
         try {
             worker = TopBarManager.Builder.with(this)
                     .companyLogo(R.drawable.starz_logo)
-                    .searchView(LayoutAsset.classic_3)
-                    .searchBarEvents(new SimpleSearchCallBack() {
+                    //  .searchView(LayoutAsset.classic_3)
+                    /*.searchBarEvents(new SimpleSearchCallBack() {
                         @Override
                         public void onKeySearchStartConfirm(String text) {
                             Log.d("start", text);
@@ -57,6 +76,8 @@ public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO
 
                         }
                     })
+                    .searchCancalIconColorId(R.color.amber_400)
+                    .searchCancelColorId(R.color.amber_400)*/
                     .burgerIcon(R.mipmap.ic_action_share)
                     .setLiveIcon(R.layout.dynamic_icon_p, R.mipmap.crossmp)
                     .setOnCustomItemClickListener(this)
@@ -101,7 +122,8 @@ public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO
     @Override
     public void OnClick(int resId) {
         if (resId == R.id.i_kl1) {
-            worker.triggerfromSearchIcon(null);
+           // worker.triggerfromSearchIcon(null);
+            searchView.showSearch();
         }
     }
 }

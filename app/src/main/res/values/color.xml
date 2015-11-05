@@ -24,6 +24,7 @@
     <color name="tabHostBackgroundColor">@color/common_background</color>
     <color name="tabHostAccentColor">@color/common_background</color>
     <color name="pink_300_float">#99f06292</color>
+    <color name="background_red_tiny">#b2706509</color>
 
     <!-- RED -->
     <color name="red_50">#fde0dc</color>

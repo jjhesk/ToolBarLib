@@ -6,9 +6,11 @@ import android.content.res.Resources;
 import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.support.annotation.AttrRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.LayoutRes;
+import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
 import android.support.v4.view.ViewCompat;
 import android.support.v7.app.ActionBar;
@@ -121,7 +123,7 @@ public class TopBarManager implements barControl {
     }
 
     @ColorRes
-    protected int getCrossFromTheme() {
+    protected int getCloseBtnThemeColorRes() {
         if (theme_SearchBarStyle != null) {
             return theme_SearchBarStyle.getResourceId(R.styleable.SearchBarStyle_search_bar_close_btn_color, 0);
         }
@@ -210,7 +212,7 @@ public class TopBarManager implements barControl {
      *
      * @param meun the menu item in here
      */
-    public void triggerfromSearchIcon(MenuItem meun) {
+    public void triggerfromSearchIcon(@Nullable MenuItem meun) {
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM | ActionBar.DISPLAY_HOME_AS_UP);
         actionbar.setDisplayShowCustomEnabled(true);
         actionbar.setDisplayShowTitleEnabled(false);
@@ -222,7 +224,7 @@ public class TopBarManager implements barControl {
         search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
-        int colorRes = getCrossFromTheme();
+        int colorRes = getCloseBtnThemeColorRes();
         if (colorRes != 0) {
             search.setCrossColorResId(colorRes);
         } else {
@@ -258,7 +260,7 @@ public class TopBarManager implements barControl {
         search = new SearchCustom(actionbar.getCustomView());
         search.setOnSearchListener(this.listener);
         search.setSearchPlaceholder(searchHint);
-        int colorRes = getCrossFromTheme();
+        int colorRes = getCloseBtnThemeColorRes();
         if (colorRes != 0) {
             search.setCrossColorResId(colorRes);
         }

@@ -3,5 +3,5 @@
     <color name="lightgrey">#c2ffffff</color>
     <color name="title_default_color">@android:color/black</color>
     <color name="emtpy">#eef6e1e7</color>
-    <color name="search_layover_bg">#eee48fa7</color>
+    <color name="search_layover_bg">#ee3e3e3e</color>
 </resources>
