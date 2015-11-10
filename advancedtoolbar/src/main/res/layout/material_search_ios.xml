@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@id/ios_layout_wrapper"
     android:layout_width="match_parent"
@@ -57,4 +57,4 @@
         android:minWidth="48dp"
         android:scaleType="centerInside"
         android:src="@mipmap/ic_action_close" />
-</RelativeLayout>
+</FrameLayout>

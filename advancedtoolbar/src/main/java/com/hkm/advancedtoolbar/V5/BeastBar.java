@@ -2,10 +2,13 @@ package com.hkm.advancedtoolbar.V5;
 
 import android.content.Context;
 import android.graphics.Point;
+import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Bundle;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
@@ -40,15 +43,22 @@ public class BeastBar {
     private TintImageView mSearchButton, mTopLeftButton;
     private Runnable mFindFunction;
     private Animation main_logo_in, main_logo_out, title_in, title_out, back_in, back_out;
-    private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown;
+    private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown, isSearchButtonShown;
     private Builder setup;
     private int leftSide = 0, rightSide = 0;
 
     public static class Builder {
         private int ic_company, ic_search, ic_back, ic_background, tb_textsize = 0, tb_title_color = 0;
+        private Typeface typeface;
+        private String title_default;
 
         public Builder() {
 
+        }
+
+        public Builder setFontFace(@NonNull Context mContext, @NonNull final String fontNameInFontFolder) {
+            typeface = Typeface.createFromAsset(mContext.getAssets(), "fonts/" + fontNameInFontFolder);
+            return this;
         }
 
         public Builder companyIcon(@DrawableRes final int res) {
@@ -78,6 +88,11 @@ public class BeastBar {
 
         public Builder setToolBarTitleColor(@ColorRes final int res) {
             this.tb_title_color = res;
+            return this;
+        }
+
+        public Builder defaultTitle(String title) {
+            this.title_default = title;
             return this;
         }
     }
@@ -123,9 +138,9 @@ public class BeastBar {
     }
 
     private void init() {
-        isCompanyLogoShown = true;
-        isTitleShown = false;
+
         isBackButtonShown = false;
+        isSearchButtonShown = false;
         View v = LayoutInflater.from(mContext).inflate(R.layout.beastbar, null, false);
         mLeftContainer = (LinearLayout) v.findViewById(R.id.left_container);
         mBackground = (RelativeLayout) v.findViewById(R.id.ios_background);
@@ -141,15 +156,39 @@ public class BeastBar {
         title_out = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_out);
         back_in = AnimationUtils.loadAnimation(mContext, R.anim.back_button_in);
         back_out = AnimationUtils.loadAnimation(mContext, R.anim.back_button_out);
-        mtv.setVisibility(View.INVISIBLE);
+
         if (setup.tb_title_color != 0) {
             final int color_title = ContextCompat.getColor(mContext, setup.tb_title_color);
             mtv.setTextColor(color_title);
         }
+        if (setup.typeface != null) {
+            mtv.setTypeface(setup.typeface);
+        }
         mTopLeftButton.setVisibility(View.INVISIBLE);
-        mSearchButton.setImageResource(setup.ic_search);
-        mImage.setImageResource(setup.ic_company);
-        mTopLeftButton.setImageResource(setup.ic_back);
+
+        if (setup.ic_search != 0) {
+            mSearchButton.setImageResource(setup.ic_search);
+            isSearchButtonShown = true;
+        }
+
+        if (setup.ic_company != 0) {
+            mImage.setImageResource(setup.ic_company);
+            mtv.setVisibility(View.INVISIBLE);
+            isCompanyLogoShown = true;
+            isTitleShown = false;
+        }
+
+        if (setup.title_default != null) {
+            mtv.setVisibility(View.VISIBLE);
+            mImage.setVisibility(View.GONE);
+            mtv.setText(setup.title_default);
+            isCompanyLogoShown = false;
+            isTitleShown = true;
+        }
+
+        if (setup.ic_back != 0) {
+            mTopLeftButton.setImageResource(setup.ic_back);
+        }
 
         mLeftContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
@@ -158,6 +197,7 @@ public class BeastBar {
                 removeLayoutListener(mLeftContainer, this);
             }
         });
+
         mRightContainer.getViewTreeObserver().addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
             @Override
             public void onGlobalLayout() {
@@ -166,7 +206,15 @@ public class BeastBar {
             }
         });
 
+
+        if (!isSearchButtonShown) {
+            displayRightFirstIcon(false, false);
+        }
         // mBackground.setBackgroundResource(setup.ic_background);
+    }
+
+    public void displayRightFirstIcon(boolean b, boolean withAnimation) {
+        final displayManagement dm = new displayManagement(b, withAnimation, mSearchButton);
     }
 
     private void removeLayoutListener(View layout, ViewTreeObserver.OnGlobalLayoutListener lb) {
@@ -190,39 +238,6 @@ public class BeastBar {
         return this;
     }
 
-
-    private class ListenerAnimation implements Animation.AnimationListener {
-        /**
-         * <p>Notifies the end of the animation. This callback is not invoked
-         * for animations with repeat count set to INFINITE.</p>
-         *
-         * @param animation The animation which reached its end.
-         */
-        @Override
-        public void onAnimationEnd(Animation animation) {
-
-        }
-
-        /**
-         * <p>Notifies the repetition of the animation.</p>
-         *
-         * @param animation The animation which was repeated.
-         */
-        @Override
-        public void onAnimationRepeat(Animation animation) {
-
-        }
-
-        /**
-         * <p>Notifies the start of the animation.</p>
-         *
-         * @param animation The started animation.
-         */
-        @Override
-        public void onAnimationStart(Animation animation) {
-
-        }
-    }
 
     private static void mayCancelAnimation(View anything) {
         if (anything.getAnimation() != null) {
@@ -323,4 +338,100 @@ public class BeastBar {
         }
         return this;
     }
+
+    private class enhancedAnimation extends ListenerAnimation {
+        private View target;
+
+
+        public enhancedAnimation(View target) {
+            this.target = target;
+        }
+
+
+        @Override
+        public void onAnimationEnd(Animation animation) {
+            target.setVisibility(View.GONE);
+        }
+
+
+    }
+
+    private class displayManagement {
+        private boolean shown, withanimation;
+        private View display_target;
+
+        public displayManagement(
+                final boolean shown,
+                final boolean withanimation,
+                final View target) {
+            this.shown = shown;
+            this.withanimation = withanimation;
+            this.display_target = target;
+            init();
+        }
+
+        private void init() {
+            if (!withanimation) {
+                if (shown) {
+                    if (display_target.getVisibility() == View.GONE) {
+                        display_target.setVisibility(View.VISIBLE);
+                    }
+                } else {
+                    if (display_target.getVisibility() == View.VISIBLE) {
+                        display_target.setVisibility(View.GONE);
+                    }
+                }
+            } else {
+                if (shown) {
+                    if (display_target.getVisibility() == View.GONE) {
+                        display_target.setVisibility(View.VISIBLE);
+                        mayCancelAnimation(display_target);
+                        display_target.startAnimation(main_logo_in);
+                    }
+                } else {
+                    if (display_target.getVisibility() == View.VISIBLE) {
+                        mayCancelAnimation(display_target);
+                        display_target.getAnimation().setAnimationListener(new enhancedAnimation(display_target));
+                        display_target.startAnimation(main_logo_out);
+                    }
+                }
+            }
+        }
+    }
+
+
+    private class ListenerAnimation implements Animation.AnimationListener {
+        /**
+         * <p>Notifies the end of the animation. This callback is not invoked
+         * for animations with repeat count set to INFINITE.</p>
+         *
+         * @param animation The animation which reached its end.
+         */
+        @Override
+        public void onAnimationEnd(Animation animation) {
+
+        }
+
+        /**
+         * <p>Notifies the repetition of the animation.</p>
+         *
+         * @param animation The animation which was repeated.
+         */
+        @Override
+        public void onAnimationRepeat(Animation animation) {
+
+        }
+
+        /**
+         * <p>Notifies the start of the animation.</p>
+         *
+         * @param animation The started animation.
+         */
+        @Override
+        public void onAnimationStart(Animation animation) {
+
+        }
+    }
+
+
 }

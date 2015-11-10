@@ -8,6 +8,7 @@ import android.widget.Button;
 
 import com.hkm.advancedtoolbar.V5.BeastBar;
 import com.hkm.advancedtoolbar.materialsearch.MaterialSearchView;
+import com.hkm.advancedtoolbar.socialbar.combar;
 
 /**
  * Created by hesk on 28/10/15.
@@ -21,14 +22,21 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.general);
         Toolbar temp = (Toolbar) findViewById(R.id.toolbar);
+        combar cBar = (combar) findViewById(R.id.social_bar_component);
+        cBar.setShareContent("exiting news", "this is the bredf", "http://www.popbee.com");
         BeastBar.Builder bb = new BeastBar.Builder();
         bb.back(R.drawable.ic_m_back);
-        bb.companyIcon(R.drawable.starz_logo);
+        //  bb.companyIcon(R.drawable.starz_logo);
         bb.background(R.drawable.actionbar_bg_dark_black);
-        bb.search(R.drawable.ic_find_mg);
+        //     bb.search(R.drawable.ic_find_mg);
+
         bb.setToolBarTitleSize(R.dimen.tb_title);
+        bb.defaultTitle("Wrtie Comment");
+        bb.setFontFace(this, "Pacifico.ttf");
+        bb.setToolBarTitleColor(R.color.amber_700);
 
         toolbar = BeastBar.withToolbar(this, temp, bb);
+
         searchView = (MaterialSearchView) findViewById(R.id.cmarterialsearch);
         searchView.setVoiceSearch(true);
         searchView.setCursorDrawable(R.drawable.color_cursor_white);

@@ -45,37 +45,36 @@ import java.util.List;
 /**
  * @author Miguel Catalan Bañuls
  */
-public class MaterialSearchView extends FrameLayout implements Filter.FilterListener {
+public class MaterialSearchView extends SearchViewBase {
     public static final int REQUEST_VOICE = 9999;
 
     private MenuItem mMenuItem;
     private boolean mIsSearchOpen = false;
 
     private boolean mClearingFocus;
-    private int inflate_layout;
+    protected int inflate_layout;
     //Views
-    private View mSearchLayout;
-    private View mTintView;
-    private ListView mSuggestionsListView;
-    private EditText mSearchSrcTextView;
-    private ImageButton mBackBtn;
-    private ImageButton mVoiceBtn;
-    private ImageButton mEmptyBtn;
-    private RelativeLayout mSearchTopBar;
+    protected View mSearchLayout;
+    protected View mTintView;
+    protected ListView mSuggestionsListView;
+    protected EditText mSearchSrcTextView;
+    protected ImageButton mBackBtn;
+    protected ImageButton mVoiceBtn;
+    protected ImageButton mEmptyBtn;
+    protected RelativeLayout mSearchTopBar;
 
-    private CharSequence mOldQueryText;
-    private CharSequence mUserQuery;
+    protected CharSequence mOldQueryText;
+    protected CharSequence mUserQuery;
 
-    private OnQueryTextListener mOnQueryChangeListener;
-    private SearchViewListener mSearchViewListener;
+    protected OnQueryTextListener mOnQueryChangeListener;
+    protected SearchViewListener mSearchViewListener;
 
     private ListAdapter mAdapter;
 
     private SavedState mSavedState;
 
-    private boolean allowVoiceSearch;
+    protected boolean allowVoiceSearch;
 
-    private Context mContext;
 
     public MaterialSearchView(Context context) {
         this(context, null);
@@ -87,56 +86,28 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
 
     public MaterialSearchView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs);
-        mContext = context;
         initiateView();
         initStyle(attrs, defStyleAttr);
     }
 
-    private void initStyle(AttributeSet attrs, int defStyleAttr) {
+    @Override
+    protected void initStyle(AttributeSet attrs, int defStyleAttr) {
+        super.initStyle(attrs, defStyleAttr);
         TypedArray a = mContext.obtainStyledAttributes(attrs, R.styleable.MaterialSearchView, defStyleAttr, 0);
-
         if (a != null) {
-            if (a.hasValue(R.styleable.MaterialSearchView_searchBackground)) {
-                setBackground(a.getDrawable(R.styleable.MaterialSearchView_searchBackground));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_android_textColor)) {
-                setTextColor(a.getColor(R.styleable.MaterialSearchView_android_textColor, 0));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_android_textColorHint)) {
-                setHintTextColor(a.getColor(R.styleable.MaterialSearchView_android_textColorHint, 0));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_android_hint)) {
-                setHint(a.getString(R.styleable.MaterialSearchView_android_hint));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_searchVoiceIcon)) {
-                setVoiceIcon(a.getDrawable(R.styleable.MaterialSearchView_searchVoiceIcon));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_searchCloseIcon)) {
-                setCloseIcon(a.getDrawable(R.styleable.MaterialSearchView_searchCloseIcon));
-            }
-
-            if (a.hasValue(R.styleable.MaterialSearchView_searchBackIcon)) {
-                setBackIcon(a.getDrawable(R.styleable.MaterialSearchView_searchBackIcon));
-            }
-
 
             if (a.hasValue(R.styleable.MaterialSearchView_material_layout)) {
-                inflate_layout = setLayout(a.getInt(R.styleable.MaterialSearchView_material_layout, 0));
-            } else {
+       /*         inflate_layout = setLayout(a.getInt(R.styleable.MaterialSearchView_material_layout, 0));
+            } else {*/
                 inflate_layout = setLayout(0);
             }
 
-            if (a.hasValue(R.styleable.MaterialSearchView_searchOverlayColor)) {
-                setOverLay(a.getColor(R.styleable.MaterialSearchView_searchOverlayColor, 0));
+            if (a.hasValue(R.styleable.SearchViewBase_searchOverlayColor)) {
+                setOverLay(a.getColor(R.styleable.SearchViewBase_searchOverlayColor, 0));
             }
 
-            if (a.hasValue(R.styleable.MaterialSearchView_searchSuggestionBackground)) {
-                setSuggestionBackground(a.getDrawable(R.styleable.MaterialSearchView_searchSuggestionBackground));
+            if (a.hasValue(R.styleable.SearchViewBase_searchSuggestionBackground)) {
+                setSuggestionBackground(a.getDrawable(R.styleable.SearchViewBase_searchSuggestionBackground));
             }
 
             a.recycle();
@@ -144,7 +115,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     }
 
 
-    private int setLayout(int enum_layout) {
+    protected int setLayout(int enum_layout) {
         switch (enum_layout) {
             case 0:
                 return R.layout.search_view;
@@ -159,7 +130,8 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
     }
 
-    private void initiateView() {
+    @Override
+    protected void initiateView() {
         LayoutInflater.from(mContext).inflate(R.layout.search_view, this, true);
         mSearchLayout = findViewById(R.id.search_layout);
 
@@ -186,7 +158,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         mSuggestionsListView.setVisibility(GONE);
     }
 
-    private void initSearchView() {
+    protected void initSearchView() {
         mSearchSrcTextView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -231,7 +203,7 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
     }
 
-    private final OnClickListener mOnClickListener = new OnClickListener() {
+    public final OnClickListener mOnClickListener = new OnClickListener() {
 
         public void onClick(View v) {
             if (v == mBackBtn) {
@@ -323,38 +295,47 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
     }
 
     @Override
-    public void setBackgroundColor(int color) {
+    public void setBackgroundColor(@ColorInt int color) {
         mSearchTopBar.setBackgroundColor(color);
     }
 
+    @Override
     public void setOverLay(@ColorInt int color) {
         mTintView.setBackgroundColor(color);
     }
 
-    public void setTextColor(int color) {
+    @Override
+    public void setTextColor(@ColorInt int color) {
         mSearchSrcTextView.setTextColor(color);
     }
 
+    @Override
     public void setHintTextColor(int color) {
         mSearchSrcTextView.setHintTextColor(color);
     }
 
+
+    @Override
     public void setHint(CharSequence hint) {
         mSearchSrcTextView.setHint(hint);
     }
 
+    @Override
     public void setVoiceIcon(Drawable drawable) {
         mVoiceBtn.setImageDrawable(drawable);
     }
 
+    @Override
     public void setCloseIcon(Drawable drawable) {
         mEmptyBtn.setImageDrawable(drawable);
     }
 
+    @Override
     public void setBackIcon(Drawable drawable) {
         mBackBtn.setImageDrawable(drawable);
     }
 
+    @Override
     public void setSuggestionBackground(Drawable background) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             mSuggestionsListView.setBackground(background);
@@ -637,71 +618,6 @@ public class MaterialSearchView extends FrameLayout implements Filter.FilterList
         }
 
         super.onRestoreInstanceState(mSavedState.getSuperState());
-    }
-
-    static class SavedState extends BaseSavedState {
-        String query;
-        boolean isSearchOpen;
-
-        SavedState(Parcelable superState) {
-            super(superState);
-        }
-
-        private SavedState(Parcel in) {
-            super(in);
-            this.query = in.readString();
-            this.isSearchOpen = in.readInt() == 1;
-        }
-
-        @Override
-        public void writeToParcel(Parcel out, int flags) {
-            super.writeToParcel(out, flags);
-            out.writeString(query);
-            out.writeInt(isSearchOpen ? 1 : 0);
-        }
-
-        //required field that makes Parcelables from a Parcel
-        public static final Creator<SavedState> CREATOR =
-                new Creator<SavedState>() {
-                    public SavedState createFromParcel(Parcel in) {
-                        return new SavedState(in);
-                    }
-
-                    public SavedState[] newArray(int size) {
-                        return new SavedState[size];
-                    }
-                };
-    }
-
-    public interface OnQueryTextListener {
-
-        /**
-         * Called when the user submits the query. This could be due to a key press on the
-         * keyboard or due to pressing a submit button.
-         * The listener can override the standard behavior by returning true
-         * to indicate that it has handled the submit request. Otherwise return false to
-         * let the SearchView handle the submission by launching any associated intent.
-         *
-         * @param query the query text that is to be submitted
-         * @return true if the query has been handled by the listener, false to let the
-         * SearchView perform the default action.
-         */
-        boolean onQueryTextSubmit(String query);
-
-        /**
-         * Called when the query text is changed by the user.
-         *
-         * @param newText the new content of the query text field.
-         * @return false if the SearchView should perform the default action of showing any
-         * suggestions if available, true if the action was handled by the listener.
-         */
-        boolean onQueryTextChange(String newText);
-    }
-
-    public interface SearchViewListener {
-        void onSearchViewShown();
-
-        void onSearchViewClosed();
     }
 
 

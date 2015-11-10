@@ -23,7 +23,7 @@
         <attr name="hkmsab_layout" format="reference" />
     </declare-styleable>
 
-    <declare-styleable name="MaterialSearchView">
+    <declare-styleable name="SearchViewBase">
         <attr name="searchOverlayColor" format="color" />
         <attr name="searchBackground" format="integer" />
         <attr name="searchVoiceIcon" format="integer" />
@@ -33,10 +33,14 @@
         <attr name="android:hint" />
         <attr name="android:textColor" />
         <attr name="android:textColorHint" />
+    </declare-styleable>
+
+    <declare-styleable name="MaterialSearchView">
         <attr name="material_layout" format="enum">
             <enum name="DEFAULT" value="0" />
             <enum name="POPBEE" value="1" />
             <enum name="HB" value="2" />
         </attr>
     </declare-styleable>
+
 </resources>
