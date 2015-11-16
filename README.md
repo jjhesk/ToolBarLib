@@ -1,7 +1,7 @@
 # Advanced Toolbar support library
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][4]
-
+[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ][5]
 Android ActionBar Advanced Support Library for APIv22,v21,v19. This library gives a better hand to handle all sorts of interactions on the toolbar. There are various built-in API and methods to speed up the development and design requirements and implemenations. There are fundamental design patterns are ready to be explored. The features listed as below:
 
 - automatic show and hide softkeyboard
@@ -27,7 +27,7 @@ Projec Website: [TOOLBARLIB][2]
 ![this is the demo 2](screenshot/demo2.jpg)
 
 ##setup
-[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
+[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg)][5]
 X.X.X please check out the above version name.
 
 ```gradle
@@ -36,7 +36,7 @@ repositories {
 }
 
 dependencies {
-    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.5.0'
+    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.6.0'
 }
 
 ```
@@ -280,3 +280,4 @@ Social Bar method table for ```combar```:
 [2]: https://github.com/jjhesk/ToolBarLib
 [3]: https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way
 [4]: http://android-arsenal.com/details/1/2158
+[5]: https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion
