@@ -28,12 +28,12 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         bb.back(R.drawable.ic_m_back);
         //  bb.companyIcon(R.drawable.starz_logo);
         bb.background(R.drawable.actionbar_bg_dark_black);
-        //     bb.search(R.drawable.ic_find_mg);
-
+        bb.search(R.drawable.ic_find_mg);
         bb.setToolBarTitleSize(R.dimen.tb_title);
         bb.defaultTitle("Wrtie Comment");
         bb.setFontFace(this, "Pacifico.ttf");
         bb.setToolBarTitleColor(R.color.amber_700);
+
 
         toolbar = BeastBar.withToolbar(this, temp, bb);
 
@@ -64,6 +64,8 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         b5.setText("remove back");
         Button bx = (Button) findViewById(R.id.bxx); //other function
         Button bs = (Button) findViewById(R.id.b_search); //other function
+        Button search_off = (Button) findViewById(R.id.search_off); //other function
+        Button search_on = (Button) findViewById(R.id.search_on); //other function
         bx.setText("close this App");
         b1.setOnClickListener(this);
         b2.setOnClickListener(this);
@@ -72,6 +74,8 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         b5.setOnClickListener(this);
         bx.setOnClickListener(this);
         bs.setOnClickListener(this);
+        search_off.setOnClickListener(this);
+        search_on.setOnClickListener(this);
         toolbar.setFindIconFunc(new Runnable() {
             @Override
             public void run() {
@@ -127,6 +131,17 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
                 break;
             case R.id.b_search:
                 search_start();
+                break;
+            case R.id.search_on:
+                toolbar.setFindIconFunc(new Runnable() {
+                    @Override
+                    public void run() {
+                        searchView.showSearch();
+                    }
+                });
+                break;
+            case R.id.search_off:
+                toolbar.setFindIconFunc(null);
                 break;
         }
     }

@@ -42,7 +42,15 @@ public class BeastBar {
     private LinearLayout mRightContainer, mLeftContainer;
     private TintImageView mSearchButton, mTopLeftButton;
     private Runnable mFindFunction;
-    private Animation main_logo_in, main_logo_out, title_in, title_out, back_in, back_out;
+    private Animation
+            main_logo_in,
+            main_logo_out,
+            title_in,
+            title_out,
+            back_in,
+            back_out,
+            back_in_from_right,
+            back_out_to_right;
     private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown, isSearchButtonShown;
     private Builder setup;
     private int leftSide = 0, rightSide = 0;
@@ -138,7 +146,6 @@ public class BeastBar {
     }
 
     private void init() {
-
         isBackButtonShown = false;
         isSearchButtonShown = false;
         View v = LayoutInflater.from(mContext).inflate(R.layout.beastbar, null, false);
@@ -156,7 +163,8 @@ public class BeastBar {
         title_out = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_out);
         back_in = AnimationUtils.loadAnimation(mContext, R.anim.back_button_in);
         back_out = AnimationUtils.loadAnimation(mContext, R.anim.back_button_out);
-
+        back_in_from_right = AnimationUtils.loadAnimation(mContext, R.anim.back_in_from_right);
+        back_out_to_right = AnimationUtils.loadAnimation(mContext, R.anim.back_out_to_right);
         if (setup.tb_title_color != 0) {
             final int color_title = ContextCompat.getColor(mContext, setup.tb_title_color);
             mtv.setTextColor(color_title);
@@ -228,13 +236,38 @@ public class BeastBar {
 
     public BeastBar setFindIconFunc(@Nullable final Runnable func) {
         if (func == null) {
-            mSearchButton.setOnClickListener(null);
-        } else mSearchButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                func.run();
+            if (isSearchButtonShown) {
+                isSearchButtonShown = false;
+                mayCancelAnimation(mSearchButton);
+                back_out_to_right.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mSearchButton.setVisibility(View.INVISIBLE);
+                    }
+                });
+                mSearchButton.startAnimation(back_out_to_right);
+                mSearchButton.setOnClickListener(null);
             }
-        });
+        } else {
+            if (!isSearchButtonShown) {
+                isSearchButtonShown = true;
+                mayCancelAnimation(mSearchButton);
+                back_in_from_right.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mSearchButton.setVisibility(View.VISIBLE);
+
+                    }
+                });
+                mSearchButton.startAnimation(back_in_from_right);
+            }
+            mSearchButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    func.run();
+                }
+            });
+        }
         return this;
     }
 

@@ -12,64 +12,81 @@
         app:contentInsetLeft="0dp"
         app:contentInsetStart="0dp" />
 
-
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/toolbar"
-        android:orientation="vertical"
-        tools:ignore="MissingPrefix">
+        android:layout_below="@id/toolbar">
 
-
-        <com.hkm.advancedtoolbar.socialbar.combar
-            android:id="@+id/social_bar_component"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="match_parent"
 
-        <Button
-            android:id="@+id/b1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="show title bar" />
-
-        <Button
-            android:id="@+id/b2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="show main bar" />
-
-        <Button
-            android:id="@+id/b3"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="show search bar" />
-
-        <Button
-            android:id="@+id/b4"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="show toggle top bar" />
-
-        <Button
-            android:id="@+id/b5"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="display to zero count" />
-
-        <Button
-            android:id="@+id/b_search"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="search trigger" />
-
-        <Button
-            android:id="@+id/bxx"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="other extra function" />
+            android:orientation="vertical"
+            tools:ignore="MissingPrefix">
 
 
-    </LinearLayout>
+            <com.hkm.advancedtoolbar.socialbar.combar
+                android:id="@+id/social_bar_component"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/b1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="show title bar" />
+
+            <Button
+                android:id="@+id/b2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="show main bar" />
+
+            <Button
+                android:id="@+id/b3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="show search bar" />
+
+            <Button
+                android:id="@+id/b4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="show toggle top bar" />
+
+            <Button
+                android:id="@+id/b5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="display to zero count" />
+
+            <Button
+                android:id="@+id/b_search"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="search trigger" />
+
+            <Button
+                android:id="@+id/bxx"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="other extra function" />
+
+            <Button
+                android:id="@+id/search_on"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S on" />
+
+            <Button
+                android:id="@+id/search_off"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="S off" />
+
+
+        </LinearLayout>
+    </ScrollView>
 
     <com.hkm.advancedtoolbar.materialsearch.MaterialSearchView
         android:id="@+id/cmarterialsearch"
