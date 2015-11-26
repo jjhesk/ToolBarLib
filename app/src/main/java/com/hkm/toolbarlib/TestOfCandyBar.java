@@ -120,8 +120,8 @@ public class TestOfCandyBar extends AppCompatActivity implements View.OnClickLis
             worker.triggerfromSearchIcon();
             return true;
         } else if (idt == R.id.custombar) {
-            Intent g = new Intent(this, CustomActionBar.class);
-            startActivity(g);
+          //  Intent g = new Intent(this, CustomActionBar.class);
+         //   startActivity(g);
         } else if (idt == R.id.dynamic) {
 
         }

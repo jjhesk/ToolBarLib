@@ -13,7 +13,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.widget.TintImageView;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.Display;
 import android.view.LayoutInflater;
@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -40,7 +41,7 @@ public class BeastBar {
     private ImageView mImage;
     private RelativeLayout mBackground;
     private LinearLayout mRightContainer, mLeftContainer;
-    private TintImageView mSearchButton, mTopLeftButton;
+    private ImageButton mSearchButton, mTopLeftButton;
     private Runnable mFindFunction;
     private Animation
             main_logo_in,
@@ -154,8 +155,8 @@ public class BeastBar {
         mRightContainer = (LinearLayout) v.findViewById(R.id.right_container);
         mtv = (TextView) v.findViewById(R.id.ios_actionbar_title);
         mImage = (ImageView) v.findViewById(R.id.logo_k);
-        mSearchButton = (TintImageView) v.findViewById(R.id.ios_find_icon);
-        mTopLeftButton = (TintImageView) v.findViewById(R.id.ios_back_button);
+        mSearchButton = (ImageButton) v.findViewById(R.id.ios_find_icon);
+        mTopLeftButton = (ImageButton) v.findViewById(R.id.ios_back_button);
         this.container.addView(v);
         main_logo_in = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_in);
         main_logo_out = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_out);

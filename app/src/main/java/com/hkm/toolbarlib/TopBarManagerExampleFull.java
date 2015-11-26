@@ -111,8 +111,8 @@ public class TopBarManagerExampleFull extends AppCompatActivity implements CLayO
             worker.triggerForCustomExternalCustomView();
             return true;
         } else if (idt == R.id.custombar) {
-            Intent g = new Intent(this, CustomActionBar.class);
-            startActivity(g);
+         //   Intent g = new Intent(this, CustomActionBar.class);
+         //   startActivity(g);
         } else if (idt == R.id.dynamic) {
             dynamic_icon.update(item, u++);
         }

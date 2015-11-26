@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     tools:ignore="UnknownId">
 
-    <android.support.v7.internal.widget.TintImageView
+    <android.support.v7.widget.AppCompatButton
         android:id="@id/ios_find_icon"
         style="@android:style/Widget.Holo.ActionButton"
         android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
         android:paddingBottom="0dp" />
 
 
-    <android.support.v7.internal.widget.TintImageView
+    <android.support.v7.widget.AppCompatButton
         android:id="@id/ios_search_close_btn"
         style="@android:style/Widget.Holo.ActionButton"
         android:layout_width="wrap_content"

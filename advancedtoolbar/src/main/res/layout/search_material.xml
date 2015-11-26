@@ -3,7 +3,7 @@
     android:id="@id/ios_layout_wrapper"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/hb_edit_text_holo_light">
+    android:background="@drawable/hb_edit_text_holo_light">    x
 
     <EditText
         android:id="@id/ios_actionbar_wrapped_search"
@@ -16,7 +16,7 @@
         android:minWidth="230dp"
         android:paddingBottom="0dp" />
 
-    <android.support.v7.internal.widget.TintImageView
+    <ImageButton
         android:id="@id/ios_search_close_btn"
         style="@android:style/Widget.Holo.ActionButton"
         android:layout_width="wrap_content"

@@ -9,7 +9,7 @@ import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.internal.widget.TintImageView;
+import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -109,22 +109,22 @@ public class CandyBar implements View.OnClickListener, barControl {
         logoview = (ImageView) t.findViewById(R.id.logo_k);
         if (logo != 0)
             logoview.setImageResource(logo);
-        TintImageView k2 = (TintImageView) t.findViewById(R.id.i_kr2);
+        AppCompatButton k2 = (AppCompatButton) t.findViewById(R.id.i_kr2);
         final int[] overrides = mb.getOverrideIcons_i_t_ii();
         if (mainPreset == LayoutAsset.i_logo_ir) {
-            TintImageView k1 = (TintImageView) t.findViewById(R.id.i_kl1);
+            AppCompatButton k1 = (AppCompatButton) t.findViewById(R.id.i_kl1);
             if (overrides[0] != 0)
-                k1.setImageResource(overrides[0]);
+                k1.setBackgroundResource(overrides[0]);
             k1.setOnClickListener(this);
             if (overrides[1] != 0)
-                k2.setImageResource(overrides[1]);
+                k2.setBackgroundResource(overrides[1]);
             if (overrides[2] != 0)
                 k3.setImageResource(overrides[2]);
         }
 
         if (mainPreset == LayoutAsset.i_logo_ir2) {
             if (overrides[0] != 0)
-                k2.setImageResource(overrides[0]);
+                k2.setBackgroundResource(overrides[0]);
             if (overrides[1] != 0)
                 k3.setImageResource(overrides[1]);
         }
