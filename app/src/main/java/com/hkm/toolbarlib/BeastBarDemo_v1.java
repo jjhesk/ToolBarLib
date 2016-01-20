@@ -26,13 +26,14 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         cBar.setShareContent("exiting news", "this is the bredf", "http://www.popbee.com");
         BeastBar.Builder bb = new BeastBar.Builder();
         bb.back(R.drawable.ic_m_back);
-        //  bb.companyIcon(R.drawable.starz_logo);
+        bb.companyIcon(R.drawable.starz_logo);
         bb.background(R.drawable.actionbar_bg_dark_black);
         bb.search(R.drawable.ic_find_mg);
         bb.setToolBarTitleSize(R.dimen.tb_title);
         bb.defaultTitle("Wrtie Comment");
         bb.setFontFace(this, "Pacifico.ttf");
         bb.setToolBarTitleColor(R.color.amber_700);
+        bb.enableLogoAnimation(false);
 
 
         toolbar = BeastBar.withToolbar(this, temp, bb);

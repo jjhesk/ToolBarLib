@@ -5,6 +5,7 @@ import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.AnimRes;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
@@ -60,6 +61,7 @@ public class BeastBar {
         private int ic_company, ic_search, ic_back, ic_background, tb_textsize = 0, tb_title_color = 0;
         private Typeface typeface;
         private String title_default;
+        private boolean enable_logo_anim = true;
 
         public Builder() {
 
@@ -72,6 +74,11 @@ public class BeastBar {
 
         public Builder companyIcon(@DrawableRes final int res) {
             this.ic_company = res;
+            return this;
+        }
+
+        public Builder enableLogoAnimation(boolean res) {
+            this.enable_logo_anim = res;
             return this;
         }
 
@@ -146,6 +153,7 @@ public class BeastBar {
         }
     }
 
+
     private void init() {
         isBackButtonShown = false;
         isSearchButtonShown = false;
@@ -158,12 +166,12 @@ public class BeastBar {
         mSearchButton = (ImageButton) v.findViewById(R.id.ios_find_icon);
         mTopLeftButton = (ImageButton) v.findViewById(R.id.ios_back_button);
         this.container.addView(v);
-        main_logo_in = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_in);
-        main_logo_out = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_out);
-        title_in = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_in);
-        title_out = AnimationUtils.loadAnimation(mContext, R.anim.company_logo_out);
-        back_in = AnimationUtils.loadAnimation(mContext, R.anim.back_button_in);
-        back_out = AnimationUtils.loadAnimation(mContext, R.anim.back_button_out);
+        main_logo_in = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getInAnimation());
+        main_logo_out = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getOutAnimation());
+        title_in = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getInAnimation());
+        title_out = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getOutAnimation());
+        back_in = AnimationUtils.loadAnimation(mContext, animaionset.slideText.getInAnimation());
+        back_out = AnimationUtils.loadAnimation(mContext, animaionset.slideText.getOutAnimation());
         back_in_from_right = AnimationUtils.loadAnimation(mContext, R.anim.back_in_from_right);
         back_out_to_right = AnimationUtils.loadAnimation(mContext, R.anim.back_out_to_right);
         if (setup.tb_title_color != 0) {
@@ -285,25 +293,33 @@ public class BeastBar {
 
         if (!isTitleShown) {
             isTitleShown = true;
-            mayCancelAnimation(mtv);
-            main_logo_in.setAnimationListener(new ListenerAnimation() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mtv.setVisibility(View.VISIBLE);
-                }
-            });
-            mtv.startAnimation(main_logo_in);
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mtv);
+                main_logo_in.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mtv.setVisibility(View.VISIBLE);
+                    }
+                });
+                mtv.startAnimation(main_logo_in);
+            } else {
+                mtv.setVisibility(View.VISIBLE);
+            }
         }
         if (isCompanyLogoShown) {
-            mayCancelAnimation(mImage);
             isCompanyLogoShown = false;
-            main_logo_out.setAnimationListener(new ListenerAnimation() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mImage.setVisibility(View.INVISIBLE);
-                }
-            });
-            mImage.startAnimation(main_logo_out);
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mImage);
+                main_logo_out.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mImage.setVisibility(View.INVISIBLE);
+                    }
+                });
+                mImage.startAnimation(main_logo_out);
+            } else {
+                mImage.setVisibility(View.INVISIBLE);
+            }
         }
         return this;
     }
@@ -311,25 +327,33 @@ public class BeastBar {
     public BeastBar showMainLogo() {
         if (!isCompanyLogoShown) {
             isCompanyLogoShown = true;
-            mayCancelAnimation(mImage);
-            main_logo_in.setAnimationListener(new ListenerAnimation() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mImage.setVisibility(View.VISIBLE);
-                }
-            });
-            mImage.startAnimation(main_logo_in);
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mImage);
+                main_logo_in.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mImage.setVisibility(View.VISIBLE);
+                    }
+                });
+                mImage.startAnimation(main_logo_in);
+            } else {
+                mImage.setVisibility(View.VISIBLE);
+            }
         }
         if (isTitleShown) {
             isTitleShown = false;
-            mayCancelAnimation(mtv);
-            main_logo_out.setAnimationListener(new ListenerAnimation() {
-                @Override
-                public void onAnimationEnd(Animation animation) {
-                    mtv.setVisibility(View.INVISIBLE);
-                }
-            });
-            mtv.startAnimation(main_logo_out);
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mtv);
+                main_logo_out.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mtv.setVisibility(View.INVISIBLE);
+                    }
+                });
+                mtv.startAnimation(main_logo_out);
+            } else {
+                mtv.setVisibility(View.INVISIBLE);
+            }
         }
         return this;
     }
