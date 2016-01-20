@@ -3,6 +3,23 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][4]
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ][5]
 
+
+
+```gradle
+
+dependencies {
+    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.6.1'
+}
+
+```
+
+
+##setup this gradle only stores at 
+```gradle
+repositories {
+    maven {  url "http://dl.bintray.com/jjhesk/maven"  }
+}
+```
 Android ActionBar Advanced Support Library for API v23, v22, v21, v19. This library gives a better hand to handle all sorts of interactions on the toolbar. There are various built-in API and methods to speed up the development and design requirements and implemenations. There are fundamental design patterns are ready to be explored. The features listed as below:
 
 - automatic show and hide softkeyboard
@@ -26,20 +43,7 @@ Projec Website: [TOOLBARLIB][2]
 - [x] CandyBar implementation
 ![this is the demo 2](screenshot/demo2.jpg)
 
-##setup
-[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg)][5]
-X.X.X please check out the above version name.
 
-```gradle
-repositories {
-    maven {  url "http://dl.bintray.com/jjhesk/maven"  }
-}
-
-dependencies {
-    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.6.1'
-}
-
-```
 
 ##implementation
 You can call by simple direct API from the code and it will do the magic for you.
