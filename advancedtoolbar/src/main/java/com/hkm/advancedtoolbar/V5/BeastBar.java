@@ -357,8 +357,12 @@ public class BeastBar {
         }
         return this;
     }
-
-
+    public boolean isBackButtonShown(){
+        return isBackButtonShown;
+    }
+    public boolean isCompanyLogoShown(){
+        return isCompanyLogoShown;
+    }
     public BeastBar setBackIconFunc(@Nullable final Runnable func) {
         if (func == null) {
             if (isBackButtonShown) {
