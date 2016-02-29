@@ -34,8 +34,8 @@ import com.hkm.advancedtoolbar.R;
  * Created by hesk on 28/10/15.
  */
 public class BeastBar {
+    public static int SINGLELINE = 1, MULTILINE = 2;
     private String text_title;
-
     private Context mContext;
     private Toolbar container;
     private TextView mtv;
@@ -58,7 +58,11 @@ public class BeastBar {
     private int leftSide = 0, rightSide = 0;
 
     public static class Builder {
-        private int ic_company, ic_search, ic_back, ic_background, tb_textsize = 0, tb_title_color = 0;
+        private int
+                ic_company, ic_search, ic_back, ic_background,
+                tb_textsize = 0, tb_title_color = 0, title_line_config = 1,
+                animation_duration_logo = -1,
+                animation_duration = -1;
         private Typeface typeface;
         private String title_default;
         private boolean enable_logo_anim = true;
@@ -111,6 +115,21 @@ public class BeastBar {
             this.title_default = title;
             return this;
         }
+
+        public Builder setTitleLine(int lines) {
+            this.title_line_config = lines;
+            return this;
+        }
+
+        public Builder setAnimationDuration(int millisec_time) {
+            this.animation_duration = millisec_time;
+            return this;
+        }
+
+        public Builder setLogoAnimationDuration(int millisec_time) {
+            this.animation_duration_logo = millisec_time;
+            return this;
+        }
     }
 
     private Point size = new Point();
@@ -153,7 +172,6 @@ public class BeastBar {
         }
     }
 
-
     private void init() {
         isBackButtonShown = false;
         isSearchButtonShown = false;
@@ -174,6 +192,20 @@ public class BeastBar {
         back_out = AnimationUtils.loadAnimation(mContext, animaionset.slideText.getOutAnimation());
         back_in_from_right = AnimationUtils.loadAnimation(mContext, R.anim.back_in_from_right);
         back_out_to_right = AnimationUtils.loadAnimation(mContext, R.anim.back_out_to_right);
+        if (setup.animation_duration > -1) {
+            title_in.setDuration(setup.animation_duration);
+            title_out.setDuration(setup.animation_duration);
+            back_in.setDuration(setup.animation_duration);
+            back_out.setDuration(setup.animation_duration);
+            back_in_from_right.setDuration(setup.animation_duration);
+            back_out_to_right.setDuration(setup.animation_duration);
+            main_logo_in.setDuration(setup.animation_duration);
+            main_logo_out.setDuration(setup.animation_duration);
+        }
+        if (setup.animation_duration_logo > -1) {
+            main_logo_in.setDuration(setup.animation_duration_logo);
+            main_logo_out.setDuration(setup.animation_duration_logo);
+        }
         if (setup.tb_title_color != 0) {
             final int color_title = ContextCompat.getColor(mContext, setup.tb_title_color);
             mtv.setTextColor(color_title);
@@ -182,7 +214,12 @@ public class BeastBar {
             mtv.setTypeface(setup.typeface);
         }
         mTopLeftButton.setVisibility(View.INVISIBLE);
-
+        if (setup.title_line_config == SINGLELINE) {
+            mtv.setSingleLine(true);
+        } else {
+            mtv.setSingleLine(false);
+            mtv.setMaxLines(setup.title_line_config);
+        }
         if (setup.ic_search != 0) {
             mSearchButton.setImageResource(setup.ic_search);
             isSearchButtonShown = true;
@@ -357,12 +394,15 @@ public class BeastBar {
         }
         return this;
     }
-    public boolean isBackButtonShown(){
+
+    public boolean isBackButtonShown() {
         return isBackButtonShown;
     }
-    public boolean isCompanyLogoShown(){
+
+    public boolean isCompanyLogoShown() {
         return isCompanyLogoShown;
     }
+
     public BeastBar setBackIconFunc(@Nullable final Runnable func) {
         if (func == null) {
             if (isBackButtonShown) {
