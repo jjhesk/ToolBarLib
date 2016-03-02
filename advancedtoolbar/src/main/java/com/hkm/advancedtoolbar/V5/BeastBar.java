@@ -29,6 +29,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.Util.TitleStorage;
 
 /**
  * Created by hesk on 28/10/15.
@@ -56,6 +57,7 @@ public class BeastBar {
     private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown, isSearchButtonShown;
     private Builder setup;
     private int leftSide = 0, rightSide = 0;
+    private TitleStorage mTitle;
 
     public static class Builder {
         private int
@@ -66,6 +68,7 @@ public class BeastBar {
         private Typeface typeface;
         private String title_default;
         private boolean enable_logo_anim = true;
+        private boolean save_title_navigation = false;
 
         public Builder() {
 
@@ -130,6 +133,24 @@ public class BeastBar {
             this.animation_duration_logo = millisec_time;
             return this;
         }
+
+        public Builder enableTitleHistory(boolean save) {
+            this.save_title_navigation = save;
+            return this;
+        }
+
+    }
+
+    private onButtonPressListener mButtonBack;
+
+    public interface onButtonPressListener {
+        /**
+         * @param previousTitle the previous title to be found in the history or otherwise it is nothing
+         * @return true to allow the main logo to show
+         */
+        boolean onBackPress(final String previousTitle);
+
+        void onSearchPress();
     }
 
     private Point size = new Point();
@@ -169,6 +190,39 @@ public class BeastBar {
         mtv.requestLayout();
         if (setup.tb_textsize > 0) {
             mtv.setTextSize(mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
+        }
+    }
+
+    private void animationTitle() {
+        if (!isTitleShown) {
+            isTitleShown = true;
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mtv);
+                main_logo_in.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mtv.setVisibility(View.VISIBLE);
+                    }
+                });
+                mtv.startAnimation(main_logo_in);
+            } else {
+                mtv.setVisibility(View.VISIBLE);
+            }
+        }
+        if (isCompanyLogoShown) {
+            isCompanyLogoShown = false;
+            if (setup.enable_logo_anim) {
+                mayCancelAnimation(mImage);
+                main_logo_out.setAnimationListener(new ListenerAnimation() {
+                    @Override
+                    public void onAnimationEnd(Animation animation) {
+                        mImage.setVisibility(View.INVISIBLE);
+                    }
+                });
+                mImage.startAnimation(main_logo_out);
+            } else {
+                mImage.setVisibility(View.INVISIBLE);
+            }
         }
     }
 
@@ -260,9 +314,12 @@ public class BeastBar {
             }
         });
 
-
         if (!isSearchButtonShown) {
             displayRightFirstIcon(false, false);
+        }
+
+        if (setup.save_title_navigation) {
+            mTitle = new TitleStorage();
         }
         // mBackground.setBackgroundResource(setup.ic_background);
     }
@@ -280,7 +337,7 @@ public class BeastBar {
         mtv.setMaxWidth(size.x - leftSide - rightSide);
     }
 
-    public BeastBar setFindIconFunc(@Nullable final Runnable func) {
+    public BeastBar setFindIconFunc(@Nullable final onButtonPressListener func) {
         if (func == null) {
             if (isSearchButtonShown) {
                 isSearchButtonShown = false;
@@ -310,7 +367,7 @@ public class BeastBar {
             mSearchButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    func.run();
+                    func.onSearchPress();
                 }
             });
         }
@@ -327,39 +384,13 @@ public class BeastBar {
 
     public BeastBar setActionTitle(final String title) {
         mtv.setText(title);
-
-        if (!isTitleShown) {
-            isTitleShown = true;
-            if (setup.enable_logo_anim) {
-                mayCancelAnimation(mtv);
-                main_logo_in.setAnimationListener(new ListenerAnimation() {
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mtv.setVisibility(View.VISIBLE);
-                    }
-                });
-                mtv.startAnimation(main_logo_in);
-            } else {
-                mtv.setVisibility(View.VISIBLE);
-            }
+        if (setup.save_title_navigation) {
+            mTitle.saveTitle(title);
         }
-        if (isCompanyLogoShown) {
-            isCompanyLogoShown = false;
-            if (setup.enable_logo_anim) {
-                mayCancelAnimation(mImage);
-                main_logo_out.setAnimationListener(new ListenerAnimation() {
-                    @Override
-                    public void onAnimationEnd(Animation animation) {
-                        mImage.setVisibility(View.INVISIBLE);
-                    }
-                });
-                mImage.startAnimation(main_logo_out);
-            } else {
-                mImage.setVisibility(View.INVISIBLE);
-            }
-        }
+        animationTitle();
         return this;
     }
+
 
     public BeastBar showMainLogo() {
         if (!isCompanyLogoShown) {
@@ -403,7 +434,13 @@ public class BeastBar {
         return isCompanyLogoShown;
     }
 
-    public BeastBar setBackIconFunc(@Nullable final Runnable func) {
+    public void resetTitleHistory() {
+        if (setup.save_title_navigation) {
+            mTitle.reset();
+        }
+    }
+
+    public BeastBar setBackIconFunc(@Nullable final onButtonPressListener func) {
         if (func == null) {
             if (isBackButtonShown) {
                 isBackButtonShown = false;
@@ -434,7 +471,16 @@ public class BeastBar {
             mTopLeftButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    func.run();
+                    String history_title = "";
+                    if (setup.save_title_navigation && mTitle.getHistorySteps() > 0) {
+                        history_title = mTitle.popback();
+                        mtv.setText(history_title);
+                        animationTitle();
+                    }
+                    boolean result = func.onBackPress(history_title);
+                    if (result) {
+                        showMainLogo();
+                    }
                 }
             });
         }
@@ -535,5 +581,7 @@ public class BeastBar {
         }
     }
 
-
+    public TitleStorage getTitleStorageInstance() {
+        return mTitle;
+    }
 }

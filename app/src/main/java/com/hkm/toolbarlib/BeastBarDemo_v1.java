@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 
 import com.hkm.advancedtoolbar.V5.BeastBar;
+import com.hkm.advancedtoolbar.V5.buttonWrapper;
 import com.hkm.advancedtoolbar.materialsearch.MaterialSearchView;
 import com.hkm.advancedtoolbar.socialbar.combar;
 
@@ -77,13 +78,14 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
         bs.setOnClickListener(this);
         search_off.setOnClickListener(this);
         search_on.setOnClickListener(this);
-        toolbar.setFindIconFunc(new Runnable() {
-            @Override
-            public void run() {
-                searchView.showSearch();
-            }
-        });
+        toolbar.setFindIconFunc(new ButtonCon());
+    }
 
+    protected class ButtonCon extends buttonWrapper {
+        @Override
+        public void onSearchPress() {
+            searchView.showSearch();
+        }
     }
 
     protected void search_start() {
@@ -117,12 +119,7 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
                 toolbar.setActionTitle("Kepler 452b");
                 break;
             case R.id.b4:
-                toolbar.setBackIconFunc(new Runnable() {
-                    @Override
-                    public void run() {
-
-                    }
-                });
+                toolbar.setBackIconFunc(new ButtonCon());
                 break;
             case R.id.b5:
                 toolbar.setBackIconFunc(null);
@@ -134,12 +131,7 @@ public class BeastBarDemo_v1 extends AppCompatActivity implements View.OnClickLi
                 search_start();
                 break;
             case R.id.search_on:
-                toolbar.setFindIconFunc(new Runnable() {
-                    @Override
-                    public void run() {
-                        searchView.showSearch();
-                    }
-                });
+                toolbar.setFindIconFunc(new ButtonCon());
                 break;
             case R.id.search_off:
                 toolbar.setFindIconFunc(null);
