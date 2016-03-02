@@ -28,8 +28,11 @@ Android ActionBar Advanced Support Library for API v23, v22, v21, v19. This libr
 - custom textview and design
 - dynamic custom icon and textview on top of Thanks to [mikepenz][1]
 - interchangable between logos and the backgrounds
+- title history support
+- title shown as single line or more than single line
+- Custom call back `onButtonPressListener`
 
-Projec Website: [TOOLBARLIB][2]
+Project Website: [TOOLBARLIB][2]
 
 ##Quick review
 
