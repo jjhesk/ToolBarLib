@@ -16,6 +16,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -173,7 +174,7 @@ public class BeastBar {
         bb.setup = beastbuilder;
         display.getSize(bb.size);
         bb.init();
-        bb.adjustmentTV();
+
         return bb;
     }
 
@@ -186,12 +187,6 @@ public class BeastBar {
         return this;
     }
 
-    private void adjustmentTV() {
-        mtv.requestLayout();
-        if (setup.tb_textsize > 0) {
-            mtv.setTextSize(mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
-        }
-    }
 
     private void animationTitle() {
         if (!isTitleShown) {
@@ -274,6 +269,12 @@ public class BeastBar {
             mtv.setSingleLine(false);
             mtv.setMaxLines(setup.title_line_config);
         }
+
+        if (setup.tb_textsize > 0) {
+            mtv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
+        }
+        mtv.requestLayout();
+
         if (setup.ic_search != 0) {
             mSearchButton.setImageResource(setup.ic_search);
             isSearchButtonShown = true;

@@ -8,7 +8,7 @@
 ```gradle
 
 dependencies {
-    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.6.2'
+    compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.6.45'
 }
 
 ```
