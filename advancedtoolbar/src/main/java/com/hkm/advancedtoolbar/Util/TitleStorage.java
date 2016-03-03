@@ -30,9 +30,13 @@ public class TitleStorage {
     }
 
     public String popback() {
-        if (items.size() > 1) {
-            items.remove(items.size() - 1);
-            return items.get(items.size() - 1);
+        if (items.size() > 0) {
+            String takenout = items.remove(items.size() - 1);
+            if (items.size() > 0) {
+                return items.get(items.size() - 1);
+            } else {
+                return "";
+            }
         } else {
             return "";
         }
