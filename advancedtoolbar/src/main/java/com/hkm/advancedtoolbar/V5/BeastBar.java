@@ -394,13 +394,13 @@ public class BeastBar {
      * @return the total length of the history
      */
     public int titlePopBack() {
-        if (setup.save_title_navigation && mTitle.getHistorySteps() > 0) {
+        if (setup.save_title_navigation && mTitle.getHistorySteps() > 1) {
             final String history_title = mTitle.popback();
             mtv.setText(history_title);
             animationTitle();
             return mTitle.getHistorySteps();
         }
-        return 0;
+        return -1;
     }
 
     public void resetTitleHistory() {
