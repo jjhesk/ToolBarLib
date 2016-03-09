@@ -4,9 +4,9 @@ android {
     buildToolsVersion project.ANDROID_BUILD_TOOLS_VERSION
 
     defaultConfig {
-        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION     as int
-        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION    as int
-        versionCode project.VERSION_CODE  as int
+        minSdkVersion project.ANDROID_BUILD_MIN_SDK_VERSION as int
+        targetSdkVersion project.ANDROID_BUILD_TARGET_SDK_VERSION as int
+        versionCode project.VERSION_CODE as int
         versionName project.VERSION_NAME
     }
     buildTypes {

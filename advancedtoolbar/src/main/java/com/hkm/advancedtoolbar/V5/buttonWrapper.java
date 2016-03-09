@@ -5,11 +5,11 @@ package com.hkm.advancedtoolbar.V5;
  */
 public class buttonWrapper implements BeastBar.onButtonPressListener {
     /**
-     * @param previousTitle the previous title to be found in the history or otherwise it is nothing
+     * @param historysize the previous title to be found in the history or otherwise it is nothing
      * @return false for not showing the main logo
      */
     @Override
-    public boolean onBackPress(String previousTitle) {
+    public boolean onBackPress(int historysize) {
         return false;
     }
 

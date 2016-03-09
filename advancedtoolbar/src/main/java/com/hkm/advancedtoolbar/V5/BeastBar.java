@@ -146,10 +146,10 @@ public class BeastBar {
 
     public interface onButtonPressListener {
         /**
-         * @param previousTitle the previous title to be found in the history or otherwise it is nothing
+         * @param previousTitleSteps the previous title to be found in the history or otherwise it is nothing
          * @return true to allow the main logo to show
          */
-        boolean onBackPress(final String previousTitle);
+        boolean onBackPress(final int previousTitleSteps);
 
         void onSearchPress();
     }
@@ -167,8 +167,6 @@ public class BeastBar {
         View homeIcon = res.findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home : android.R.id.home);
         // ((View) homeIcon.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         //  ((View) homeIcon).setVisibility(View.GONE);
-
-
         final BeastBar bb = new BeastBar(res);
         bb.setToolBar(original);
         bb.setup = beastbuilder;
@@ -392,6 +390,24 @@ public class BeastBar {
         return this;
     }
 
+    /**
+     * @return the total length of the history
+     */
+    public int titlePopBack() {
+        if (setup.save_title_navigation && mTitle.getHistorySteps() > 0) {
+            final String history_title = mTitle.popback();
+            mtv.setText(history_title);
+            animationTitle();
+            return mTitle.getHistorySteps();
+        }
+        return 0;
+    }
+
+    public void resetTitleHistory() {
+        if (setup.save_title_navigation) {
+            mTitle.reset();
+        }
+    }
 
     public BeastBar showMainLogo() {
         if (!isCompanyLogoShown) {
@@ -435,11 +451,7 @@ public class BeastBar {
         return isCompanyLogoShown;
     }
 
-    public void resetTitleHistory() {
-        if (setup.save_title_navigation) {
-            mTitle.reset();
-        }
-    }
+
 
     public BeastBar setBackIconFunc(@Nullable final onButtonPressListener func) {
         if (func == null) {
@@ -472,16 +484,7 @@ public class BeastBar {
             mTopLeftButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String history_title = "";
-                    if (setup.save_title_navigation && mTitle.getHistorySteps() > 0) {
-                        history_title = mTitle.popback();
-                        mtv.setText(history_title);
-                        animationTitle();
-                    }
-                    boolean result = func.onBackPress(history_title);
-                    if (result) {
-                        showMainLogo();
-                    }
+                    func.onBackPress(titlePopBack());
                 }
             });
         }
