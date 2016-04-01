@@ -207,18 +207,39 @@ public class MaterialSearchView extends SearchViewBase {
 
         public void onClick(View v) {
             if (v == mBackBtn) {
-                closeSearch();
+                backBtnClick();
             } else if (v == mVoiceBtn) {
                 onVoiceClicked();
             } else if (v == mEmptyBtn) {
-                mSearchSrcTextView.setText(null);
+                searchClearClick();
             } else if (v == mSearchSrcTextView) {
                 showSuggestions();
             } else if (v == mTintView) {
-                closeSearch();
+                tintViewClick();
             }
         }
     };
+
+    protected void searchClearClick() {
+        mSearchSrcTextView.setText(null);
+    }
+
+    protected void tintViewClick() {
+        closeSearch();
+    }
+
+    protected void backBtnClick() {
+        closeSearch();
+    }
+
+    protected void triggerQuery() {
+        closeSearch();
+        mSearchSrcTextView.setText(null);
+    }
+
+    public void setSearchOpen(boolean b) {
+        mIsSearchOpen = b;
+    }
 
     private void onVoiceClicked() {
         Intent intent = new Intent(RecognizerIntent.ACTION_RECOGNIZE_SPEECH);
@@ -248,12 +269,12 @@ public class MaterialSearchView extends SearchViewBase {
         mOldQueryText = newText.toString();
     }
 
+
     private void onSubmitQuery() {
         CharSequence query = mSearchSrcTextView.getText();
         if (query != null && TextUtils.getTrimmedLength(query) > 0) {
             if (mOnQueryChangeListener == null || !mOnQueryChangeListener.onQueryTextSubmit(query.toString())) {
-                closeSearch();
-                mSearchSrcTextView.setText(null);
+                triggerQuery();
             }
         }
     }
@@ -269,12 +290,12 @@ public class MaterialSearchView extends SearchViewBase {
         }
     }
 
-    private void hideKeyboard(View view) {
+    protected void hideKeyboard(View view) {
         InputMethodManager imm = (InputMethodManager) view.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
-    private void showKeyboard(View view) {
+    protected void showKeyboard(View view) {
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1 && view.hasFocus()) {
             view.clearFocus();
         }
@@ -593,12 +614,10 @@ public class MaterialSearchView extends SearchViewBase {
     public Parcelable onSaveInstanceState() {
         //begin boilerplate code that allows parent classes to save state
         Parcelable superState = super.onSaveInstanceState();
-
         mSavedState = new SavedState(superState);
         //end
         mSavedState.query = mUserQuery != null ? mUserQuery.toString() : null;
         mSavedState.isSearchOpen = this.mIsSearchOpen;
-
         return mSavedState;
     }
 
