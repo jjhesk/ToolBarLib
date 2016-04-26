@@ -11,7 +11,6 @@
 # Generated files
 bin/
 gen/
-
 # Gradle files
 .gradle/
 build/
@@ -27,9 +26,6 @@ proguard/
 *.log
 .idea/
 /.idea/*
-
-/build
 .idea
-
-.idea/workspace.xml
 *.iml
+/*/*.iml
