@@ -5,7 +5,7 @@ buildscript {
         jcenter()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:1.5.0'
+        classpath 'com.android.tools.build:gradle:2.0.0'
         classpath 'com.novoda:bintray-release:0.3.4'
     }
 }
@@ -14,4 +14,19 @@ allprojects {
     repositories {
         jcenter()
     }
+}
+ext{
+    ftKit = '0.4.2'
+
+    //Support Libraries dependencies
+    supportDependencies = [
+            percent   : "com.android.support:percent:${ANDROID_SUPPORT_LIBRARY}",
+            annotation: "com.android.support:support-annotations:${ANDROID_SUPPORT_LIBRARY}",
+            support   : "com.android.support:support-v13:${ANDROID_SUPPORT_LIBRARY}",
+            appCompat : "com.android.support:appcompat-v7:${ANDROID_SUPPORT_LIBRARY}",
+            rv        : "com.android.support:recyclerview-v7:${ANDROID_SUPPORT_LIBRARY}",
+            cv        : "com.android.support:cardview-v7:${ANDROID_SUPPORT_LIBRARY}",
+            kitCore   : "com.52inc:52Kit-core:${ftKit}"
+    ]
+
 }
