@@ -27,5 +27,6 @@ proguard/
 .idea/
 /.idea/*
 .idea
-*.iml
+/*.iml
 /*/*.iml
+*.iml
