@@ -1,6 +1,7 @@
 package com.hkm.advancedtoolbar.materialsearch;
 
 import android.app.Activity;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -639,5 +640,15 @@ public class MaterialSearchView extends SearchViewBase {
         super.onRestoreInstanceState(mSavedState.getSuperState());
     }
 
+    public void fromActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == MaterialSearchView.REQUEST_VOICE) {
+            Log.d("check", data.toString());
+            String query = data.getStringExtra(SearchManager.QUERY);
+            //  searchView.setS
+            if (query == null) return;
+            if (query.isEmpty()) return;
+            mSearchSrcTextView.setText(query);
+        }
+    }
 
 }
