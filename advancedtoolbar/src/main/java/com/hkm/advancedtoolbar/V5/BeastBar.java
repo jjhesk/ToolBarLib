@@ -451,7 +451,13 @@ public class BeastBar {
         return isCompanyLogoShown;
     }
 
+    public boolean isTitleShown() {
+        return isTitleShown;
+    }
 
+    public boolean isSearchButtonShown() {
+        return isSearchButtonShown;
+    }
 
     public BeastBar setBackIconFunc(@Nullable final onButtonPressListener func) {
         if (func == null) {
@@ -587,5 +593,33 @@ public class BeastBar {
 
     public TitleStorage getTitleStorageInstance() {
         return mTitle;
+    }
+
+
+    public final void onStateInstaceState(Bundle out) {
+        if (mTitle != null) mTitle.onStateInstaceState(out);
+        out.putBoolean(TitleStorage.IS_LOGOSHOWN, isCompanyLogoShown);
+        out.putBoolean(TitleStorage.IS_SEARCHSHOWN, isSearchButtonShown);
+        out.putBoolean(TitleStorage.IS_TITLESHOWN, isTitleShown);
+        out.putBoolean(TitleStorage.IS_BACKSHOWN, isBackButtonShown);
+    }
+
+
+    public final void onRestoreInstanceState(@Nullable Bundle input) {
+        if (input == null) return;
+        if (mTitle != null) mTitle.onRestoreInstanceState(input);
+        isTitleShown = input.getBoolean(TitleStorage.IS_TITLESHOWN, isTitleShown);
+        isCompanyLogoShown = input.getBoolean(TitleStorage.IS_LOGOSHOWN, isCompanyLogoShown);
+        isSearchButtonShown = input.getBoolean(TitleStorage.IS_SEARCHSHOWN, isSearchButtonShown);
+        isBackButtonShown = input.getBoolean(TitleStorage.IS_BACKSHOWN, isBackButtonShown);
+
+        /**
+         * there we can only take care of two features in this library
+         */
+        if (isTitleShown && mTitle != null) setActionTitle(mTitle.getCurrentTitle());
+
+        if (isCompanyLogoShown) showMainLogo();
+
+
     }
 }

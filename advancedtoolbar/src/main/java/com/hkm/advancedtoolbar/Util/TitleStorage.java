@@ -1,5 +1,8 @@
 package com.hkm.advancedtoolbar.Util;
 
+import android.os.Bundle;
+import android.support.annotation.Nullable;
+
 import java.util.ArrayList;
 
 /**
@@ -29,6 +32,10 @@ public class TitleStorage {
         return items;
     }
 
+    public String getCurrentTitle() {
+        return items.get(items.size() - 1);
+    }
+
     public String popback() {
         if (items.size() > 0) {
             String takenout = items.remove(items.size() - 1);
@@ -39,6 +46,30 @@ public class TitleStorage {
             }
         } else {
             return "";
+        }
+    }
+
+    public final static String
+            STEPS = "BB_HISTORY_STEPS",
+            IS_LOGOSHOWN = "BB_LOGO_SHOWN",
+            IS_BACKSHOWN = "BB_BACK_SHOWN",
+            IS_SEARCHSHOWN = "BB_SEARCH_SHOWN",
+            IS_TITLESHOWN = "BB_TITLE_SHOWN",
+            STRINGARRAY = "BB_HISTORY_TITLES";
+
+    public final void onStateInstaceState(Bundle out) {
+        out.putStringArrayList(STRINGARRAY, items);
+        out.putInt(STEPS, getHistorySteps());
+    }
+
+
+    public final void onRestoreInstanceState(@Nullable Bundle input) {
+        if (input == null) return;
+        try {
+            items.clear();
+            items.addAll(input.getStringArrayList(STRINGARRAY));
+        } catch (ClassCastException e) {
+        } catch (NullPointerException e) {
         }
     }
 }
