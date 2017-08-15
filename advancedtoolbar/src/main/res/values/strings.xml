@@ -3,4 +3,6 @@
     <string name="default_search_hint">please search</string>
     <string name="not_found_share_app">This application is not installed at the moment.</string>
     <string name="search_hint">What do you want to know?</string>
+    <string name="next">Next</string>
+    <string name="apply">Apply</string>
 </resources>

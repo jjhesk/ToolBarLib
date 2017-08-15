@@ -1,36 +1,46 @@
 package com.hkm.advancedtoolbar.V5;
 
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
+import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.annotation.StringRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatButton;
+import android.support.v7.view.ContextThemeWrapper;
+import android.support.v7.widget.SwitchCompat;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
 import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
 import com.hkm.advancedtoolbar.Util.TitleStorage;
+import com.mikhaellopez.circularimageview.CircularImageView;
+
+import java.lang.ref.WeakReference;
+import java.util.Iterator;
 
 /**
  * Created by hesk on 28/10/15.
@@ -46,6 +56,7 @@ public class BeastBar {
     private LinearLayout mRightContainer, mLeftContainer;
     private ImageButton mSearchButton, mTopLeftButton;
     private Runnable mFindFunction;
+
     private Animation
             main_logo_in,
             main_logo_out,
@@ -55,20 +66,22 @@ public class BeastBar {
             back_out,
             back_in_from_right,
             back_out_to_right;
-    private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown, isSearchButtonShown;
+
+    private boolean isCompanyLogoShown, isTitleShown, isBackButtonShown, isSearchButtonShown, isLayoutSwapped;
     private Builder setup;
     private int leftSide = 0, rightSide = 0;
     private TitleStorage mTitle;
 
     public static class Builder {
         private int
-                ic_company, ic_search, ic_back, ic_background,
+                ic_center_icon, ic_left_icon, ic_search, ic_back, ic_background,
                 tb_textsize = 0, tb_title_color = 0, title_line_config = 1,
                 animation_duration_logo = -1,
                 animation_duration = -1;
         private Typeface typeface;
         private String title_default;
         private boolean enable_logo_anim = true;
+        private boolean no_title = false;
         private boolean save_title_navigation = false;
 
         public Builder() {
@@ -81,7 +94,12 @@ public class BeastBar {
         }
 
         public Builder companyIcon(@DrawableRes final int res) {
-            this.ic_company = res;
+            this.ic_center_icon = res;
+            return this;
+        }
+
+        public Builder leftIcon(@DrawableRes final int res) {
+            this.ic_left_icon = res;
             return this;
         }
 
@@ -117,11 +135,30 @@ public class BeastBar {
 
         public Builder defaultTitle(String title) {
             this.title_default = title;
+            this.no_title = false;
             return this;
         }
 
+        /**
+         * to allow title to display two rows on the toolbar
+         *
+         * @param lines numbers of line
+         * @return using the chain method to build up the object
+         */
         public Builder setTitleLine(int lines) {
             this.title_line_config = lines;
+            this.no_title = false;
+            return this;
+        }
+
+        /**
+         * Call this to disable title display
+         *
+         * @return chain object call
+         */
+        public Builder disableTitle() {
+            this.no_title = true;
+            this.title_default = "";
             return this;
         }
 
@@ -139,15 +176,15 @@ public class BeastBar {
             this.save_title_navigation = save;
             return this;
         }
-
     }
 
     private onButtonPressListener mButtonBack;
+    private WeakReference<onButtonPressListener> default_find_function;
 
     public interface onButtonPressListener {
         /**
          * @param previousTitleSteps the previous title to be found in the history or otherwise it is nothing
-         * @return true to allow the main logo to show
+         * @return true to allow the personalPage logo to show
          */
         boolean onBackPress(final int previousTitleSteps);
 
@@ -162,22 +199,22 @@ public class BeastBar {
         ActionBar actionbar = res.getSupportActionBar();
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setDisplayShowHomeEnabled(false);
-        actionbar.setDefaultDisplayHomeAsUpEnabled(false);
+       // actionbar.setDefaultDisplayHomeAsUpEnabled(false);
         original.setBackgroundResource(beastbuilder.ic_background);
         View homeIcon = res.findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home : android.R.id.home);
-        // ((View) homeIcon.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
+        //  ((View) homeIcon.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
         //  ((View) homeIcon).setVisibility(View.GONE);
         final BeastBar bb = new BeastBar(res);
         bb.setToolBar(original);
         bb.setup = beastbuilder;
         display.getSize(bb.size);
         bb.init();
-
         return bb;
     }
 
     public BeastBar(Context res) {
         this.mContext = res;
+        isLayoutSwapped = false;
     }
 
     private BeastBar setToolBar(Toolbar tb) {
@@ -187,6 +224,11 @@ public class BeastBar {
 
 
     private void animationTitle() {
+        showTitle();
+        hideMainLogo();
+    }
+
+    private void showTitle() {
         if (!isTitleShown) {
             isTitleShown = true;
             if (setup.enable_logo_anim) {
@@ -202,6 +244,9 @@ public class BeastBar {
                 mtv.setVisibility(View.VISIBLE);
             }
         }
+    }
+
+    public void hideMainLogo() {
         if (isCompanyLogoShown) {
             isCompanyLogoShown = false;
             if (setup.enable_logo_anim) {
@@ -219,17 +264,395 @@ public class BeastBar {
         }
     }
 
+    private buttonBuilder mButtonBuilderCache;
+    /**
+     * This is the categories for the menu item presentation
+     */
+    public static final int
+            DEFAULT = 0,
+            BADGET = 1,
+            CIRCULAR_LOAD_INDICATOR = 2,
+            TEXT_ONLY = 3,
+            SWITCHER = 4,
+            CIRCULAR_PROGRESS_INDICATOR = 5,
+            TEXT_BUTTON_ADVANCED = 6;
+
+    public static class itemMenu {
+
+        private int icon;
+        // private WeakReference<Runnable> exec;
+        private Runnable exec;
+        private int color;
+        private int style;
+        private int resstring;
+        private int custom_width;
+        private ProgressBar load;
+        private TextView loadprogressindicator;
+        private SwitchCompat mSwitchCompat;
+        private SwitchCompat.OnCheckedChangeListener mSwitchCompatListener;
+        private Typeface mTypeface;
+
+        public itemMenu() {
+            this.color = this.resstring = this.custom_width = 0;
+            this.style = DEFAULT;
+        }
+
+        /**
+         * this is the loading indicator with progress
+         *
+         * @param font_type_asset_location the font type
+         */
+        public void setLoadIndicator(Typeface font_type_asset_location, @ColorRes int font_color) {
+            this.mTypeface = font_type_asset_location;
+            this.color = font_color;
+            this.style = CIRCULAR_PROGRESS_INDICATOR;
+        }
+
+        public void setLoadIndicator() {
+            this.style = CIRCULAR_LOAD_INDICATOR;
+        }
+
+        public void setSwitcher(final @ColorRes int color, final @StringRes int label, SwitchCompat.OnCheckedChangeListener change) {
+            this.style = SWITCHER;
+            this.resstring = label;
+            this.color = color;
+            this.mSwitchCompatListener = change;
+        }
+
+        public void setBadgetConfig(final @ColorRes int color, final @StringRes int label) {
+            this.style = BADGET;
+            this.resstring = label;
+            this.color = color;
+        }
+
+        public void setBadgetConfig(final @ColorRes int color, final @StringRes int label, @DimenRes final int width) {
+            setBadgetConfig(color, label);
+            this.custom_width = width;
+        }
+
+        public void setIcon(int image) {
+            icon = image;
+        }
+
+        public void setExec(Runnable e) {
+            exec = e;
+        }
+
+        public void removeExe() {
+            exec = null;
+        }
+
+        public void setItemText(final @StringRes int label) {
+            setItemText(label, android.R.color.black);
+        }
+
+        public void setItemText(final @StringRes int label, final @ColorRes int color) {
+            this.resstring = label;
+            this.style = TEXT_ONLY;
+            this.color = color;
+        }
+
+        public void setItemTextAdv(final @StringRes int label) {
+            setItemTextAdv(label, android.R.color.black);
+        }
+
+        public void setItemTextAdv(final @StringRes int label, final @ColorRes int color) {
+            this.resstring = label;
+            this.style = TEXT_BUTTON_ADVANCED;
+            this.color = color;
+        }
+
+        private void patchBackground(ImageButton button, Context mContext) {
+            int[] attrs = new int[]{R.attr.selectableItemBackground};
+            TypedArray typedArray = mContext.obtainStyledAttributes(attrs);
+            int backgroundResource = typedArray.getResourceId(0, 0);
+            button.setBackgroundResource(backgroundResource);
+            if (color != 0) {
+                int h = ContextCompat.getColor(mContext, color);
+                button.setColorFilter(h);
+            }
+            typedArray.recycle();
+        }
+
+        private void patchBackground(Button button, Context mContext) {
+            int[] attrs = new int[]{R.attr.selectableItemBackground};
+            TypedArray typedArray = mContext.obtainStyledAttributes(attrs);
+            int backgroundResource = typedArray.getResourceId(0, 0);
+            button.setBackgroundResource(backgroundResource);
+         /*   if (color != 0) {
+                int h = ContextCompat.getColor(mContext, color);
+                button.setColorFilter(h);
+            }*/
+            typedArray.recycle();
+        }
+
+        /**
+         * only use this when the loading is triggered
+         *
+         * @param n bool to turn it on
+         */
+        private void triggerLoading(boolean n) {
+            if (style != CIRCULAR_LOAD_INDICATOR && style != CIRCULAR_PROGRESS_INDICATOR) return;
+            dis_circular_load(n);
+            dis_progress_text(n);
+        }
+
+        private void dis_progress_text(boolean enabled) {
+            if (loadprogressindicator == null) return;
+            if (enabled) {
+                loadprogressindicator.setVisibility(View.VISIBLE);
+            } else {
+                loadprogressindicator.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        private void dis_circular_load(boolean n) {
+            if (load == null) return;
+            try {
+                load.getAnimation().cancel();
+            } catch (Exception e) {
+                e.fillInStackTrace();
+            }
+
+            if (!n) {
+                load.animate().alpha(0).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        load.setVisibility(View.INVISIBLE);
+                    }
+                });
+
+            } else {
+                load.animate().alpha(1f).withEndAction(new Runnable() {
+                    @Override
+                    public void run() {
+                        load.setVisibility(View.VISIBLE);
+                    }
+                });
+            }
+        }
+
+        private void setProgressPercentage(int contHundred, boolean sign) {
+            if (loadprogressindicator == null) return;
+            StringBuilder b = new StringBuilder();
+            b.append(contHundred);
+            if (sign) {
+                b.append("%");
+            }
+            loadprogressindicator.setText(b.toString());
+        }
+
+
+        private View getView(Context c) {
+            View out = null;
+            if (style == DEFAULT) {
+                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                ImageButton y = new ImageButton(u);
+                y.setMaxWidth(c.getResources().getDimensionPixelOffset(R.dimen.icon_width));
+                y.setImageResource(icon);
+                y.setClickable(true);
+                y.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (exec != null) {
+                            exec.run();
+                        }
+                    }
+                });
+                patchBackground(y, c);
+                out = y;
+            } else if (style == BADGET) {
+                View custom_layout = LayoutInflater.from(c).inflate(R.layout.beastbar_item_badget, null, false);
+                int m = this.custom_width == 0 ? c.getResources().getDimensionPixelOffset(R.dimen.badget_width) : c.getResources().getDimensionPixelOffset(this.custom_width);
+                custom_layout.setLayoutParams(new LinearLayout.LayoutParams(m, LinearLayout.LayoutParams.MATCH_PARENT));
+                LinearLayout l = (LinearLayout) custom_layout.findViewById(R.id.badget_layout_container);
+                l.setBackgroundColor(ContextCompat.getColor(c, this.color));
+                l.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (exec != null) {
+                            exec.run();
+                        }
+                    }
+                });
+                CircularImageView y = (CircularImageView) custom_layout.findViewById(R.id.badget_icon);
+                y.setImageResource(icon);
+                TextView z = (TextView) custom_layout.findViewById(R.id.badget_label);
+                z.setText(c.getString(this.resstring));
+                out = custom_layout;
+            } else if (style == CIRCULAR_LOAD_INDICATOR) {
+                View load_indicator = LayoutInflater.from(c).inflate(R.layout.beastbar_loader, null, false);
+                load_indicator.setLayoutParams(new RelativeLayout.LayoutParams(c.getResources().getDimensionPixelOffset(R.dimen.icon_width), ViewGroup.LayoutParams.MATCH_PARENT));
+                load = (ProgressBar) load_indicator.findViewById(R.id.beast_bar_load);
+                load.setVisibility(View.INVISIBLE);
+                //l.setBackgroundColor(ContextCompat.getColor(c, this.color));
+                out = load_indicator;
+            } else if (style == CIRCULAR_PROGRESS_INDICATOR) {
+                View lodcompat = LayoutInflater.from(c).inflate(R.layout.beastbar_progress_indicator, null, false);
+                lodcompat.setLayoutParams(new RelativeLayout.LayoutParams(c.getResources().getDimensionPixelOffset(R.dimen.bb_width_load_progress), ViewGroup.LayoutParams.MATCH_PARENT));
+
+                load = (ProgressBar) lodcompat.findViewById(R.id.beast_bar_load);
+                loadprogressindicator = (TextView) lodcompat.findViewById(R.id.beast_bar_load_progress);
+                load.setVisibility(View.INVISIBLE);
+                loadprogressindicator.setTypeface(mTypeface);
+                loadprogressindicator.setTextSize(25f);
+                loadprogressindicator.setVisibility(View.INVISIBLE);
+                loadprogressindicator.setTextColor(ContextCompat.getColor(c, this.color));
+
+                out = lodcompat;
+            } else if (style == TEXT_ONLY) {
+                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                Button text_label = new Button(u);
+                text_label.setClickable(true);
+                text_label.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (exec != null) {
+                            exec.run();
+                        }
+                    }
+                });
+                text_label.setLayoutParams(new RelativeLayout.LayoutParams(-2, -1));
+                text_label.setText(c.getString(this.resstring));
+                text_label.setTextColor(ContextCompat.getColor(c, this.color));
+
+                out = text_label;
+            } else if (style == TEXT_BUTTON_ADVANCED) {
+                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                Button text_label = new Button(u);
+                text_label.setClickable(true);
+                text_label.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (exec != null) {
+                            exec.run();
+                        }
+                    }
+                });
+                text_label.setLayoutParams(new RelativeLayout.LayoutParams(-2, -1));
+                text_label.setText(c.getString(this.resstring));
+                text_label.setTextColor(ContextCompat.getColor(c, this.color));
+                patchBackground(text_label, c);
+                out = text_label;
+            } else if (style == SWITCHER) {
+                View swit = LayoutInflater.from(c).inflate(R.layout.beastbar_switcher_h, null, false);
+                swit.setLayoutParams(new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                mSwitchCompat = (SwitchCompat) swit.findViewById(R.id.bb_switch);
+                mSwitchCompat.setOnCheckedChangeListener(mSwitchCompatListener);
+                TextView z = (TextView) swit.findViewById(R.id.bb_text);
+                z.setText(c.getString(this.resstring));
+                out = swit;
+            }
+
+            return out;
+        }
+    }
+
+    public void setNewButtonLayout(buttonBuilder builder) {
+        mRightContainer.removeAllViews();
+        mButtonBuilderCache = builder;
+        Iterator<itemMenu> h = mButtonBuilderCache.getInternalItems().iterator();
+        while (h.hasNext()) {
+            itemMenu item = h.next();
+            mRightContainer.addView(item.getView(mContext));
+        }
+        isLayoutSwapped = true;
+        setFindIconFunc(null);
+    }
+
+    public void setActionLoadingIndicatorStatus(boolean n) {
+        if (mButtonBuilderCache == null) return;
+        Iterator<itemMenu> h = mButtonBuilderCache.getInternalItems().iterator();
+        while (h.hasNext()) {
+            itemMenu vb = h.next();
+            vb.triggerLoading(n);
+        }
+    }
+
+    public void setProgressPercentage(int hundred, boolean withPercent) {
+        if (mButtonBuilderCache == null) return;
+        Iterator<itemMenu> h = mButtonBuilderCache.getInternalItems().iterator();
+        while (h.hasNext()) {
+            itemMenu vb = h.next();
+            vb.setProgressPercentage(hundred, withPercent);
+        }
+    }
+
+    private ImageButton getDefGenerateRightButtonFunction() {
+        ContextThemeWrapper themecontext = new ContextThemeWrapper(mContext, R.style.actionButtonhkm);
+        ImageButton c = new ImageButton(themecontext);
+        c.setMaxWidth(mContext.getResources().getDimensionPixelOffset(R.dimen.icon_width));
+        c.setClickable(true);
+        c.setId(R.id.ios_find_icon);
+        patchBackground(c);
+        if (default_find_function != null) {
+            c.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (default_find_function.get() != null)
+                        default_find_function.get().onSearchPress();
+                }
+
+            });
+        }
+        return c;
+    }
+
+    private void patchBackground(ImageButton button) {
+        int[] attrs = new int[]{R.attr.selectableItemBackground};
+        TypedArray typedArray = mContext.obtainStyledAttributes(attrs);
+        int backgroundResource = typedArray.getResourceId(0, 0);
+        button.setBackgroundResource(backgroundResource);
+        typedArray.recycle();
+    }
+
+    public void setHotIconImageForSearch(@DrawableRes final int r) {
+        if (mSearchButton == null) return;
+        if (mSearchButton instanceof ImageButton) {
+            ImageButton y = (ImageButton) mSearchButton;
+            y.setImageResource(r);
+            patchBackground(y);
+        }
+    }
+
+    public void resetRightSideButtonLayout() {
+        if (isLayoutSwapped) {
+            isLayoutSwapped = false;
+            mRightContainer.removeAllViews();
+            if (setup.ic_search != 0) {
+                mSearchButton = getDefGenerateRightButtonFunction();
+                mSearchButton.setImageResource(setup.ic_search);
+                isSearchButtonShown = true;
+                mRightContainer.addView(mSearchButton);
+            }
+        }
+    }
+
+    public void removeToolbarBackground() {
+        this.container.setBackground(null);
+    }
+
+    public void changeToolbarBackground(@DrawableRes final int drawres) {
+        this.container.setBackgroundResource(drawres);
+    }
+
+    public void resetToolbarBackground() {
+        this.container.setBackgroundResource(this.setup.ic_background);
+    }
+
+    public final void resetAllRightSide() {
+        mRightContainer.removeAllViews();
+    }
+
     private void init() {
         isBackButtonShown = false;
         isSearchButtonShown = false;
-        View v = LayoutInflater.from(mContext).inflate(R.layout.beastbar, null, false);
+        View v = LayoutInflater.from(mContext).inflate(R.layout.beastbar_base_body, null, false);
         mLeftContainer = (LinearLayout) v.findViewById(R.id.left_container);
         mBackground = (RelativeLayout) v.findViewById(R.id.ios_background);
         mRightContainer = (LinearLayout) v.findViewById(R.id.right_container);
         mtv = (TextView) v.findViewById(R.id.ios_actionbar_title);
-        mImage = (ImageView) v.findViewById(R.id.logo_k);
-        mSearchButton = (ImageButton) v.findViewById(R.id.ios_find_icon);
-        mTopLeftButton = (ImageButton) v.findViewById(R.id.ios_back_button);
+        mImage = (ImageView) v.findViewById(R.id.bb_logo);
         this.container.addView(v);
         main_logo_in = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getInAnimation());
         main_logo_out = AnimationUtils.loadAnimation(mContext, animaionset.slideLogo.getOutAnimation());
@@ -239,6 +662,11 @@ public class BeastBar {
         back_out = AnimationUtils.loadAnimation(mContext, animaionset.slideText.getOutAnimation());
         back_in_from_right = AnimationUtils.loadAnimation(mContext, R.anim.back_in_from_right);
         back_out_to_right = AnimationUtils.loadAnimation(mContext, R.anim.back_out_to_right);
+
+        mSearchButton = (ImageButton) v.findViewById(R.id.ios_find_icon);
+        //getDefGenerateRightButtonFunction();
+        mTopLeftButton = (ImageButton) v.findViewById(R.id.ios_back_button);
+
         if (setup.animation_duration > -1) {
             title_in.setDuration(setup.animation_duration);
             title_out.setDuration(setup.animation_duration);
@@ -272,17 +700,26 @@ public class BeastBar {
             mtv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
         }
         mtv.requestLayout();
-
         if (setup.ic_search != 0) {
             mSearchButton.setImageResource(setup.ic_search);
             isSearchButtonShown = true;
         }
-
-        if (setup.ic_company != 0) {
-            mImage.setImageResource(setup.ic_company);
-            mtv.setVisibility(View.INVISIBLE);
+        if (setup.ic_center_icon != 0) {
             isCompanyLogoShown = true;
             isTitleShown = false;
+            mtv.setVisibility(View.INVISIBLE);
+            mImage.setImageResource(setup.ic_center_icon);
+            setPositionCenter(mImage);
+            //mImage.setImageDrawable(ContextCompat.getDrawable(mContext, setup.ic_center_icon));
+        }
+
+        if (setup.ic_left_icon != 0) {
+            isCompanyLogoShown = true;
+            isTitleShown = false;
+            mtv.setVisibility(View.INVISIBLE);
+            mImage.setImageResource(setup.ic_left_icon);
+            setPositionLeft(mImage);
+            // mImage.setImageDrawable(ContextCompat.getDrawable(mContext, setup.ic_left_icon));
         }
 
         if (setup.title_default != null) {
@@ -323,17 +760,38 @@ public class BeastBar {
         // mBackground.setBackgroundResource(setup.ic_background);
     }
 
+    private void setPositionLeft(View positiveTarget) {
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) positiveTarget.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.ALIGN_PARENT_LEFT, 0);
+        positiveTarget.setLayoutParams(layoutParams);
+    }
+
+    private void setPositionCenter(View positiveTarget) {
+        //RelativeLayout.CENTER_IN_PARENT
+        RelativeLayout.LayoutParams layoutParams = (RelativeLayout.LayoutParams) positiveTarget.getLayoutParams();
+        layoutParams.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
+        positiveTarget.setLayoutParams(layoutParams);
+    }
+
+    public void updateBackgoundColor(@ColorInt int c) {
+        mBackground.setBackgroundColor(c);
+    }
+
     public void displayRightFirstIcon(boolean b, boolean withAnimation) {
         final displayManagement dm = new displayManagement(b, withAnimation, mSearchButton);
     }
 
     private void removeLayoutListener(View layout, ViewTreeObserver.OnGlobalLayoutListener lb) {
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             layout.getViewTreeObserver().removeOnGlobalLayoutListener(lb);
         } else {
             layout.getViewTreeObserver().removeGlobalOnLayoutListener(lb);
         }
         mtv.setMaxWidth(size.x - leftSide - rightSide);
+    }
+
+    public View getSearchButtonDefault() {
+        return mSearchButton;
     }
 
     public BeastBar setFindIconFunc(@Nullable final onButtonPressListener func) {
@@ -350,6 +808,7 @@ public class BeastBar {
                 mSearchButton.startAnimation(back_out_to_right);
                 mSearchButton.setOnClickListener(null);
             }
+            default_find_function = null;
         } else {
             if (!isSearchButtonShown) {
                 isSearchButtonShown = true;
@@ -369,6 +828,7 @@ public class BeastBar {
                     func.onSearchPress();
                 }
             });
+            default_find_function = new WeakReference<onButtonPressListener>(func);
         }
         return this;
     }
@@ -451,13 +911,6 @@ public class BeastBar {
         return isCompanyLogoShown;
     }
 
-    public boolean isTitleShown() {
-        return isTitleShown;
-    }
-
-    public boolean isSearchButtonShown() {
-        return isSearchButtonShown;
-    }
 
     public BeastBar setBackIconFunc(@Nullable final onButtonPressListener func) {
         if (func == null) {
@@ -596,7 +1049,7 @@ public class BeastBar {
     }
 
 
-    public final void onStateInstaceState(Bundle out) {
+    public final void onSaveInstanceState(Bundle out) {
         if (mTitle != null) mTitle.onStateInstaceState(out);
         out.putBoolean(TitleStorage.IS_LOGOSHOWN, isCompanyLogoShown);
         out.putBoolean(TitleStorage.IS_SEARCHSHOWN, isSearchButtonShown);

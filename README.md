@@ -3,12 +3,10 @@
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][4]
 [![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ][5]
 
-
-
 ```gradle
 
 dependencies {
-    compile 'com.hkm.ui:advancedtoolbar:0.8.0'
+    compile 'com.hkm.ui:advancedtoolbar:1.0.1'
 }
 
 ```

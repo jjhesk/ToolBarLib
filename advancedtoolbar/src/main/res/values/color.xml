@@ -4,4 +4,6 @@
     <color name="title_default_color">@android:color/black</color>
     <color name="emtpy">#eef6e1e7</color>
     <color name="search_layover_bg">#ee3e3e3e</color>
+    <color name="cyan_800">#ee601616</color>
+    <color name="bbn_shifting_item_ripple_color">#eebf4040</color>
 </resources>
