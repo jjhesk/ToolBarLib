@@ -10,9 +10,11 @@ import android.support.annotation.ColorInt;
 import android.support.annotation.ColorRes;
 import android.support.annotation.DimenRes;
 import android.support.annotation.DrawableRes;
+import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StringRes;
+import android.support.annotation.StyleRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -80,6 +82,8 @@ public class BeastBar {
                 animation_duration = -1;
         private Typeface typeface;
         private String title_default;
+        private int base_layout_id = R.layout.beastbar_base_body;
+        private int right_side_button_style = R.style.actionButtonhkm;
         private boolean enable_logo_anim = true;
         private boolean no_title = false;
         private boolean save_title_navigation = false;
@@ -136,6 +140,26 @@ public class BeastBar {
         public Builder defaultTitle(String title) {
             this.title_default = title;
             this.no_title = false;
+            return this;
+        }
+
+        public Builder setCustomLayoutID(@LayoutRes int layout_id) {
+            base_layout_id = layout_id;
+            return this;
+        }
+
+        public Builder useLayoutV2() {
+            base_layout_id = R.layout.beastbar_base_v2_body;
+            return this;
+        }
+
+        public Builder useCustomWidgetStyling(@StyleRes int k) {
+            right_side_button_style = k;
+            return this;
+        }
+
+        public Builder useNoPaddingWidgetButton() {
+            right_side_button_style = R.style.actionButtonNoPadding;
             return this;
         }
 
@@ -199,7 +223,7 @@ public class BeastBar {
         ActionBar actionbar = res.getSupportActionBar();
         actionbar.setDisplayOptions(ActionBar.DISPLAY_SHOW_CUSTOM);
         actionbar.setDisplayShowHomeEnabled(false);
-       // actionbar.setDefaultDisplayHomeAsUpEnabled(false);
+        // actionbar.setDefaultDisplayHomeAsUpEnabled(false);
         original.setBackgroundResource(beastbuilder.ic_background);
         View homeIcon = res.findViewById(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB ? android.R.id.home : android.R.id.home);
         //  ((View) homeIcon.getParent()).setLayoutParams(new LinearLayout.LayoutParams(0, 0));
@@ -301,6 +325,7 @@ public class BeastBar {
          * this is the loading indicator with progress
          *
          * @param font_type_asset_location the font type
+         * @param font_color               the color from the font using color id
          */
         public void setLoadIndicator(Typeface font_type_asset_location, @ColorRes int font_color) {
             this.mTypeface = font_type_asset_location;
@@ -443,10 +468,10 @@ public class BeastBar {
         }
 
 
-        private View getView(Context c) {
+        private View getView(Context c, Builder configStep) {
             View out = null;
             if (style == DEFAULT) {
-                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                ContextThemeWrapper u = new ContextThemeWrapper(c, configStep.right_side_button_style);
                 ImageButton y = new ImageButton(u);
                 y.setMaxWidth(c.getResources().getDimensionPixelOffset(R.dimen.icon_width));
                 y.setImageResource(icon);
@@ -501,7 +526,7 @@ public class BeastBar {
 
                 out = lodcompat;
             } else if (style == TEXT_ONLY) {
-                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                ContextThemeWrapper u = new ContextThemeWrapper(c, configStep.right_side_button_style);
                 Button text_label = new Button(u);
                 text_label.setClickable(true);
                 text_label.setOnClickListener(new View.OnClickListener() {
@@ -518,7 +543,7 @@ public class BeastBar {
 
                 out = text_label;
             } else if (style == TEXT_BUTTON_ADVANCED) {
-                ContextThemeWrapper u = new ContextThemeWrapper(c, R.style.actionButtonhkm);
+                ContextThemeWrapper u = new ContextThemeWrapper(c, configStep.right_side_button_style);
                 Button text_label = new Button(u);
                 text_label.setClickable(true);
                 text_label.setOnClickListener(new View.OnClickListener() {
@@ -554,7 +579,7 @@ public class BeastBar {
         Iterator<itemMenu> h = mButtonBuilderCache.getInternalItems().iterator();
         while (h.hasNext()) {
             itemMenu item = h.next();
-            mRightContainer.addView(item.getView(mContext));
+            mRightContainer.addView(item.getView(mContext, setup));
         }
         isLayoutSwapped = true;
         setFindIconFunc(null);
@@ -579,7 +604,7 @@ public class BeastBar {
     }
 
     private ImageButton getDefGenerateRightButtonFunction() {
-        ContextThemeWrapper themecontext = new ContextThemeWrapper(mContext, R.style.actionButtonhkm);
+        ContextThemeWrapper themecontext = new ContextThemeWrapper(mContext, setup.right_side_button_style);
         ImageButton c = new ImageButton(themecontext);
         c.setMaxWidth(mContext.getResources().getDimensionPixelOffset(R.dimen.icon_width));
         c.setClickable(true);
@@ -647,7 +672,9 @@ public class BeastBar {
     private void init() {
         isBackButtonShown = false;
         isSearchButtonShown = false;
-        View v = LayoutInflater.from(mContext).inflate(R.layout.beastbar_base_body, null, false);
+
+
+        View v = LayoutInflater.from(mContext).inflate(setup.base_layout_id, null, false);
         mLeftContainer = (LinearLayout) v.findViewById(R.id.left_container);
         mBackground = (RelativeLayout) v.findViewById(R.id.ios_background);
         mRightContainer = (LinearLayout) v.findViewById(R.id.right_container);
@@ -699,6 +726,7 @@ public class BeastBar {
         if (setup.tb_textsize > 0) {
             mtv.setTextSize(TypedValue.COMPLEX_UNIT_PX, mContext.getResources().getDimensionPixelSize(setup.tb_textsize));
         }
+
         mtv.requestLayout();
         if (setup.ic_search != 0) {
             mSearchButton.setImageResource(setup.ic_search);

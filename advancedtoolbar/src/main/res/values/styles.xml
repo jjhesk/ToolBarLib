@@ -38,5 +38,18 @@
         <item name="android:gravity">center_vertical</item>
     </style>
 
+    <style name="actionButtonNoPadding" parent="android:style/Widget.Holo.ActionButton">
+        <item name="paddingStart">0dp</item>
+        <item name="paddingEnd">0dp</item>
+        <item name="android:scaleType">fitCenter</item>
+        <item name="android:src">@mipmap/ic_action_find</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
 
+    <style name="beastbarSteup">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="contentInsetLeft">0dp</item>
+        <item name="contentInsetStart">0dp</item>
+    </style>
 </resources>

@@ -20,7 +20,6 @@
         android:layout_centerInParent="true"
         android:animateLayoutChanges="true"
         android:ellipsize="end"
-
         android:textColor="@color/cyan_800"
         android:textSize="15sp" />
 
