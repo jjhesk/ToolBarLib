@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Point;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.ColorInt;
@@ -663,6 +664,32 @@ public class BeastBar {
 
     public void resetToolbarBackground() {
         this.container.setBackgroundResource(this.setup.ic_background);
+    }
+
+    /**
+     * assume the start scroll position is 0 as its valuable is x
+     * and the height is h
+     *
+     * @param y_scroll            x
+     * @param control_full_height h is static
+     */
+    public final void setToolbarAlphaHeightScrollable(int y_scroll, int control_full_height) {
+        int y1 = y_scroll < 0 ? 0 : y_scroll;
+        int yh = y1 > control_full_height ? control_full_height : y_scroll;
+        float alpha = Math.abs((float) yh) / (float) control_full_height;
+        setToolbarAlpha(1f - alpha);
+    }
+
+    /**
+     * provide dynamic alpha control by program
+     *
+     * @param alpha 1.0f
+     */
+    public final void setToolbarAlpha(Float alpha) {
+        Drawable mActionBarBackgroundDrawable = container.getBackground();
+        int newAlpha = (int) (alpha * 255);
+        mActionBarBackgroundDrawable.setAlpha(newAlpha);
+        container.getBackground().setAlpha(newAlpha);
     }
 
     public final void resetAllRightSide() {

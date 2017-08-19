@@ -1,12 +1,11 @@
 # Advanced Toolbar support library
 
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][4]
-[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ][5]
-
+[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][http://android-arsenal.com/details/1/2158]
+[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
 ```gradle
 
 dependencies {
-    compile 'com.hkm.ui:advancedtoolbar:1.0.1'
+    compile 'com.hkm.ui:advancedtoolbar:1.0.7'
 }
 
 ```
@@ -29,6 +28,8 @@ Android ActionBar Advanced Support Library for API v23, v22, v21, v19. This libr
 - title history support
 - title shown as single line or more than single line
 - Custom call back `onButtonPressListener`
+- transparent background
+- additional loaded components (switchers, custom loading progress circles)
 
 Project Website: [TOOLBARLIB][2]
 
@@ -284,5 +285,3 @@ Social Bar method table for ```combar```:
 [1]: https://github.com/mikepenz/Android-ActionItemBadge
 [2]: https://github.com/jjhesk/ToolBarLib
 [3]: https://github.com/jjhesk/ToolBarLib/wiki/The-Easy-Way
-[4]: http://android-arsenal.com/details/1/2158
-[5]: https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion
