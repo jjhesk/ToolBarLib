@@ -21,7 +21,7 @@ public class _mainMenu extends AppCompatActivity {
     }
 
     public void ios(View view) {
-     //   startApp(CustomActionBar.class);
+        //   startApp(CustomActionBar.class);
     }
 
     public void main3(View view) {
@@ -33,7 +33,7 @@ public class _mainMenu extends AppCompatActivity {
     }
 
     public void main4(View view) {
-      //  startApp(iOSActionBarWorkerExample.class);
+        startApp(TestEmpDesign.class);
     }
 
     public void candybarimple(View view) {

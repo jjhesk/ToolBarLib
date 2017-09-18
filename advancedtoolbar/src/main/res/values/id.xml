@@ -27,7 +27,7 @@
     <item name="social_bar_whatsapp" type="id" />
     <item name="social_bar_sms" type="id" />
     <item name="bb_logo" type="id" />
-
-
+    <item name="bslft_container" type="id" />
+    <item name="bsrft_container" type="id" />
 
 </resources>

@@ -8,6 +8,7 @@
     <dimen name="search_view_text_padding">65dp</dimen>
     <dimen name="title_size_classic">22sp</dimen>
     <dimen name="icon_width">24dp</dimen>
+    <dimen name="icon_lft_width">40dp</dimen>
     <dimen name="badget_width">60dp</dimen>
     <dimen name="badget_width_v2">100dp</dimen>
     <dimen name="bb_width_load_progress">155dp</dimen>

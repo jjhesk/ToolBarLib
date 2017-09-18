@@ -32,7 +32,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:onClick="main4"
-            android:text="iOSActionBarWorker implementation" />
+            android:text="EMP design implementation" />
 
         <Button
             android:layout_width="match_parent"

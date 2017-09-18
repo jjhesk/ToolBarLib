@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <LinearLayout
+        android:id="@id/bslft_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <ImageButton
+            android:id="@id/ios_back_button"
+            style="@style/actionButtonhkm"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@id/bsrft_container"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:orientation="horizontal"
+        android:padding="0dp">
+
+        <ImageButton
+            android:id="@id/ios_find_icon"
+            style="@style/actionButtonCompact30"
+            android:layout_height="match_parent" />
+    </LinearLayout>
+
+</merge>

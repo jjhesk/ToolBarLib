@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,6 +38,15 @@ public class ToolbarHelper {
         final View t = ToolbarHelper.generateView(layoutId, activity);
         toolbar.addView(t, layoutParams);
         return t;
+    }
+
+    public static DisplayMetrics getDisplayMetrics(Context context) {
+        return context.getResources().getDisplayMetrics();
+    }
+
+    public static int dpToPx(Context context, float dp) {
+        final float scale = context.getResources().getDisplayMetrics().density;
+        return Math.round(dp * scale);
     }
 
     public static int getDP(final int f, Resources res) {

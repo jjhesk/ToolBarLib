@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:ignore="MissingPrefix">
 
     <android.support.v7.widget.Toolbar
         android:id="@+id/toolbar"
@@ -11,7 +12,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
 
-    <ScrollView
+    <android.support.v4.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/toolbar">
@@ -19,15 +20,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            android:orientation="vertical"
-            tools:ignore="MissingPrefix">
-
-
-            <com.hkm.advancedtoolbar.socialbar.combar
-                android:id="@+id/social_bar_component"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
 
             <Button
                 android:id="@+id/b1"
@@ -57,19 +51,19 @@
                 android:id="@+id/b5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="display to zero count" />
+                tools:text="display to zero count" />
 
             <Button
                 android:id="@+id/b_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="search trigger" />
+                tools:text="search trigger" />
 
             <Button
                 android:id="@+id/bxx"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="other extra function" />
+                tools:text="other extra function" />
 
             <Button
                 android:id="@+id/search_on"
@@ -85,7 +79,7 @@
 
 
         </LinearLayout>
-    </ScrollView>
+    </android.support.v4.widget.NestedScrollView>
 
     <com.hkm.advancedtoolbar.materialsearch.MaterialSearchView
         android:id="@+id/cmarterialsearch"

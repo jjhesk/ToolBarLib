@@ -34,9 +34,32 @@
         <item name="paddingStart">5dp</item>
         <item name="paddingEnd">5dp</item>
         <item name="android:scaleType">fitCenter</item>
+        <item name="android:layout_width">wrap_content</item>
         <item name="android:src">@mipmap/ic_action_find</item>
         <item name="android:gravity">center_vertical</item>
     </style>
+
+    <style name="actionButtonCompact40" parent="actionButtonhkm">
+        <item name="paddingStart">0dp</item>
+        <item name="paddingEnd">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_width">@dimen/icon_lft_width</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@mipmap/ic_action_close</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
+    <style name="actionButtonCompact30" parent="actionButtonhkm">
+        <item name="paddingStart">0dp</item>
+        <item name="paddingEnd">0dp</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_width">@dimen/icon_lft_width</item>
+        <item name="android:scaleType">centerInside</item>
+        <item name="android:src">@mipmap/ic_action_close</item>
+        <item name="android:gravity">center_vertical</item>
+    </style>
+
 
     <style name="actionButtonNoPadding" parent="android:style/Widget.Holo.ActionButton">
         <item name="paddingStart">0dp</item>
@@ -51,5 +74,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="contentInsetLeft">0dp</item>
         <item name="contentInsetStart">0dp</item>
+        <item name="paddingStart">0dp</item>
+        <item name="paddingEnd">0dp</item>
     </style>
 </resources>

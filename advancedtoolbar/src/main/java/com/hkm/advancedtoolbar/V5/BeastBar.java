@@ -39,6 +39,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.hkm.advancedtoolbar.R;
+import com.hkm.advancedtoolbar.ToolbarHelper;
 import com.hkm.advancedtoolbar.Util.TitleStorage;
 import com.mikhaellopez.circularimageview.CircularImageView;
 
@@ -76,14 +77,23 @@ public class BeastBar {
     private TitleStorage mTitle;
 
     public static class Builder {
+
         private int
-                ic_center_icon, ic_left_icon, ic_search, ic_back, ic_background,
-                tb_textsize = 0, tb_title_color = 0, title_line_config = 1,
+                ic_center_icon,
+                ic_left_icon,
+                ic_search,
+                ic_back,
+                ic_background,
+                tb_textsize = 0,
+                tb_title_color = 0,
+                title_line_config = 1,
+                rbuttons_width = -1,
                 animation_duration_logo = -1,
                 animation_duration = -1;
+
         private Typeface typeface;
         private String title_default;
-        private int base_layout_id = R.layout.beastbar_base_body;
+        private int base_layout_id = R.layout.beastbar_base_v1_body;
         private int right_side_button_style = R.style.actionButtonhkm;
         private boolean enable_logo_anim = true;
         private boolean no_title = false;
@@ -103,6 +113,12 @@ public class BeastBar {
             return this;
         }
 
+        /**
+         * the most basic Icon configuration on the left side
+         *
+         * @param res
+         * @return
+         */
         public Builder leftIcon(@DrawableRes final int res) {
             this.ic_left_icon = res;
             return this;
@@ -159,10 +175,51 @@ public class BeastBar {
             return this;
         }
 
+        /**
+         * using specific style for customizations
+         *
+         * @return builder
+         */
+        public Builder useCustomWidgetStylingCompact40() {
+            right_side_button_style = R.style.actionButtonCompact40;
+            rbuttons_width = 40;
+            return this;
+        }
+
+        /**
+         * using specific style for customizations
+         *
+         * @return builder
+         */
+        public Builder useCustomWidgetStylingCompact30() {
+            right_side_button_style = R.style.actionButtonCompact30;
+            rbuttons_width = 30;
+            return this;
+        }
+
+        /**
+         * using no padding specific layout for the left side
+         *
+         * @return builder
+         */
         public Builder useNoPaddingWidgetButton() {
             right_side_button_style = R.style.actionButtonNoPadding;
             return this;
         }
+
+        /**
+         * fully customized layout style
+         *
+         * @param k        parent from the buttonHkm style R.style.actionButtonhkm
+         * @param dp_width using the width items for specific width
+         * @return the builder
+         */
+        public Builder useCustomButtionLayoutStyle(@StyleRes int k, int dp_width) {
+            right_side_button_style = k;
+            rbuttons_width = dp_width;
+            return this;
+        }
+
 
         /**
          * to allow title to display two rows on the toolbar
@@ -468,12 +525,13 @@ public class BeastBar {
             loadprogressindicator.setText(b.toString());
         }
 
-
+        @SuppressWarnings("depreciated")
         private View getView(Context c, Builder configStep) {
             View out = null;
             if (style == DEFAULT) {
                 ContextThemeWrapper u = new ContextThemeWrapper(c, configStep.right_side_button_style);
                 ImageButton y = new ImageButton(u);
+
                 y.setMaxWidth(c.getResources().getDimensionPixelOffset(R.dimen.icon_width));
                 y.setImageResource(icon);
                 y.setClickable(true);
@@ -485,6 +543,12 @@ public class BeastBar {
                         }
                     }
                 });
+
+                if (configStep.rbuttons_width > -1) {
+                    LinearLayout.LayoutParams lP = new LinearLayout.LayoutParams(ToolbarHelper.dpToPx(c, configStep.rbuttons_width), LinearLayout.LayoutParams.MATCH_PARENT); // dpToPx is convert method
+                    y.setLayoutParams(lP);
+                }
+
                 patchBackground(y, c);
                 out = y;
             } else if (style == BADGET) {
@@ -702,9 +766,9 @@ public class BeastBar {
 
 
         View v = LayoutInflater.from(mContext).inflate(setup.base_layout_id, null, false);
-        mLeftContainer = (LinearLayout) v.findViewById(R.id.left_container);
+        mLeftContainer = (LinearLayout) v.findViewById(R.id.bslft_container);
         mBackground = (RelativeLayout) v.findViewById(R.id.ios_background);
-        mRightContainer = (LinearLayout) v.findViewById(R.id.right_container);
+        mRightContainer = (LinearLayout) v.findViewById(R.id.bsrft_container);
         mtv = (TextView) v.findViewById(R.id.ios_actionbar_title);
         mImage = (ImageView) v.findViewById(R.id.bb_logo);
         this.container.addView(v);
