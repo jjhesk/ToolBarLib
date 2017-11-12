@@ -5,11 +5,10 @@
 ```gradle
 
 dependencies {
-    compile 'com.hkm.ui:advancedtoolbar:1.0.7'
+    compile 'com.hkm.ui:advancedtoolbar:1.2.0'
 }
 
 ```
-
 
 ##setup this gradle only stores at 
 ```gradle
