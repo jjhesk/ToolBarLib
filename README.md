@@ -1,7 +1,7 @@
 # Advanced Toolbar support library
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-ToolBarLib-brightgreen.svg?style=flat)][http://android-arsenal.com/details/1/2158]
-[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg) ](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
+[![Download](https://api.bintray.com/packages/jjhesk/maven/advancedtoolbar/images/download.svg)](https://bintray.com/jjhesk/maven/advancedtoolbar/_latestVersion)
 ```gradle
 
 dependencies {
@@ -279,6 +279,11 @@ Social Bar method table for ```combar```:
 |:---|:---|
 | searchView | there are 4 options. The available options are ```classic_3```, ```classic_2```, ```classic_1```  |
 | setShareContent | inject information into the sharing intents |
+
+
+### Thank you for your support and we will bring more amazing libraries to your productive works. We are accepting bitcoin by the address as below. Please scan the QR code to start
+![wallet](http://s32.postimg.org/sdd1oio1t/qrwallet.jpg)
+
 
 
 [1]: https://github.com/mikepenz/Android-ActionItemBadge
