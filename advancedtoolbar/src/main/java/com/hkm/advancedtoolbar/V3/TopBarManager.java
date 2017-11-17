@@ -34,6 +34,7 @@ import com.mikepenz.actionitembadge.library.ActionItemBadgeAdder;
 /**
  * Created by hesk on 16/7/15.
  */
+@Deprecated
 public class TopBarManager implements barControl {
     private final AppCompatActivity activity;
     private final Toolbar toolbar;

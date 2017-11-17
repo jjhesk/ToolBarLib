@@ -33,6 +33,7 @@ import java.util.List;
 /**
  * Created by hesk on 3/8/15.
  */
+@Deprecated
 public class CandyBar implements View.OnClickListener, barControl {
     private final AppCompatActivity activity;
     private final Toolbar toolbar;

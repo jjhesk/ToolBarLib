@@ -23,7 +23,7 @@ import com.hkm.advancedtoolbar.R;
 /**
  * Created by hesk on 14/5/15.
  */
-public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
+@Deprecated public class SearchCustomActionBar<TV extends TextView, EditT extends EditText> implements TextWatcher, TextView.OnEditorActionListener, View.OnClickListener {
     public enum LAYOUT {
         classic_1(R.layout.material_search_ios_classic),
         classic_2(R.layout.material_search_ios);

@@ -12,6 +12,7 @@ import com.hkm.advancedtoolbar.R;
 /**
  * Created by hesk on 14/5/15.
  */
+@Deprecated
 public class ActionBarBuilder<ACTIONBARV7 extends ActionBar, TV extends TextView> {
     protected final ACTIONBARV7 ab;
     protected int searchlayoutRef, titlelayoutRef, companylogoRef;

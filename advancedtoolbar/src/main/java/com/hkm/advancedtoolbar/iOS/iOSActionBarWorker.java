@@ -10,7 +10,7 @@ import com.hkm.advancedtoolbar.R;
  * hkm invention 2015
  * Created by hesk on 14/5/15.
  */
-public class iOSActionBarWorker<ABv7 extends ActionBar, TV extends TextView> extends ActionBarBuilder {
+@Deprecated public class iOSActionBarWorker<ABv7 extends ActionBar, TV extends TextView> extends ActionBarBuilder {
 
     /**
      * the start of the iOS action bar is in here

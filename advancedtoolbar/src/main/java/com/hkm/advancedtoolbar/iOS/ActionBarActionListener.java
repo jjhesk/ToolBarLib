@@ -7,7 +7,7 @@ import android.widget.TextView;
  * Created by hesk on 14/5/15.
  */
 
-public interface ActionBarActionListener<ACTIONBAR extends ActionBar, TV extends TextView> {
+@Deprecated public interface ActionBarActionListener<ACTIONBAR extends ActionBar, TV extends TextView> {
     /**
      * a quick callback method for showing up the company logo
      *

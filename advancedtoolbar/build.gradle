@@ -18,11 +18,11 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile supportDependencies.appCompat
-    compile supportDependencies.annotation
-    compile 'com.mikhaellopez:circularimageview:3.0.2'
-    compile('com.mikepenz:actionitembadge:3.0.4@aar') {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.annotation
+    implementation 'com.mikhaellopez:circularimageview:3.0.2'
+    implementation('com.mikepenz:actionitembadge:3.0.4@aar') {
         transitive = true
     }
 }

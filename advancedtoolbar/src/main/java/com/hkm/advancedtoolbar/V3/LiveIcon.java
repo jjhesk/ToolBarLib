@@ -18,6 +18,7 @@ import com.hkm.advancedtoolbar.V3.layout.CLayO;
 /**
  * Created by hesk on 29/7/15.
  */
+@Deprecated
 public class LiveIcon {
     private int layout, icon;
     private TextView holder;

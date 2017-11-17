@@ -22,11 +22,11 @@ repositories {
     maven { url "http://dl.bintray.com/jjhesk/maven" }
 }
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile supportDependencies.appCompat
-    compile supportDependencies.annotation
-    compile supportDependencies.support
-    compile project(':advancedtoolbar')
-   // compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.5.1'
-   // compile 'com.hkm.advancedtoolbar:advancedtoolbar:0.4.6'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation supportDependencies.appCompat
+    implementation supportDependencies.annotation
+    implementation supportDependencies.support
+    implementation project(':advancedtoolbar')
+   // implementation 'com.hkm.advancedtoolbar:advancedtoolbar:0.5.1'
+   // implementation 'com.hkm.advancedtoolbar:advancedtoolbar:0.4.6'
 }

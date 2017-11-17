@@ -5,6 +5,7 @@ import com.hkm.advancedtoolbar.R;
 /**
  * Created by hesk on 31/7/15.
  */
+@Deprecated
 public enum LayoutAsset {
     classic_1(R.layout.material_search_ios_classic),
     classic_2(R.layout.material_search_ios),

@@ -5,7 +5,7 @@
 ```gradle
 
 dependencies {
-    compile 'com.hkm.ui:advancedtoolbar:1.2.0'
+    compile 'com.hkm.ui:advancedtoolbar:1.2.5'
 }
 
 ```
@@ -29,6 +29,7 @@ Android ActionBar Advanced Support Library for API v23, v22, v21, v19. This libr
 - Custom call back `onButtonPressListener`
 - transparent background
 - additional loaded components (switchers, custom loading progress circles)
+- support alpha scroll
 
 Project Website: [TOOLBARLIB][2]
 
@@ -37,13 +38,10 @@ Project Website: [TOOLBARLIB][2]
 - [x] Custom Textview
 - [x] Center Textview alignment
 ![demo1](screenshot/device-2015-05-15-171739.png)
-
 - [x] Search pattern redesigned
 ![demo3](screenshot/device-2015-05-15-171813.png)
-
 - [x] CandyBar implementation
 ![this is the demo 2](screenshot/demo2.jpg)
-
 
 
 ##implementation

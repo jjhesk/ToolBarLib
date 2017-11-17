@@ -750,10 +750,10 @@ public class BeastBar {
      * @param alpha 1.0f
      */
     public final void setToolbarAlpha(Float alpha) {
-        Drawable mActionBarBackgroundDrawable = container.getBackground();
-        int newAlpha = (int) (alpha * 255);
-        mActionBarBackgroundDrawable.setAlpha(newAlpha);
-        container.getBackground().setAlpha(newAlpha);
+        //    Drawable mActionBarBackgroundDrawable = container.getBackground();
+        // int newAlpha = (int) (alpha * 255);
+        container.setAlpha(alpha);
+        // container.getBackground().setAlpha(newAlpha);
     }
 
     public final void resetAllRightSide() {
