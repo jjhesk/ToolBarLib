@@ -116,8 +116,8 @@ public class BeastBar {
         /**
          * the most basic Icon configuration on the left side
          *
-         * @param res
-         * @return
+         * @param res drawable
+         * @return n
          */
         public Builder leftIcon(@DrawableRes final int res) {
             this.ic_left_icon = res;

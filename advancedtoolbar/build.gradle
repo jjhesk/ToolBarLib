@@ -21,8 +21,8 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation supportDependencies.appCompat
     implementation supportDependencies.annotation
-    implementation 'com.mikhaellopez:circularimageview:3.0.2'
-    implementation('com.mikepenz:actionitembadge:3.0.4@aar') {
+    api 'com.mikhaellopez:circularimageview:3.0.2'
+    api('com.mikepenz:actionitembadge:3.0.4@aar') {
         transitive = true
     }
 }

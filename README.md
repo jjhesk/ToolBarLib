@@ -5,7 +5,7 @@
 ```gradle
 
 dependencies {
-    compile 'com.hkm.ui:advancedtoolbar:1.2.5'
+    compile 'com.hkm.ui:advancedtoolbar:1.2.7'
 }
 
 ```
